@@ -1,0 +1,7 @@
+.swiper-container-3 .swiper-slide img {
+    object-fit: cover;
+}
+
+.swiper-container-3 .swiper-slide{
+  overflow: hidden;
+}

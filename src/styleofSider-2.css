@@ -1,0 +1,194 @@
+
+
+  
+  /* Swiper container */
+  .swiper {
+    width: 80%;
+    height: 300px;
+  /* تغییر ارتفاع محل نشستن اسلایدها */
+   
+    /* changed height so you can see the slides*/
+    position: relative;
+    overflow: hidden;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+  }
+  
+  
+  
+  .swiper-wrapper {
+    height: 80%;
+  } /* Swiper wrapper */
+ 
+  
+  /* Swiper slides */
+  .swiper-slide {
+    text-align: center !important;
+    font-size: 18px;
+    background: #f3f2f2;
+    /* Center slide text vertically */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    width: 50px;
+    height: 150px;
+    border-radius: 10px;
+  
+  
+  
+  
+    box-shadow: 2px 2px 5px rgba(182, 174, 174, 0.2);
+    transition: all 0.3s ease;
+    /* Smooth transition for hover effect */
+  }
+  
+  
+  .swiper-slide:hover {
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
+    position: relative;
+    top: -.9px;
+  }
+  
+  /* Swiper slide images */
+  .swiper-slide img {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
+  
+  /* Pagination styles */
+  .swiper-pagination {
+    position: absolute;
+    /* Needed so that is not out of the slider*/
+    bottom: 10px;
+    display: flex;
+    justify-content: center;
+    /* Centers the dots horizontally*/
+    align-items: center;
+    /* Centers vertically */
+  }
+  
+  .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+  
+  
+  }
+  
+  .swiper-pagination-bullet-active {
+    background-color: #C7A472;
+  }
+  
+  
+  .swiper img {
+    width: 60px;
+    height: 60px;
+    display: flex;
+  
+  
+  }
+  
+  .swiper h4 {
+    color: black;
+    display: inline-flex;
+    font-size: 13px;
+  }
+  
+  .carousel-container {
+    position: relative;
+    /* For absolute positioning of buttons */
+    display: flex;
+    align-items: center;
+    /* Align items vertically */
+    /* width: fit-content; */
+    justify-content: center;
+    /* margin: auto; */
+  }
+  
+  
+  
+  .carousel-button {
+    position: absolute;
+    /* Position the buttons absolutely */
+    top: 50%;
+    /* Center vertically */
+    transform: translateY(-50%);
+    /* Fine-tune vertical centering */
+    background-color: #f0f0f0;
+    border: none;
+    font-size: 2em;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s;
+    border-radius: 50%;
+    line-height: 1;
+    color: #ecd5b9;
+  }
+  
+  .carousel-button:hover {}
+  
+  .carousel-button:focus {
+  
+    outline: none;
+  }
+  
+  
+  
+  
+  
+  
+  
+  .swiper {
+    width: 70%;
+  }
+  
+  .swiper-2 {
+    width: 60%;
+    height: 300px;
+  }
+  
+  
+  .next-button {
+    right: 30px;
+    /* Position to the right of the slider */
+    color: #94a3b8;
+    opacity: 0;
+    transform: translateY(0px);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    pointer-events: none;
+    position: absolute;
+  }
+  
+  
+  .prev-button {
+    left: 30px;
+    /* Position to the left of the slider
+     */
+    color: #94a3b8;
+    opacity: 0;
+    transform: translateY(0px);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    pointer-events: none;
+    position: absolute;
+  }
+  
+  .carousel-container:hover .prev-button  {
+    opacity: 1;
+    transform: translateY(-30px);
+  
+    pointer-events: auto;
+  }
+  
+  .carousel-container:hover .next-button  {
+    opacity: 1;
+    transform: translateY(-30px);
+  
+    pointer-events: auto;
+  }

@@ -1,0 +1,354 @@
+/* Swiper container */
+.swiper {
+  width: 80%;
+  height: 400px;
+  /* تغییر ارتفاع محل نشستن اسلایدها */
+
+  /* changed height so you can see the slides*/
+  position: relative;
+  overflow: hidden;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+/* Swiper container */
+.swiper {
+  width: 80%;
+  height: 300px;
+  /* تغییر ارتفاع محل نشستن اسلایدها */
+
+  /* changed height so you can see the slides*/
+  position: relative;
+  overflow: hidden;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+/* Swiper wrapper */
+.swiper-wrapper {
+  height: 80%;
+}
+
+/* Swiper slides */
+.swiper-slide {
+  text-align: center !important;
+  font-size: 18px;
+  background: #f3f2f2;
+  /* Center slide text vertically */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-style: solid;
+  width: 50px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(182, 174, 174, 0.2);
+  transition: all 0.3s ease;
+  /* Smooth transition for hover effect */
+}
+
+.ImageCarousel-carousel-container .swiper-slide {
+  height: 150px;
+}
+
+.Upcard-carousel-container .swiper-slide {
+  height: 360px;
+ 
+}
+
+.Upcard-carousel-container .swiper img{
+  height: 50%;
+
+  max-width: 100%;
+}
+
+
+
+.swiper-slide:hover {
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
+  position: relative;
+  top: -.9px;
+}
+
+/* Swiper slide images */
+.swiper-slide img {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+/* Pagination styles */
+.swiper-pagination {
+  position: absolute;
+  /* Needed so that is not out of the slider*/
+  bottom: 10px;
+  display: flex;
+  justify-content: center;
+  /* Centers the dots horizontally*/
+  align-items: center;
+  /* Centers vertically */
+}
+
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+
+
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #C7A472;
+}
+
+
+.swiper img {
+  width: 60px;
+  height: 60px;
+  display: flex;
+
+
+}
+
+.swiper h4 {
+  color: black;
+  display: inline-flex;
+  font-size: 13px;
+}
+
+.carousel-container {
+  position: relative;
+  /* For absolute positioning of buttons */
+  display: flex;
+  align-items: center;
+  /* Align items vertically */
+  /* width: fit-content; */
+  justify-content: center;
+  /* margin: auto; */
+}
+
+
+
+.carousel-button {
+  position: absolute;
+  /* Position the buttons absolutely */
+  top: 50%;
+  /* Center vertically */
+  transform: translateY(-50%);
+  /* Fine-tune vertical centering */
+  background-color: #f0f0f0;
+  border: none;
+  font-size: 2em;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s;
+  border-radius: 50%;
+  line-height: 1;
+  color: #ecd5b9;
+}
+
+.carousel-button:hover {}
+
+.carousel-button:focus {
+
+  outline: none;
+}
+
+
+
+
+
+
+
+.swiper {
+  width: 70%;
+}
+
+.swiper-2 {
+  width: 70%;
+  height: 300px;
+}
+
+
+.next-button {
+  right: 30px;
+  /* Position to the right of the slider */
+  color: #94a3b8;
+  opacity: 0;
+  transform: translateY(0px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  pointer-events: none;
+  position: absolute;
+}
+
+
+.prev-button {
+  left: 30px;
+  /* Position to the left of the slider
+     */
+  color: #94a3b8;
+  opacity: 0;
+  transform: translateY(0px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  pointer-events: none;
+  position: absolute;
+}
+
+.carousel-container:hover .prev-button {
+  opacity: 1;
+  transform: translateY(-30px);
+
+  pointer-events: auto;
+}
+
+.carousel-container:hover .next-button {
+  opacity: 1;
+  transform: translateY(-30px);
+
+  pointer-events: auto;
+}
+
+.ImageCarousel-carousel-container .swiper-slide {
+  height: 150px;
+}
+
+
+.Upcard-carousel-container .swiper-pagination-bullet{
+  display: none;
+}
+
+.Upcard-carousel-container .next-button{
+  display: none;
+
+
+}
+
+.Upcard-carousel-container .prev-button{
+  display: none;
+
+
+}
+
+
+.Upcard-carousel-container .swiper {
+  height: 200px;
+  width: 83.333333%;
+
+}
+
+@media only screen and (min-width: 1024) {
+  
+  .Upcard-carousel-container .swiper {
+    height: 500px;
+    width: 83.333333%;
+  
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  
+  .Upcard-carousel-container .swiper {
+    height: 500px;
+    width: 83.333333%;
+  
+  }
+  .Upcard-carousel-container .swiper-pagination-bullet{
+    display: block;
+  }
+  .Upcard-carousel-container .next-button{
+    display: block;
+  
+  
+  }
+  
+  .Upcard-carousel-container .prev-button{
+    display: block;
+  
+  
+  }
+}
+
+
+
+.Pishnahad-carousel-container .next-button {
+  display: none;
+}
+
+.Pishnahad-carousel-container .prev-button {
+  display: none;
+}
+
+
+
+
+
+.Pishnahad-carousel-container {
+  background-color: #d5c2ae;
+  height: 500px;
+  margin-top: 100px;
+}
+
+
+.Pishnahad-carousel-container .swiper-pagination-bullet {
+  display: none;
+}
+
+
+.Pishnahad-carousel-container .swiper {
+  height: auto;
+  background-color: #d5c2ae;
+  width: 100% ;
+
+}
+
+
+.Pishnahad-carousel-container img {
+  width: auto;
+  height: auto;
+
+}
+
+.Cards__yard {
+  background-color: transparent;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+ 
+ 
+}
+
+.Pishnahad-carousel-container .swiper-slide {
+
+  
+  width: fit-content;
+  height: 100%;
+
+  margin-top: -30px;
+  background-color: transparent;
+}
+
+
+.Pishnahad-carousel-container .swiper-slide>* {
+
+  max-width: 100%;
+  width: fit-content;
+  height: 100%;
+
+}
+
+.Pishnahad-carousel-container .swiper-slide:hover {
+  box-shadow: 4px 4px 8px transparent;
+  position: relative;
+  top: -7px;
+
+}
+
+
+

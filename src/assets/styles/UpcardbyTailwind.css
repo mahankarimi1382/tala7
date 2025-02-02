@@ -1,0 +1,28 @@
+.image-container {
+    position: relative; /* Needed to position overlays within */
+    display: inline-block; /* Adjust as needed for your layout */
+  }
+  
+  .main-image {
+    display: block; /* Remove any extra space below the image */
+      max-width: 100%; /* ensure responsiveness*/
+      height: auto;
+  }
+  
+  .text-overlay {
+    position: absolute; /* Position text over the image */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for precise centering */
+      color: white; /* Make text visible */
+      font-size: 20px; /* Style text */
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5); /* Add a background for better readability */
+  }
+  
+  .left-text {
+    left: 10px; /* Position left text */
+  }
+  
+  .right-text {
+    right: 10px; /* Position right text */
+  }

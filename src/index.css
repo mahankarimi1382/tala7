@@ -1,0 +1,556 @@
+:root {
+  font-family: IranYekan, Vazir, Iran Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  position: relative;
+  width: auto;
+
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {}
+
+/* button:hover {
+  border-color: #20b463;
+} */
+
+/* 
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+} */
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+
+  a:hover {
+    color: #747bff;
+  }
+
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'Vazir';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../src/assets/font/Vazir.woff2) format('woff2');
+  }
+
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-fade-in-for-card-texts {
+  animation: fade-in-1 2s ease-in forwards;
+}
+
+@keyframes fade-in-1 {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-fade-in-for-card-texts-2 {
+  animation: fade-in-1 1s ease-in forwards;
+}
+
+@keyframes fade-in-1 {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(1);
+  }
+
+  30% {
+    opacity: .2;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+.animate-fade-in-for-the-ring {
+  animation: fade-in-2 2s ease-out forwards;
+}
+
+@keyframes fade-in-2 {
+  0% {
+    opacity: 1;
+    transform: translateX(-15px) scale(1);
+  }
+
+  75% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.animate-fade-in-for-ring-Y-move {
+  animation: fade-in-3 2s ease-out forwards;
+}
+
+@keyframes fade-in-3 {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px) scale(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.animate-fade-in-for-ring-Y-move-2 {
+  animation: fade-in-3 1s ease-out forwards;
+}
+
+@keyframes fade-in-3 {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px) scale(1);
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0px) scale(1);
+  }
+}
+
+.blink_me {
+  animation: blinker .3s linear;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* این کلاس باعث فید این آن دو المت روی عکس در ناحیه کاردها می شود */
+
+
+.emergingHypers {
+  transition: all 0.5s ease;
+  left: -5px;
+  opacity: 0;
+}
+
+.BeatyCard:hover .emergingHypers {
+  left: 15px;
+  opacity: 1;
+
+}
+
+
+/* کدهای مربوط به خط زیر منو به هنگام هاور کردن */
+
+.hover-underline-animation {
+  display: inline-block;
+  position: relative;
+}
+
+.hover-underline-animation::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #caa984;
+  transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:hover::after {
+  transform: scaleX(1);
+}
+
+.hover-underline-animation.left::after {
+  transform-origin: bottom right;
+}
+
+.hover-underline-animation.left:hover::after {
+  transform-origin: bottom left;
+}
+
+.hover-underline-animation.center::after {
+  transform-origin: bottom center;
+}
+
+.hover-underline-animation.center:hover::after {
+  transform-origin: bottom center;
+}
+
+.hover-underline-animation.right::after {
+  transform-origin: bottom left;
+}
+
+.hover-underline-animation.right:hover::after {
+  transform-origin: bottom right;
+}
+
+/* اضافه کردن فونت ایران یکان */
+
+@font-face {
+  font-family: 'IranYekan';
+  src: url(assets/font/BYekan+\ Bold.ttf);
+}
+
+
+
+
+.PersianDigit {
+  font-family: Vazir, Iran Inter;
+}
+
+
+
+/* کدهای مربوط به کرول اسلایدر */
+/* Carousel developed using react-responsive-carousel of npmjs
+follow the guidde in https://www.npmjs.com/package/react-responsive-carousel */
+
+.animate-fade-in-for-hover-image {
+  animation: fade-in-4 0.5s ease-in-out forwards;
+}
+
+@keyframes fade-in-4 {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+
+  }
+}
+
+.imageBox {
+  position: relative;
+  float: right;
+}
+
+.imageBox .hoverImg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: none;
+}
+
+.imageBox:hover .hoverImg {
+  display: block;
+
+}
+
+.hoverable-object {
+  transition: transform 0.5s ease, opacity 0.3s ease;
+  /* Transition for smooth animation */
+  transform: scale(0.9);
+  /* Initial scale */
+  opacity: 0.6;
+  /* Initial opacity */
+  display: inline-block;
+  /* Adjust display type as needed */
+  /* Add other styles for the element as needed */
+}
+
+.hoverable-object:hover {
+  transform: scale(1);
+  /* Scale on hover */
+  opacity: 1;
+  /* Opacity on hover */
+}
+
+/* بخش مربوط به نیوزفید */
+
+
+.news-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0 4px 8px -4px rgb(0, 0, 0, 0.3);
+  /* background: #C7A984; */
+}
+
+.news-container .title {
+  position: absolute;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  color: black;
+  z-index: 200;
+
+}
+
+
+.news-container ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  animation: NewsfeedScroll 15s infinite linear;
+  direction: rtl;
+
+}
+
+.news-container ul li {
+  white-space: nowrap;
+  padding: 10px 24px;
+  /* color: whitesmoke; */
+  position: relative;
+}
+
+
+.news-container ul li::after {
+  content: "";
+  width: 0px;
+  height: 100%;
+  background-color: black;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+}
+
+@keyframes NewsfeedScroll {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+
+}
+
+
+/* کدهای مربوط به دکمه آژیر کنار بنر خبر */
+
+.animate-ping {
+
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+
+  @keyframes ping {
+
+    75%,
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+}
+
+
+/* کدهای مربوط به انیمیشن پالسی - تستی */
+
+.animation-pulse {
+  box-shadow: 0 0 0 20px rgba(229, 62, 62, 0.5);
+  transform: scale(0.8);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    box-shadow: 0 0 0 0 rgba(229, 62, 62, 1);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 60px rgba(229, 62, 62, 0);
+  }
+
+  100% {
+    transform: scale();
+  }
+}
+
+
+
+.Ring {
+  -webkit-box-shadow: 0 8px 6px -6px black;
+  -moz-box-shadow: 0 8px 6px -6px black;
+  box-shadow: 0 8px 6px -6px black;
+}
+
+.Moshahedeh:hover {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+
+
+
+
+
+/* کدهای مربوط به حلقه روی اسلایدر سبز */
+
+
+/* @media only screen and (min-width: 768) {
+  
+  .halghe {
+
+    -webkit-box-reflect: below 5px linear-gradient(to bottom, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.1));
+  
+    }
+} */
+
+
+
+.halghe {
+
+  -webkit-box-reflect: below 5px linear-gradient(to bottom, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.1));
+
+}
+
+@layer components {
+  .halghe-applied {
+    @apply halghe;
+  }
+}
+
+.halgheKoochak {
+
+  -webkit-box-reflect: below -20px linear-gradient(to bottom, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.1));
+
+}
+
+@layer components {
+  .halgheKoochak-applied {
+    @apply halgheKoochak;
+  }
+}
+
+
+
+
+
+
+.Hamburger {
+
+  position: sticky;
+}
+
+
+
+/* BadalJewel */
+
+.BadalTextContainer li {
+  width: inherit;
+}
+
+
+
+/* WrittenFooter */
+
+.WrittenFooter p {
+  font-size: smaller;
+  text-align: right;
+  font-weight: 400;
+  padding: 4px;
+}
+
+.WrittenFooter div {
+  padding-bottom: 11px;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.WrittenFooter p:before {
+  content: ' \003E';
+  padding-left: 7px;
+}
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
