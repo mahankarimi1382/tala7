@@ -35,7 +35,7 @@ function AnotherPage() {
       <HamburgerBar />
       <br />
       <br />
-     <div className="flex justify-start gap-6">
+     <div className="flex flex-col md:flex-row justify-start gap-6">
      <div className="flex flex-col justify-start w-[300px] ps-7">
         <div className="filtereharaj shadow-lg p-5 rounded-lg">
           <div

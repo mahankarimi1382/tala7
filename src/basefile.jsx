@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import "preline";
-import VerticalCarousel from "./VerticalCarousel";
+import ImageCarousel from "./VerticalCarousel";
 
 const Basefile = () => {
   useEffect(() => {
@@ -9,10 +9,10 @@ const Basefile = () => {
 
   return (
    <div>
-     <div className="flex flex-col">
+     <div className="  flex justify-center md:justify-start md:mr-3 ">
      
       <div>
-        <VerticalCarousel />
+        <ImageCarousel />
       </div>
     </div>
    </div>

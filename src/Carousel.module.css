@@ -1,0 +1,90 @@
+/* Carousel.module.css */
+
+.carouselContainer {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  .carouselContainer .slideImage {
+    width: 100%;           /* Take up the full slide width */
+    height: 100%;          /*  Take up the full slide height -- NEW! */
+    max-width: 100%;        /*  Limit image size to the slide's width -- CHANGED! */
+    max-height: 100%;       /* Limit image size to the slide's height -- CHANGED! */
+    object-fit: contain;     /* Or 'cover', experiment! */
+    display: block;
+    margin: 0 auto;          /* Center the image horizontally */
+  }
+  
+  .carouselContainer .swiper-slide {
+    display: none;          /* Use flexbox to center */
+    justify-content: center; /* Horizontally center */
+    align-items: center;    /* Vertically center */
+    height: 100px;          /* Set a fixed height for the slide -- IMPORTANT */
+    background-color: #fff;
+  }
+
+  .carouselContainer  img{
+width: 400px;
+height: 400px;
+
+  }
+
+  .carouselContainer .swiper{
+
+    height: 600px;
+  }
+
+  .carouselContainer .swiper-slide{
+    background-color: rgb(15, 199, 70);
+  }
+
+
+
+  
+  .carouselContainer .swiper-button-prev,
+  .carouselContainer .swiper-button-next {
+    color: black;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+  
+  .carouselContainer .swiper-button-prev {
+    left: 10px;
+  }
+  
+  .carouselContainer .swiper-button-next {
+    right: 10px;
+  }
+  
+  .carouselContainer .swiper-pagination-bullet {
+    background-color: lightgray;
+    opacity: 0.5;
+  }
+  
+  .carouselContainer .swiper-pagination-bullet-active {
+    background-color: black;
+    opacity: 1;
+  }
+
+
+  .imageCarouselStyle .swiper-slide:hover {
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
+    position: relative;
+    top: -.9px;
+  }
+
+  .newPishnahadStyle .swiper-slide:hover {
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
+    position: relative;
+    top: -.9px;
+  }
+
+
+  .Pishnahad-carousel-container .swiper{
+    height: 300px;
+  }
+
+  

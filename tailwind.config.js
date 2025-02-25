@@ -5,6 +5,7 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
 
     'node_modules/preline/dist/*.js',
+    
 
 
   ],
@@ -29,3 +30,5 @@ module.exports = {
 
   ],
 };
+
+

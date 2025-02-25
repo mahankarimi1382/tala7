@@ -66,7 +66,7 @@ function UpCardforcarousel({IMGAddress}) {
 
           {/* Ring Image */}
           {/* the component called onload relates to horiziontal move when element loads */}
-          <div className="flex justify-self-end">
+          <div className="float-left">
           <img
             id="Ring"
             onLoad={moveImageLeft}

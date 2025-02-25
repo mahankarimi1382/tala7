@@ -1,5 +1,7 @@
 import PersianNumber from "./Components/utils/PersianNumber";
 import "./index.css";
+import { Link } from "react-router-dom";
+
 
 function PishnahadCards({
   ImageAddress,
@@ -23,9 +25,9 @@ function PishnahadCards({
   return (
     <div >
       <div className="BeatyCard " style={{ width: MyWidth , padding: CardsPadding}}>
-        <div className=" bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div className=" bg-white border border-gray-200 rounded-lg shadow ">
           <div className="ImageZone relative">
-            <a href="#">
+          <Link to="/hover-product-page" className="text-blue-500 underline">
 
 
             <div className="imageBox">
@@ -46,8 +48,8 @@ function PishnahadCards({
 
 
 
-            </a>
-            <div className=" emergingHypers   absolute w-[55px] top-[20px] right-[7px] text-white text-center text-sm  p-[1px] bg-[#caa984] rounded-2xl shadow-lg  flex justify-center">
+    </Link>
+    <div className=" emergingHypers   absolute w-[55px] top-[20px] right-[7px] text-white text-center text-sm  p-[1px] bg-[#caa984] rounded-2xl shadow-lg  flex justify-center">
               <div>%</div>
               <div>
                 <PersianNumber number={MyDiscount} />

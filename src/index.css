@@ -3,9 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -328,6 +326,9 @@ follow the guidde in https://www.npmjs.com/package/react-responsive-carousel */
 
 }
 
+
+
+
 .hoverable-object {
   transition: transform 0.5s ease, opacity 0.3s ease;
   /* Transition for smooth animation */
@@ -513,10 +514,7 @@ follow the guidde in https://www.npmjs.com/package/react-responsive-carousel */
 
 
 
-.Hamburger {
 
-  position: sticky;
-}
 
 
 
@@ -549,8 +547,68 @@ follow the guidde in https://www.npmjs.com/package/react-responsive-carousel */
   padding-left: 7px;
 }
 
+/* کدهای مربوط به تولید آیکون کاستوم */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.UpFlash{
+  display: inline-block;
+  width: 32px;  /* Adjust size */
+  height: 32px;
+  background: url('/public/icons/chevron-up-svgrepo-com_1.ico') no-repeat center center;
+  background-size: contain;
+}
 
+.DownFlash{
+  display: inline-block;
+  width: 32px;  /* Adjust size */
+  height: 32px;
+  background: url('/public/icons/chevron-down-svgrepo-com.ico') no-repeat center center;
+  background-size: contain;
+}
+
+.RightFlash{
+  display: inline-block;
+  width: 32px;  /* Adjust size */
+  height: 32px;
+  background: url('/public/icons/chevron-right-svgrepo-com_1.ico') no-repeat center center;
+  background-size: contain;
+}
+
+.LeftFlash{
+  display: inline-block;
+  width: 32px;  /* Adjust size */
+  height: 32px;
+  background: url('/public/icons/chevron-left-svgrepo-com.ico') no-repeat center center;
+  background-size: contain;
+}
+
+
+
+
+
+/* مربوط به نمایش نرخ دلار و طلا */
+
+.GoldTitle:hover .GoldPrice{
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(0.8);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.GoldTitle:hover .GoldPrice{
+  font-size: 18px;
+  font-weight: 700;
+
+
+}
+.GoldTitle:hover{
+border-bottom-width: 1px;
+}

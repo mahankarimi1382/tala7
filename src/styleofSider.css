@@ -1,7 +1,7 @@
 /* Swiper container */
 .swiper {
   width: 80%;
-  height: 400px;
+  /* height: 400px; */
   /* تغییر ارتفاع محل نشستن اسلایدها */
 
   /* changed height so you can see the slides*/
@@ -16,7 +16,7 @@
 /* Swiper container */
 .swiper {
   width: 80%;
-  height: 300px;
+  /* height: 300px; */
   /* تغییر ارتفاع محل نشستن اسلایدها */
 
   /* changed height so you can see the slides*/
@@ -29,7 +29,12 @@
 }
 
 /* Swiper wrapper */
-.swiper-wrapper {
+
+.ImageCarousel-carousel-container .swiper-wrapper {
+  height: 70%;
+}
+
+.Upcard-carousel-container .swiper-wrapper {
   height: 80%;
 }
 
@@ -37,7 +42,6 @@
 .swiper-slide {
   text-align: center !important;
   font-size: 18px;
-  background: #f3f2f2;
   /* Center slide text vertically */
   display: flex;
   flex-direction: column;
@@ -46,7 +50,6 @@
   border-style: solid;
   width: 50px;
   border-radius: 10px;
-  box-shadow: 2px 2px 5px rgba(182, 174, 174, 0.2);
   transition: all 0.3s ease;
   /* Smooth transition for hover effect */
 }
@@ -55,8 +58,26 @@
   height: 150px;
 }
 
+.ImageCarousel-carousel-container .swiper{
+  height: 300px;
+}
+
+
+.ImageCarousel-carousel-container .swiper-slide:hover {
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
+  position: relative;
+  top: -.9px;
+}
+
+.ImageCarousel-carousel-container .swiper-slide {
+  background: #f3f2f2;
+}
+
+
+
+
 .Upcard-carousel-container .swiper-slide {
-  height: 360px;
+  height: 300px;
  
 }
 
@@ -68,11 +89,7 @@
 
 
 
-.swiper-slide:hover {
-  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
-  position: relative;
-  top: -.9px;
-}
+
 
 /* Swiper slide images */
 .swiper-slide img {
@@ -214,9 +231,7 @@
   pointer-events: auto;
 }
 
-.ImageCarousel-carousel-container .swiper-slide {
-  height: 150px;
-}
+
 
 
 .Upcard-carousel-container .swiper-pagination-bullet{
@@ -349,6 +364,7 @@
   top: -7px;
 
 }
+
 
 
 

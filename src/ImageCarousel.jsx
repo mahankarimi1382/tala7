@@ -15,6 +15,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "../src/styleofSider.css";
+import styles from "./Carousel.module.css"; // Import CSS module
+
 
  
 // import required modules
@@ -37,6 +39,7 @@ export default function App() {
     };
 
   return (
+    <div className={styles.imageCarouselStyle}>
     <div className=" ImageCarousel-carousel-container carousel-container"> {/* Container for slider and buttons */}
         <button className="carousel-button prev-button 
        
@@ -128,6 +131,7 @@ export default function App() {
 
       </Swiper>
         <button className="carousel-button next-button" onClick={handlePrev}> &lt; </button>
+    </div>
     </div>
   );
 }

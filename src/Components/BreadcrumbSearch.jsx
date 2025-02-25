@@ -2,7 +2,7 @@ import { Search } from "lucide-react";
 
 export default function BreadcrumbSearch() {
   return (
-    <div className=" p-4 space-y-4  ">
+    <div className=" mt-6 md:mt-1 md:p-4 space-y-4 ms-10 sm:ms-14 ">
       {/* Breadcrumb */}
       <nav className="text-gray-500 text-sm">
         <a href="#" className="hover:text-black">خانه</a>
@@ -11,7 +11,7 @@ export default function BreadcrumbSearch() {
       </nav>
 
       {/* Search Bar */}
-      <div className="relative w-[80vw] max-w-4xl">
+      <div className="relative md:w-[60vw] w-[80vw] max-w-4xl ">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
         <input
           type="text"

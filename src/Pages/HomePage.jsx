@@ -1,7 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import NewsFeed from "../NewsFeed.jsx"
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom/client'
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import WoodHeader from "../WoodHeader.jsx"
 import MyHeader from "../Components/MyHeader.jsx"
@@ -21,7 +22,13 @@ import MenuComponent from '../Components/BadalJewel.jsx'
 import ScrollToTopButton from '../Components/ScrollToTopButton.jsx'
 import SimpleNewsFeed from '../SimpleNewsFeed.jsx'
 import WrittenFooter from '../WrittenFooter.jsx'
-import AnotherPage from './AnotherPage.jsx';
+import AnotherPage from './AnotherPage.jsx'
+import SimpleImagesCarousel from '../SimpleImagesCarousel.jsx';
+import Sidebar from '../Sidebar.jsx';
+import GoldCurrencyTable from '../GoldCurrencyTable.jsx';
+
+
+
 
 
 function HomePage() {
@@ -37,6 +44,8 @@ function HomePage() {
 <hr />
 <HamburgerBar/>
 <hr />
+<GoldCurrencyTable/>
+<Sidebar/>
 {/* <br /><br /><br /><br /><br /><br /> */}
 {/* <AnimatedCard/> */}
 {/* <br /><br /><br /><br /><br /><br /><br /> */}
@@ -44,12 +53,12 @@ function HomePage() {
 {/* <br /><br /><br /><br /><br /><br />
 <hr /> */}
 {/* <UpCardCarouselManager/> */}
-<br /><br /><br /><br /><br /><br />
+
 <UpCardCarousel/>
 {/* <CardWithAnimation/> */}
-<br /><br /><br /><br /><br />
+<br /><br />
 <ImageCarousel/>
-<br /><br /><br /><br /><br /><br />
+<br />
 <hr />
 {/* <Pishnahad/> */}
 <hr />
@@ -59,6 +68,9 @@ function HomePage() {
 <br /><br /><br /><br /><br />
 <DownCard/>
 <br />
+<hr />
+<br /><br />
+<SimpleImagesCarousel/>
 <ScrollToTopButton/>
 <br /><br /><br />
 

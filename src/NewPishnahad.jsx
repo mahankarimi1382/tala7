@@ -1,11 +1,18 @@
 import { useRef } from "react"; // Import useRef
 import img1 from "../src/assets/img/containerring1.png";
 import img2 from "../src/assets/img/containerring2.png";
-import img3 from "../src/assets/img/containerring3.png";
-import img4 from "../src/assets/img/containerring4.png";
+import img3 from "../src/assets/img/ring8.jpg";
+import img4 from "../src/assets/img/ring9.jpg";
+import img5 from "../src/assets/img/containerring4.png";
+import img6 from "../src/assets/img/containerring3.png";
+import img7 from "../src/assets/img/ring7.jpg";
+import img8 from "../src/assets/img/HajHassan.jpg";
+import img9 from "../src/assets/img/GoldenRing.jpg";
+import img10 from "../src/assets/img/ring.jpg";
+
 import "./index.css";
-import PersianNumber from "./Components/utils/PersianNumber";
 import PishnahadCards from "./PishnahadCards";
+
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -13,6 +20,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "../src/styleofSider.css";
+import styles from "./Carousel.module.css"; // Import CSS module
+
 // import styles from "./slider1.modules.css"
 import UpCardforcarousel from "../src/UpCardforcarousel";
 // import required modules
@@ -47,13 +56,13 @@ export default function NewPishnahad({
   };
 
   return (
-    <div className="first">
+    <div className={styles.newPishnahadStyle}>
      <p className="text-center  block lg:hidden text-xl
      [text-shadow:_0_4px_8px_rgb(225,201,170)] text-[#000000]
     
      ">پیشــنهاد ویژه شگفتــ انــگیز</p>
     <div className=" Pishnahad-carousel-container carousel-container ">
-      <div className="  bg-[#d5c2ae] sticky  z-40 text-center">
+      <div className="  bg-[#d5c2ae] sticky  z-60 text-center">
         <div className="vizhe mr-16 my-auto  text-center hidden lg:block">
           <h2 className=" Neveshte text-3xl text-white w-[75%]   ">
             پیشــنهاد ویژه شگفتــ انــگیز
@@ -132,8 +141,8 @@ export default function NewPishnahad({
           </SwiperSlide>
           <SwiperSlide>
             <PishnahadCards
-              ImageAddress={img1}
-              SecondImageAddress={img2}
+              ImageAddress={img3}
+              SecondImageAddress={img4}
               RingName="حلقه زیبا"
               FirstPrice="600000"
               SecondPrice="700000"
@@ -147,8 +156,8 @@ export default function NewPishnahad({
           </SwiperSlide>
           <SwiperSlide>
             <PishnahadCards
-              ImageAddress={img1}
-              SecondImageAddress={img2}
+              ImageAddress={img5}
+              SecondImageAddress={img6}
               RingName="حلقه زیبا"
               FirstPrice="5000000"
               SecondPrice="4500000"
@@ -162,11 +171,11 @@ export default function NewPishnahad({
           </SwiperSlide>
           <SwiperSlide>
             <PishnahadCards
-              ImageAddress={img1}
-              SecondImageAddress={img2}
+              ImageAddress={img7}
+              SecondImageAddress={img8}
               RingName="حلقه زیبا"
-              FirstPrice="500"
-              SecondPrice="900"
+              FirstPrice="35000"
+              SecondPrice="25000"
               MySecond="57"
               MyMiniute="35"
               MyHour="11"
@@ -177,11 +186,11 @@ export default function NewPishnahad({
           </SwiperSlide>
           <SwiperSlide>
             <PishnahadCards
-              ImageAddress={img1}
-              SecondImageAddress={img2}
+              ImageAddress={img9}
+              SecondImageAddress={img10}
               RingName="حلقه زیبا"
-              FirstPrice="500"
-              SecondPrice="900"
+              FirstPrice="4500"
+              SecondPrice="3500"
               MySecond="57"
               MyMiniute="35"
               MyHour="11"
@@ -190,36 +199,7 @@ export default function NewPishnahad({
               MinusOrPlus="-"
             />
           </SwiperSlide>
-          <SwiperSlide>
-            <PishnahadCards
-              ImageAddress={img1}
-              SecondImageAddress={img2}
-              RingName="حلقه زیبا"
-              FirstPrice="500"
-              SecondPrice="900"
-              MySecond="57"
-              MyMiniute="35"
-              MyHour="11"
-              MyDays="143"
-              MyDiscount="17"
-              MinusOrPlus="-"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <PishnahadCards
-              ImageAddress={img1}
-              SecondImageAddress={img2}
-              RingName="حلقه زیبا"
-              FirstPrice="500"
-              SecondPrice="900"
-              MySecond="57"
-              MyMiniute="35"
-              MyHour="11"
-              MyDays="143"
-              MyDiscount="17"
-              MinusOrPlus="-"
-            />
-          </SwiperSlide>
+          
         </div>
       </Swiper>
       <button className="carousel-button next-button" onClick={handlePrev}>
