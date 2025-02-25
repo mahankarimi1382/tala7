@@ -143,7 +143,7 @@ export default function AdminPanel() {
                   }`}
                   onClick={() => setActiveTab("news")}
                 >
-                  اخبار
+                  خبرها
                 </li>
                 <li
                   className={`p-2 cursor-pointer ${
