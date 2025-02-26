@@ -110,7 +110,7 @@ const CurrencyPrice = () => {
           return (
             <div key={name} className="shadow-lg rounded-lg p-3 bg-white ">
               {/* Name with background */}
-              <div className="flex justify-between items-center bg-gray-200 p-2 rounded-t-lg text-[14px] lg:text-[16px] ">
+              <div className="flex justify-between text-center items-center bg-gray-200 p-2 rounded-t-lg text-[12px] lg:text-[14px] ">
                 <span className="font-bold mx-auto">{name}</span>
               </div>
 
