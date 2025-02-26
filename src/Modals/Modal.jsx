@@ -20,17 +20,20 @@ export default function Modal({ isOpen, onClose, onSubmit, formData, setFormData
         <input className="w-full p-2 border rounded mb-2" name="title" placeholder="Title" value={formData.title || ""} onChange={handleChange} />
         <input className="w-full p-2 border rounded mb-2" name="author" placeholder="Author" value={formData.author || ""} onChange={handleChange} />
 
-        {type === "News" && (
+        {/* News-specific Fields */}
+        {type === "news" && (
           <>
             <input className="w-full p-2 border rounded mb-2" name="lead" placeholder="Lead" value={formData.lead || ""} onChange={handleChange} />
-            <textarea className="w-full p-2 border rounded mb-2" name="body" placeholder="Body" value={formData.body || ""} onChange={handleChange} />
+            <textarea className="w-full p-2 border rounded mb-2 h-24" name="body" placeholder="News Body" value={formData.body || ""} onChange={handleChange} />
           </>
         )}
 
-        {type === "Product" && (
+        {/* Product-specific Field */}
+        {type === "products" && (
           <input className="w-full p-2 border rounded mb-2" name="seller" placeholder="Seller" value={formData.seller || ""} onChange={handleChange} />
         )}
 
+        {/* Image Upload */}
         <div className="flex items-center mb-2">
           <FaUpload className="mr-2" />
           <input type="file" onChange={handleImageChange} />
@@ -43,6 +46,7 @@ export default function Modal({ isOpen, onClose, onSubmit, formData, setFormData
           </div>
         )}
 
+        {/* Buttons */}
         <div className="mt-4 flex justify-between">
           <button onClick={onSubmit} className="bg-green-500 text-white px-4 py-2 rounded flex items-center">
             <FaCheck className="mr-2" /> Submit

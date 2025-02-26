@@ -108,24 +108,24 @@ const CurrencyPrice = () => {
           const dailyChangePercent = ((dailyChange / firstPrice) * 100).toFixed(2);
 
           return (
-            <div key={name} className="shadow-lg rounded-lg p-3 bg-white">
+            <div key={name} className="shadow-lg rounded-lg p-3 bg-white ">
               {/* Name with background */}
-              <div className="flex justify-between items-center bg-gray-200 p-2 rounded-t-lg">
+              <div className="flex justify-between items-center bg-gray-200 p-2 rounded-t-lg text-[14px] lg:text-[16px] ">
                 <span className="font-bold mx-auto">{name}</span>
               </div>
 
               {/* Price with color & chevron */}
-              <div className={`text-xl font-bold text-center py-2 flex items-center justify-center ${isPriceUp ? "text-green-600" : isPriceDown ? "text-red-600" : "text-black"}`}>
+              <div className={`lg:text-[16px] md:text-[15px] text-[12px] font-bold text-center py-2 flex items-center justify-center ${isPriceUp ? "text-green-600" : isPriceDown ? "text-red-600" : "text-black"}`}>
                 {isPriceUp && <IoChevronUp className="w-5 h-5 text-green-600 mr-1" />}
                 {isPriceDown && <IoChevronDown className="w-5 h-5 text-red-600 mr-1" />}
                 {data.price.toLocaleString("fa-IR")} تومان
               </div>
 
               {/* Divider */}
-              <hr className="my-2" />
+              <hr className="my-2 hidden" />
 
               {/* Daily Change */}
-              <div className="flex justify-between text-sm text-gray-600 px-2">
+              <div className="flex hidden justify-between text-sm text-gray-600 px-2">
                 <span>٪ {dailyChangePercent}</span>
                 <span>{dailyChange.toLocaleString("fa-IR")} تومان</span>
               </div>

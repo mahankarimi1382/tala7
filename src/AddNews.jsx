@@ -112,8 +112,11 @@ export default function AdminPanel() {
     });
 
   return (
+    <div>
+      <div className="bg-blue-600  flex justify-end  p-6 left-10 items-center text-white font-bold"> کاربر </div>
     <div className="flex h-screen">
       {/* Sidebar */}
+      
       <div className="w-64 bg-gray-800 text-white p-4">
         <h2 className="text-lg font-bold mb-4">
           {MyTitle.toLocaleString("fa")}
@@ -125,6 +128,7 @@ export default function AdminPanel() {
           { key: "salesOperations", label: "عملیات فروش" },
           { key: "installmentRequests", label: "درخواست های اقساط" },
           { key: "reports", label: "گزارشات" },
+          { key: "news", label: "اخبار" },
         ].map(({ key, label }) => (
           <div key={key}>
             <div
@@ -143,7 +147,7 @@ export default function AdminPanel() {
                   }`}
                   onClick={() => setActiveTab("news")}
                 >
-                  خبرهای خوب
+                  اخبار
                 </li>
                 <li
                   className={`p-2 cursor-pointer ${
@@ -253,6 +257,7 @@ export default function AdminPanel() {
         isEditing={editingIndex !== null}
         type={activeTab}
       />
+    </div>
     </div>
   );
 }
