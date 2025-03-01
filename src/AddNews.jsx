@@ -145,7 +145,7 @@ export default function AdminPanel() {
                     className={`p-2 cursor-pointer ${activeTab === tab ? "bg-gray-600" : ""}`}
                     onClick={() => setActiveTab(tab)}
                   >
-                    {tab === "news" ? "اخبار" : tab === "products" ? "محصولات" : "مقالات"}
+                    {tab === "news" ? "اخبار" : tab === "products" ? "محصولات" : "تعریف فروشنده"}
                   </li>
                 ))}
               </ul>
@@ -222,8 +222,8 @@ export default function AdminPanel() {
             }}
             className="mb-4 flex items-center bg-gradient-to-r  from-teal-950 to-teal-900 text-white px-4 py-2 rounded"
           >
-            <FaPlus className="mr-2" /> Add{" "}
-            {activeTab === "news" ? "News" : activeTab === "products" ? "Product" : "Article"}
+            <FaPlus className="mr-2" /> افزودن{" "}
+            {activeTab === "news" ? "خبر" : activeTab === "products" ? "محصول" : "فروشنده"}
           </button>
 
           {/* Table */}
