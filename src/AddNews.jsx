@@ -24,8 +24,12 @@ export default function AdminPanel() {
     salesOperations: false,
     installmentRequests: false,
     reports: false,
+    news: false,
+    articles: false, // Added articles accordion state
   });
+
   const MyTitle = "صفحه مدیریت سامانه طلا 7";
+
   const [items, setItems] = useState({
     news: [
       {
@@ -49,6 +53,10 @@ export default function AdminPanel() {
       { name: "Product A", seller: "Seller 1", visits: 45, image: null },
       { name: "Product B", seller: "Seller 2", visits: 100, image: null },
     ],
+    articles: [
+      { title: "Article 1", author: "Writer 1", visits: 30, image: null },
+      { title: "Article 2", author: "Writer 2", visits: 50, image: null },
+    ], // Added articles data
   });
 
   const handleSubmit = () => {
@@ -113,151 +121,170 @@ export default function AdminPanel() {
 
   return (
     <div>
-      <div className="bg-blue-600  flex justify-end  p-6 left-10 items-center text-white font-bold"> کاربر </div>
-    <div className="flex h-screen">
-      {/* Sidebar */}
-      
-      <div className="w-64 bg-gray-800 text-white p-4">
-        <h2 className="text-lg font-bold mb-4">
-          {MyTitle.toLocaleString("fa")}
-        </h2>
+      <div className="bg-gradient-to-r  from-teal-950 to-teal-900 flex justify-end p-6 left-10 items-center text-white font-bold"> کاربر </div>
+      <div className="flex h-screen">
+        {/* Sidebar */}
+        <div className="w-64 bg-gray-800 text-white p-4">
+          <h2 className="text-lg font-bold mb-4">{MyTitle}</h2>
 
-        {/* Accordions */}
-        {[
-          { key: "baseInfo", label: "اطلاعات پایه" },
-          { key: "salesOperations", label: "عملیات فروش" },
-          { key: "installmentRequests", label: "درخواست های اقساط" },
-          { key: "reports", label: "گزارشات" },
-          { key: "news", label: "اخبار" },
-        ].map(({ key, label }) => (
-          <div key={key}>
+          {/* Base Info */}
+          <div>
             <div
               className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
-              onClick={() => toggleAccordion(key)}
+              onClick={() => toggleAccordion("baseInfo")}
             >
-              <span className="font-bold">{label}</span>
-              {accordionState[key] ? <FaChevronUp /> : <FaChevronDown />}
+              <span className="font-bold">اطلاعات پایه</span>
+              {accordionState.baseInfo ? <FaChevronUp /> : <FaChevronDown />}
             </div>
 
-            {accordionState[key] && (
+            {accordionState.baseInfo && (
               <ul className="mt-2">
-                <li
-                  className={`p-2 cursor-pointer ${
-                    activeTab === "news" ? "bg-gray-600" : ""
-                  }`}
-                  onClick={() => setActiveTab("news")}
-                >
-                  اخبار
-                </li>
-                <li
-                  className={`p-2 cursor-pointer ${
-                    activeTab === "products" ? "bg-gray-600" : ""
-                  }`}
-                  onClick={() => setActiveTab("products")}
-                >
-                  محصولات
-                </li>
+                {["news", "products", "articles"].map((tab) => (
+                  <li
+                    key={tab}
+                    className={`p-2 cursor-pointer ${activeTab === tab ? "bg-gray-600" : ""}`}
+                    onClick={() => setActiveTab(tab)}
+                  >
+                    {tab === "news" ? "اخبار" : tab === "products" ? "محصولات" : "مقالات"}
+                  </li>
+                ))}
               </ul>
             )}
           </div>
-        ))}
-      </div>
 
-      {/* Main Content */}
-      <div className="flex-1 p-6">
-        <h1 className="text-xl font-bold mb-4">
-          {activeTab === "news" ? "News" : "Products"}
-        </h1>
+          {/* Additional Headers without subitems */}
+          <div>
+            <div
+              className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
+              onClick={() => toggleAccordion("salesOperations")}
+            >
+              <span className="font-bold">عملیات فروش</span>
+            </div>
+          </div>
 
-        {/* 🔍 Search & Filter */}
-        <div className="flex mb-4">
-          <input
-            type="text"
-            placeholder="🔍 Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="p-2 border border-gray-300 rounded mr-2"
-          />
-          <input
-            type="number"
-            placeholder="📌 Min Visits"
-            value={visitFilter}
-            onChange={(e) => setVisitFilter(e.target.value)}
-            className="p-2 border border-gray-300 rounded"
-          />
+          <div>
+            <div
+              className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
+              onClick={() => toggleAccordion("installmentRequests")}
+            >
+              <span className="font-bold">درخواست اقساط</span>
+            </div>
+          </div>
+
+          <div>
+            <div
+              className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
+              onClick={() => toggleAccordion("newsReports")}
+            >
+              <span className="font-bold">اخبار</span>
+            </div>
+          </div>
+
+          <div>
+            <div
+              className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
+              onClick={() => toggleAccordion("reports")}
+            >
+              <span className="font-bold">گزارشات</span>
+            </div>
+          </div>
         </div>
 
-        <button
-          onClick={() => {
-            setShowModal(true);
-            setEditingIndex(null);
-            setFormData({});
-          }}
-          className="mb-4 flex items-center bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          <FaPlus className="mr-2" /> Add{" "}
-          {activeTab === "news" ? "News" : "Product"}
-        </button>
+        {/* Main Content */}
+        <div className="flex-1 p-6">
+          <h1 className="text-xl font-bold mb-4">
+            {activeTab === "news" ? "News" : activeTab === "products" ? "Products" : "Articles"}
+          </h1>
 
-        {/* Table */}
-        <table className="w-full mt-4 border-collapse border border-gray-300">
-          <thead>
-            <tr className="bg-gray-200">
-              <th
-                className="border p-2 cursor-pointer"
-                onClick={() => setSortField("title" || "name")}
-              >
-                {activeTab === "news" ? "Title" : "Name"} <FaSort />
-              </th>
-              <th className="border p-2">
-                {activeTab === "news" ? "Author" : "Seller"}
-              </th>
-              <th
-                className="border p-2 cursor-pointer"
-                onClick={() => setSortField("visits")}
-              >
-                Visits <FaSort />
-              </th>
-              <th className="border p-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredItems.map((item, index) => (
-              <tr key={index} className="border">
-                <td className="border p-2">{item.title || item.name}</td>
-                <td className="border p-2">{item.author || item.seller}</td>
-                <td className="border p-2">{item.visits}</td>
-                <td className="border p-2">
-                  <button
-                    onClick={() => handleEdit(index)}
-                    className="text-blue-500 mr-2"
-                  >
-                    <FaEdit />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(index)}
-                    className="text-red-500"
-                  >
-                    <FaTrashAlt />
-                  </button>
-                </td>
+          {/* 🔍 Search & Filter */}
+          <div className="flex mb-4">
+            <input
+              type="text"
+              placeholder="🔍 Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="p-2 border border-gray-300 rounded mr-2"
+            />
+            <input
+              type="number"
+              placeholder="📌 Min Visits"
+              value={visitFilter}
+              onChange={(e) => setVisitFilter(e.target.value)}
+              className="p-2 border border-gray-300 rounded"
+            />
+          </div>
+
+          <button
+            onClick={() => {
+              setShowModal(true);
+              setEditingIndex(null);
+              setFormData({});
+            }}
+            className="mb-4 flex items-center bg-gradient-to-r  from-teal-950 to-teal-900 text-white px-4 py-2 rounded"
+          >
+            <FaPlus className="mr-2" /> Add{" "}
+            {activeTab === "news" ? "News" : activeTab === "products" ? "Product" : "Article"}
+          </button>
+
+          {/* Table */}
+          <table className="w-full mt-4 border-collapse border border-gray-300">
+            <thead>
+              <tr className="bg-gray-200">
+                <th
+                  className="border p-2 cursor-pointer"
+                  onClick={() => setSortField("title" || "name")}
+                >
+                  {activeTab === "news" || activeTab === "articles" ? "Title" : "Name"} <FaSort />
+                </th>
+                <th className="border p-2">
+                  {activeTab === "news" || activeTab === "articles" ? "Author" : "Seller"}
+                </th>
+                <th
+                  className="border p-2 cursor-pointer"
+                  onClick={() => setSortField("visits")}
+                >
+                  Visits <FaSort />
+                </th>
+                <th className="border p-2">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {filteredItems.map((item, index) => (
+                <tr key={index} className="border">
+                  <td className="border p-2">{item.title || item.name}</td>
+                  <td className="border p-2">{item.author || item.seller}</td>
+                  <td className="border p-2">{item.visits}</td>
+                  <td className="border p-2">
+                    <button
+                      onClick={() => handleEdit(index)}
+                      className="text-blue-500 mr-2"
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(index)}
+                      className="text-red-500"
+                    >
+                      <FaTrashAlt />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-      {/* Modal */}
-      <Modal
-        isOpen={showModal}
-        onClose={() => setShowModal(false)}
-        onSubmit={handleSubmit}
-        formData={formData}
-        setFormData={setFormData}
-        isEditing={editingIndex !== null}
-        type={activeTab}
-      />
-    </div>
+        {/* Modal */}
+        <Modal
+          isOpen={showModal}
+          onClose={() => setShowModal(false)}
+          onSubmit={handleSubmit}
+          formData={formData}
+          setFormData={setFormData}
+          isEditing={editingIndex !== null}
+          type={activeTab}
+        />
+      </div>
     </div>
   );
 }
