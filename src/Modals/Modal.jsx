@@ -85,9 +85,9 @@ export default function Modal({ isOpen, onClose, onSubmit, formData, setFormData
         {/* Buttons */}
         <div className="mt-4 flex justify-between">
           <button onClick={onSubmit} className="bg-green-500 text-white px-4 py-2 rounded flex items-center">
-            <FaCheck className="mr-2" /> Submit
+            <FaCheck className="mr-2" /> ثبت
           </button>
-          <button onClick={onClose} className="bg-gray-500 text-white px-4 py-2 rounded">Cancel</button>
+          <button onClick={onClose} className="bg-gray-500 text-white px-4 py-2 rounded">انصراف</button>
         </div>
       </div>
     </div>
