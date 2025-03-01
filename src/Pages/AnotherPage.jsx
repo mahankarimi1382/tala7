@@ -35,8 +35,8 @@ function AnotherPage() {
       <HamburgerBar />
       <br />
       <br />
-      <div className="flex flex-col md:flex-row justify-start gap-6">
-        <div className="flex flex-col justify-start w-[300px] ps-7">
+      <div className="flex flex-col md:flex-row justify-center gap-6">
+        <div className="flex flex-col justify-start mx-auto md:ms-1 w-[300px] ps-7">
           <div className="filtereharaj shadow-lg p-5 rounded-lg">
             <div
               className=" bg-[#ececec] rounded-lg h-[50px] text-[16px] font-semibold
@@ -94,7 +94,7 @@ function AnotherPage() {
             </div>
           </div>
         </div>
-        <div className="secondPart">
+        <div className="secondPart mx-auto">
           <BreadcrumbSearch />
         </div>
       </div>

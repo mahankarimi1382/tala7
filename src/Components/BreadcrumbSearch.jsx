@@ -5,7 +5,8 @@ import img2 from "../assets/img/containerring2.png";
 
 export default function BreadcrumbSearch() {
   return (
-    <div className="flex flex-col">
+   <div className="">
+     <div className="flex flex-col ">
       <div className=" mt-6 md:mt-1 md:p-4 space-y-4 ms-10 sm:ms-14 ">
         {/* Breadcrumb */}
         <nav className="text-gray-500 text-sm">
@@ -31,7 +32,7 @@ export default function BreadcrumbSearch() {
           />
         </div>
       </div>
-      <div className="grid lg:grid-cols-3 grid-cols-1 md:grid-cols-2 CardsArea mx-auto">
+      <div className="grid lg:grid-cols-3 xl:grid-cols-4 grid-cols-1 md:grid-cols-2 CardsArea mx-auto">
 
         <PishnahadCards
           ImageAddress={img1}
@@ -191,5 +192,6 @@ export default function BreadcrumbSearch() {
         />
         </div>
       </div>
+   </div>
   );
 }

@@ -21,7 +21,7 @@ createRoot(document.getElementById("root")).render(
     <ScrollToTop/>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/product-page" element={<AnotherPage />} />
+        <Route path="/search-product" element={<AnotherPage />} />
         <Route path="/hover-product-page" element={<HoverPage />} />
         <Route path="/testpage" element={<Mytester/>} />
         <Route path="/AdminPannel" element={<Admin/>} />
