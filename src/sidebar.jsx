@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { AiOutlineClose } from "react-icons/ai";
 import { GoPerson } from "react-icons/go";
+import { Link } from "react-router-dom";
 import CreateAccountPopup from "./CreateAccountPopup.jsx";  // Import the new popup component
 
 const Sidebar = ({ isOpen, onClose }) => {
@@ -144,7 +145,12 @@ const Sidebar = ({ isOpen, onClose }) => {
           >
             ایجاد حساب کاربری
           </button>
+          <Link to="/AddSomeNews" className="">
+          <div className="text-sm font-bold hover:text-black">ورود ادمین</div>
+          </Link>
+
         </div>
+      
 
         <hr className="mt-4" />
 
