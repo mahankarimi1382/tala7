@@ -71,7 +71,7 @@ const MyHeader = () => {
               onMouseLeave={handleMouseLeave}
             >
               <Link
-                to={item.path || "#"}
+                to={item.path || "#"} 
                 className="text-black px-1 cursor-pointer hover:text-gray-500 flex items-center p-2 hover-underline-animation left"
               >
                 {item.label}
@@ -91,7 +91,7 @@ const MyHeader = () => {
                       onMouseEnter={() => handleSubMouseEnter(dropIndex)}
                       onMouseLeave={handleSubMouseLeave}
                     >
-                      <Link to={item.label === "محصولات" ? "/search-product" : "#"} className="text-black flex items-center hover:text-slate-600">
+                      <Link to={item.label === "محصولات" ? "/search-product" : "#"} target="_blank" rel="noopener noreferrer" className="text-black flex items-center hover:text-slate-600">
                         {dropItem.label}
                         {dropItem.subItems && <FontAwesomeIcon icon={faChevronLeft} className="ml-2 text-sm p-[6px] " />}
                       </Link>
@@ -105,7 +105,7 @@ const MyHeader = () => {
                         >
                           {dropItem.subItems.map((subItem, subIndex) => (
                             <li key={`${index}-${dropIndex}-${subIndex}`} className="px-4 py-2 hover:bg-gray-100">
-                              <Link to="/search-product" className="block text-gray-800">{subItem}</Link>
+                              <Link to="/search-product" target="_blank" rel="noopener noreferrer" className="block text-gray-800">{subItem}</Link>
                             </li>
                           ))}
                         </ul>
