@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Modal from "./Modals/Modal";
+import { Link } from "react-router-dom";
 import {
   FaPlus,
   FaEdit,
@@ -121,7 +122,12 @@ export default function AdminPanel() {
 
   return (
     <div>
-      <div className="bg-gradient-to-r  from-teal-950 to-teal-900 flex justify-end p-6 left-10 items-center text-white font-bold"> کاربر </div>
+      <div className="flex justify-between bg-gradient-to-r  from-teal-950 to-teal-900 items-center text-white font-bold">
+      <Link to="/" className="">
+        <div className="p-6 hover:text-white"> صفحه اصلی</div>
+        </Link>
+        <div className="  p-6 items-center text-white "> کاربر </div>
+      </div>
       <div className="flex h-screen">
         {/* Sidebar */}
         <div className="w-64 bg-gray-800 text-white p-4">
@@ -254,16 +260,16 @@ export default function AdminPanel() {
                   <td className="border p-2">{item.title || item.name}</td>
                   <td className="border p-2">{item.author || item.seller}</td>
                   <td className="border p-2">{item.visits}</td>
-                  <td className="border p-2">
+                  <td className=" p-2 flex justify-center gap-2">
                     <button
                       onClick={() => handleEdit(index)}
-                      className="text-blue-500 mr-2"
+                      className="text-green-500 mr-2 hover:text-green-700 scale-100 hover:scale-125 transition ease-in-out duration-100"
                     >
                       <FaEdit />
                     </button>
                     <button
                       onClick={() => handleDelete(index)}
-                      className="text-red-500"
+                      className="text-red-500 hover:text-red-700 scale-100 hover:scale-125 transition ease-in-out duration-100"
                     >
                       <FaTrashAlt />
                     </button>
