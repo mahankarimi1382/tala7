@@ -5,6 +5,8 @@ import img4 from "../src/assets/img/containerring4.png";
 import "./index.css";
 import PersianNumber from "./Components/utils/PersianNumber";
 import PishnahadCards from "./PishnahadCards";
+import { MdChevronRight } from "react-icons/md";
+
 
 function Pishnahad() {
   return (
@@ -18,7 +20,11 @@ function Pishnahad() {
            <a href="#" className="text-white Moshahedeh ring-2 ring-[#eae1d7] rounded px-4 py-[7px] text-sm 
            font-bold  hover:ring-white transition duration-300  ml-24 
            "
-           >مشاهده همه ></a>
+           >مشاهده همه 
+           <span>
+           <MdChevronRight />
+           </span>
+           </a>
 
 
 
