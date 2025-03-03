@@ -49,7 +49,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     <>
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          className="fixed inset-0 backdrop-blur-md z-40"
           onClick={onClose}
         ></div>
       )}
@@ -87,7 +87,7 @@ const Sidebar = ({ isOpen, onClose }) => {
               name="username"
               value={formData.username}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="mt-3 h-8 block w-full rounded-md border border-gray-400 shadow-sm  sm:text-sm"
               required
             />
           </div>
@@ -102,7 +102,8 @@ const Sidebar = ({ isOpen, onClose }) => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            className="mt-3 h-8 block w-full rounded-md border border-gray-400 shadow-sm  sm:text-sm"
+
               required
             />
           </div>
@@ -124,10 +125,11 @@ const Sidebar = ({ isOpen, onClose }) => {
                 onChange={handleChange}
                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
               />
-              <label htmlFor="rememberMe" className="text-gray-500">مرا به خاطر بسپار</label>
+              <label htmlFor="rememberMe" className="text-gray-500 w-full">مرا به خاطر بسپار</label>
             </div>
+            
             <div>
-              <a href="#" className="text-[#caa984] hover:text-[#093937]">رمز عبور را فراموش کرده اید؟</a>
+              <a href="#" className="text-[#caa984] hover:text-[#093937] w-full">رمز عبور را فراموش کرده اید؟</a>
             </div>
           </div>
         </form>

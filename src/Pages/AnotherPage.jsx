@@ -15,6 +15,8 @@ import WrittenFooter from "../WrittenFooter";
 import { useEffect } from "react";
 import "preline";
 import Basefile from "../basefile";
+import SidebarProducts from "../SidebarProducts";
+
 
 
 
@@ -75,24 +77,9 @@ function AnotherPage() {
               </div>
             </div>
           </div>
-          <div className="dastehaymahsoul shadow-lg p-5 rounded-lg">
-            <div
-              className="bg-[#ececec] rounded-lg h-[50px] text-[16px] font-semibold
-            text-center pt-3 mb-3 shadow-md"
-            >
-              دسته های محصولات
-            </div>
-            <div className="flex flex-col space-y-2 text-gray-400">
-              <a className="hover:text-black focus:text-black focus:font-bold" href="">دسته بندی نشده</a>
-              <a className="hover:text-black focus:text-black focus:font-bold" href="">پردازنده CPU</a>
-              <a className="hover:text-black focus:text-black focus:font-bold" href="">کارت گرافیک</a>
-              <a className="hover:text-black focus:text-black focus:font-bold" href="">مادربورد</a>
-              <a className="hover:text-black focus:text-black focus:font-bold" href="">رم دسکتاپ</a>
-              <a className="hover:text-black focus:text-black focus:font-bold" href="">هارد SSD</a>
-              <a className="hover:text-black focus:text-black focus:font-bold" href="">پاور</a>
-              <a className="hover:text-black focus:text-black focus:font-bold" href="">کیس</a>
-            </div>
-          </div>
+         
+          <SidebarProducts/>
+
         </div>
         <div className="secondPart mx-auto">
           <BreadcrumbSearch />
