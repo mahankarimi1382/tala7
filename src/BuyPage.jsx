@@ -7,16 +7,23 @@ import { SlWallet } from "react-icons/sl";
 import { LuBellRing } from "react-icons/lu";
 import { IoChatbubblesOutline, IoPersonCircleOutline } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
+import DashBoard from "./dashBoard";
+
+
+
+
+// Example Components
+
 
 const sidebarItems = [
-  { icon: HiOutlineHome, label: "داشبورد", content: "محتوای داشبورد" },
-  { icon: RiShoppingCart2Line, label: "خرید", content: "محتوای خرید" },
-  { icon: MdOutlineSell, label: "فروش", content: "محتوای فروش" },
-  { icon: SlWallet, label: "کیف پول", content: "محتوای کیف پول" },
-  { icon: LuBellRing, label: "اعلانات", content: "محتوای اعلانات" },
-  { icon: IoChatbubblesOutline, label: "تیکت ها", content: "محتوای تیکت ها" },
-  { icon: IoPersonCircleOutline, label: "پروفایل", content: "محتوای پروفایل" },
-  { icon: RiShutDownLine, label: "خروج", content: "محتوای خروج" },
+  { icon: HiOutlineHome, label: "داشبورد", content: <DashBoard/> },
+  { icon: RiShoppingCart2Line, label: "خرید", content: <DashBoard/> },
+  { icon: MdOutlineSell, label: "فروش", content: <DashBoard/> },
+  { icon: SlWallet, label: "کیف پول", content: <div>محتوای کیف پول</div> },
+  { icon: LuBellRing, label: "اعلانات", content: <div>محتوای اعلانات</div> },
+  { icon: IoChatbubblesOutline, label: "تیکت ها", content: <div>محتوای تیکت ها</div> },
+  { icon: IoPersonCircleOutline, label: "پروفایل", content: <div>محتوای پروفایل</div> },
+  { icon: RiShutDownLine, label: "خروج", content: <div>محتوای خروج</div> },
 ];
 
 function BuyPage() {
@@ -55,7 +62,7 @@ function BuyPage() {
       </div>
 
       {/* Main Panel */}
-      <div className="MainPannel flex-1 p-6 bg-white flex items-center justify-center">
+      <div className="MainPannel  ">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab.label}

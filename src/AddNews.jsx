@@ -1,14 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";  // <-- Add this import
+import { FaChevronDown, FaChevronUp, FaPlus, FaSort, FaEdit, FaTrashAlt } from "react-icons/fa";
 import Modal from "./Modals/Modal";
-import { Link } from "react-router-dom";
-import {
-  FaPlus,
-  FaEdit,
-  FaTrashAlt,
-  FaChevronDown,
-  FaChevronUp,
-  FaSort,
-} from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 export default function AdminPanel() {
   const [activeTab, setActiveTab] = useState("news");
@@ -22,11 +15,12 @@ export default function AdminPanel() {
 
   const [accordionState, setAccordionState] = useState({
     baseInfo: true,
-    salesOperations: false,
+    salesOperations: false, 
     installmentRequests: false,
     reports: false,
     news: false,
-    articles: false, // Added articles accordion state
+    articles: false,
+    salesOperationsDetails: false,
   });
 
   const MyTitle = "صفحه مدیریت سامانه طلا 7";
@@ -57,7 +51,7 @@ export default function AdminPanel() {
     articles: [
       { title: "Article 1", author: "Writer 1", visits: 30, image: null },
       { title: "Article 2", author: "Writer 2", visits: 50, image: null },
-    ], // Added articles data
+    ],
   });
 
   const handleSubmit = () => {
@@ -123,40 +117,43 @@ export default function AdminPanel() {
   return (
     <div>
       <div className="flex justify-between bg-gradient-to-r  from-teal-950 to-teal-900 items-center text-white font-bold">
-      <Link to="/" className="">
-        <div className="p-6 hover:text-white"> صفحه اصلی</div>
+        <Link to="/" className="">
+          <div className="p-6 hover:text-white"> صفحه اصلی</div>
         </Link>
-        <div className="  p-6 items-center text-white "> کاربر </div>
+        <div className="p-6 items-center text-white"> کاربر </div>
       </div>
       <div className="flex h-screen">
         {/* Sidebar */}
-        <div className="w-64 bg-gray-800 text-white p-4">
+        <div className="w-64 bg-gradient-to-b  from-teal-950 to-teal-900 text-white p-4">
           <h2 className="text-lg font-bold mb-4">{MyTitle}</h2>
 
           {/* Base Info */}
+        
           <div>
-            <div
-              className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
-              onClick={() => toggleAccordion("baseInfo")}
-            >
-              <span className="font-bold">اطلاعات پایه</span>
-              {accordionState.baseInfo ? <FaChevronUp /> : <FaChevronDown />}
-            </div>
+  <div
+    className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
+    onClick={() => toggleAccordion("baseInfo")}
+  >
+    <span className="font-bold">اطلاعات پایه</span>
+    {accordionState.baseInfo ? <FaChevronUp /> : <FaChevronDown />}
+  </div>
 
-            {accordionState.baseInfo && (
-              <ul className="mt-2">
-                {["news", "products", "articles"].map((tab) => (
-                  <li
-                    key={tab}
-                    className={`p-2 cursor-pointer ${activeTab === tab ? "bg-gray-600" : ""}`}
-                    onClick={() => setActiveTab(tab)}
-                  >
-                    {tab === "news" ? "اخبار" : tab === "products" ? "محصولات" : "تعریف فروشنده"}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+  {accordionState.baseInfo && (
+    <ul className="mt-2 bg-white text-black rounded-lg shadow-md">
+      {["products", "articles"].map((tab) => (
+        <li
+          key={tab}
+          className={`p-2 cursor-pointer ${
+            activeTab === tab ? "bg-gray-200" : "hover:bg-gray-100"
+          }`}
+          onClick={() => setActiveTab(tab)}
+        >
+          {tab === "products" ? "محصولات" : "تعریف فروشنده"}
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
 
           {/* Additional Headers without subitems */}
           <div>
@@ -165,7 +162,51 @@ export default function AdminPanel() {
               onClick={() => toggleAccordion("salesOperations")}
             >
               <span className="font-bold">عملیات فروش</span>
+              {accordionState.salesOperations ? <FaChevronUp /> : <FaChevronDown />}
             </div>
+            {accordionState.salesOperations && (
+              <ul className="mt-2 bg-white text-black rounded-lg shadow-md">
+                <li
+                  className="p-2 cursor-pointer hover:bg-gray-100"
+                  onClick={() => {}}
+                >
+                  ورود به گاو صندوق
+                </li>
+                <li
+                  className="p-2 cursor-pointer hover:bg-gray-100"
+                  onClick={() => {}}
+                >
+                  ورود به ویترین
+                </li>
+              </ul>
+            )}
+          </div>
+
+          {/* Sales Operations Details */}
+          <div>
+            <div
+              className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
+              onClick={() => toggleAccordion("news")}
+            >
+              <span className="font-bold">اخبار</span>
+              {accordionState.news ? <FaChevronUp /> : <FaChevronDown />}
+            </div>
+
+            {accordionState.news && (
+              <ul className="mt-2 bg-white text-black rounded-lg shadow-md">
+                {["news"].map((tab) => (
+                  <li
+                    key={tab}
+                    className={`p-2 cursor-pointer ${
+                      activeTab === tab ? "bg-gray-200 rounded-lg" : "hover:bg-gray-100"
+                    }`}
+                    onClick={() => setActiveTab(tab)}
+                  >
+                    اخبار
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           <div>
@@ -174,15 +215,6 @@ export default function AdminPanel() {
               onClick={() => toggleAccordion("installmentRequests")}
             >
               <span className="font-bold">درخواست اقساط</span>
-            </div>
-          </div>
-
-          <div>
-            <div
-              className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
-              onClick={() => toggleAccordion("newsReports")}
-            >
-              <span className="font-bold">اخبار</span>
             </div>
           </div>
 
@@ -199,7 +231,11 @@ export default function AdminPanel() {
         {/* Main Content */}
         <div className="flex-1 p-6">
           <h1 className="text-xl font-bold mb-4">
-            {activeTab === "news" ? "News" : activeTab === "products" ? "Products" : "Articles"}
+            {activeTab === "news"
+              ? "News"
+              : activeTab === "products"
+              ? "Products"
+              : "Articles"}
           </h1>
 
           {/* 🔍 Search & Filter */}
@@ -228,8 +264,12 @@ export default function AdminPanel() {
             }}
             className="mb-4 flex items-center bg-gradient-to-r  from-teal-950 to-teal-900 text-white px-4 py-2 rounded"
           >
-            <FaPlus className="mr-2" /> افزودن{" "}
-            {activeTab === "news" ? "خبر" : activeTab === "products" ? "محصول" : "فروشنده"}
+            <FaPlus className="mx-2" /> افزودن{" "}
+            {activeTab === "news"
+              ? "خبر"
+              : activeTab === "products"
+              ? "محصول"
+              : "فروشنده"}
           </button>
 
           {/* Table */}
@@ -240,10 +280,15 @@ export default function AdminPanel() {
                   className="border p-2 cursor-pointer"
                   onClick={() => setSortField("title" || "name")}
                 >
-                  {activeTab === "news" || activeTab === "articles" ? "Title" : "Name"} <FaSort />
+                  {activeTab === "news" || activeTab === "articles"
+                    ? "Title"
+                    : "Name"}{" "}
+                  <FaSort />
                 </th>
                 <th className="border p-2">
-                  {activeTab === "news" || activeTab === "articles" ? "Author" : "Seller"}
+                  {activeTab === "news" || activeTab === "articles"
+                    ? "Author"
+                    : "Seller"}
                 </th>
                 <th
                   className="border p-2 cursor-pointer"
