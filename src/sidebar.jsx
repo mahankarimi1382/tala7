@@ -87,7 +87,7 @@ const Sidebar = ({ isOpen, onClose }) => {
               name="username"
               value={formData.username}
               onChange={handleChange}
-              className="mt-3 h-8 block w-full rounded-md border border-gray-400 shadow-sm  sm:text-sm"
+              className="mt-3 h-8 block w-full rounded-md border border-gray-400 shadow-sm  sm:text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
               required
             />
           </div>
@@ -102,7 +102,8 @@ const Sidebar = ({ isOpen, onClose }) => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-                            className="mt-3 h-8 block w-full rounded-md border border-gray-400 shadow-sm  sm:text-sm"
+                            className="mt-3 h-8 block w-full rounded-md border border-gray-400 shadow-sm  sm:text-sm focus:outline-none
+                            focus:ring-2 focus:ring-yellow-400"
 
               required
             />

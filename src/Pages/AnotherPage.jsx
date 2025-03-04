@@ -37,9 +37,10 @@ function AnotherPage() {
       <HamburgerBar />
       <br />
       <br />
-      <div className="flex flex-col md:flex-row justify-center gap-6">
-        <div className="flex flex-col justify-start mx-auto md:ms-1 w-[300px] ps-7">
-          <div className="filtereharaj shadow-lg p-5 rounded-lg">
+      <div className="flex flex-col md:flex-row justify-center gap-9">
+        <div className="flex flex-col gap-6 justify-start mx-auto md:ms-1 w-[300px] ps-7">
+          <div className="filtereharaj shadow-lg p-5 rounded-lg "  style={{ boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(0, 0, 0, 0.1)" }}
+          >
             <div
               className=" bg-[#ececec] rounded-lg h-[50px] text-[16px] font-semibold
             text-center pt-2 mb-1 shadow-md w-full
@@ -51,18 +52,19 @@ function AnotherPage() {
               <CheckboxList />
             </div>
           </div>
-          <div className="filteregheimat shadow-lg p-5 rounded-lg">
+          <div className="filteregheimat shadow-lg p-5 rounded-lg "  style={{ boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(0, 0, 0, 0.1)" }}
+          >
             <div>
               <div
                 className=" bg-[#ececec] rounded-lg h-[50px] text-[16px] font-semibold
             text-center pt-3 mb-3 shadow-md
-            "
+            " 
               >
                 فیلتر قیمت
               </div>
               <div
                 dir="ltr"
-                className="flex justify-center items-center  bg-white"
+                className="flex justify-center items-center  bg-white" 
               >
                 <DualRangeSlider />
               </div>
@@ -78,10 +80,13 @@ function AnotherPage() {
             </div>
           </div>
          
-          <SidebarProducts/>
+       <div className="rounded-lg"  style={{ boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(0, 0, 0, 0.1)" }}
+       >
+       <SidebarProducts/>
+       </div>
 
         </div>
-        <div className="secondPart mx-auto">
+        <div className="secondPart mx-auto" >
           <BreadcrumbSearch />
         </div>
       </div>
