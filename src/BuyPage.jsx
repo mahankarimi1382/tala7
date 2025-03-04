@@ -62,7 +62,7 @@ function BuyPage() {
       </div>
 
       {/* Main Panel */}
-      <div className="MainPannel  ">
+      <div className="MainPannel mt-3 ms-5 ">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab.label}
