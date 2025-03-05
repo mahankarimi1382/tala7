@@ -31,7 +31,7 @@ const SidebarProducts = () => {
   );
 
   return (
-    <div className="w-64 border rounded-lg shadow-sm p-4 bg-white">
+    <div className="w-64 border rounded-lg  p-4 bg-white">
       <div className="bg-gray-200 p-2 text-lg font-semibold rounded-md">محصولات</div>
       <div className="mt-2 space-y-2">
         {/* انواع محصولات */}
