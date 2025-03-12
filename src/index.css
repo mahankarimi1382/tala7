@@ -351,64 +351,55 @@ follow the guidde in https://www.npmjs.com/package/react-responsive-carousel */
 /* بخش مربوط به نیوزفید */
 
 
-.news-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  box-shadow: 0 4px 8px -4px rgb(0, 0, 0, 0.3);
-  /* background: #C7A984; */
-}
-
-.news-container .title {
-  position: absolute;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0 8px;
-  color: black;
-  z-index: 200;
-
-}
-
-
-.news-container ul {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  animation: NewsfeedScroll 15s infinite linear;
-  direction: rtl;
-
-}
-
-.news-container ul li {
+/* Container for scrolling items */
+.marquee-ul {
+  display: inline-flex;
+  gap: 2rem; /* Space between each news */
   white-space: nowrap;
-  padding: 10px 24px;
-  /* color: whitesmoke; */
+  animation: scroll-left 15s linear infinite;
+  padding: 0;
+  margin: 0;
+  direction: rtl; /* RTL direction */
+}
+
+/* News item with bullet */
+.news-item {
   position: relative;
+  padding-right: 12px; /* Space between bullet and text */
+  display: inline-block;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-weight: 500;
+  color: #333;
 }
 
-
-.news-container ul li::after {
-  content: "";
-  width: 0px;
-  height: 100%;
-  background-color: black;
+/* Custom bullet */
+.news-item::before {
+  content: "•";
+  color: rgb(177, 12, 12);
   position: absolute;
-  top: 0;
-  right: 0;
-
+  right: 0; /* Adjust for RTL */
+  top: 60%;
+  transform: translateY(-50%);
+  font-size: 30px; /* Adjust bullet size */
+  padding-left: 5px;
+  
 }
 
-@keyframes NewsfeedScroll {
-  from {
+/* Hover effect */
+.news-item:hover {
+  color: #5c5a5a; /* Change color on hover */
+}
+
+/* Smooth scrolling effect */
+@keyframes scroll-left {
+  0% {
     transform: translateX(-100%);
   }
-
-  to {
+  100% {
     transform: translateX(100%);
   }
-
 }
 
 
