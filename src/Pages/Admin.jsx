@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 
 const Admin = () => {
   const [activeSection, setActiveSection] = useState(null);

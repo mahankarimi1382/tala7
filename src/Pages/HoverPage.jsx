@@ -1,10 +1,10 @@
 import Basefile from "../basefile";
-import BeautifulBreadCrumb from "../BeautifulBreadCrumb";
+// import BeautifulBreadCrumb from "../BeautifulBreadCrumb";
 import HamburgerBar from "../Components/HamburgerBar";
 import MyHeader from "../Components/MyHeader";
 import ScrollToTopButton from "../Components/ScrollToTopButton";
-import GridandChevron from "../GridandChevron";
-import My3links from "../My3links";
+// import GridandChevron from "../GridandChevron";
+// import My3links from "../My3links";
 import MyFooter from "../MyFooter";
 import NewsFeed from "../NewsFeed";
 import ProductText from "../ProductText";

@@ -1,7 +1,14 @@
-import React, { useState } from "react";  // <-- Add this import
-import { FaChevronDown, FaChevronUp, FaPlus, FaSort, FaEdit, FaTrashAlt } from "react-icons/fa";
+import { useState } from "react"; // <-- Add this import
+import {
+  FaChevronDown,
+  FaChevronUp,
+  FaPlus,
+  FaSort,
+  FaEdit,
+  FaTrashAlt,
+} from "react-icons/fa";
 import Modal from "./Modals/Modal";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default function AdminPanel() {
   const [activeTab, setActiveTab] = useState("news");
@@ -9,13 +16,14 @@ export default function AdminPanel() {
   const [formData, setFormData] = useState({});
   const [editingIndex, setEditingIndex] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [visitFilter, setVisitFilter] = useState("");
+  // const [visitFilter, setVisitFilter] = useState("");
+  const visitFilter = "";
   const [sortField, setSortField] = useState(null);
-  const [sortOrder, setSortOrder] = useState("asc");
-
+  // const [sortOrder, setSortOrder] = useState("asc");
+  const sortOrder = "asc";
   const [accordionState, setAccordionState] = useState({
     baseInfo: true,
-    salesOperations: false, 
+    salesOperations: false,
     installmentRequests: false,
     reports: false,
     news: false,
@@ -128,32 +136,32 @@ export default function AdminPanel() {
           <h2 className="text-lg font-bold mb-4">{MyTitle}</h2>
 
           {/* Base Info */}
-        
-          <div>
-  <div
-    className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
-    onClick={() => toggleAccordion("baseInfo")}
-  >
-    <span className="font-bold">اطلاعات پایه</span>
-    {accordionState.baseInfo ? <FaChevronUp /> : <FaChevronDown />}
-  </div>
 
-  {accordionState.baseInfo && (
-    <ul className="mt-2 bg-white text-black rounded-lg shadow-md">
-      {["products", "articles"].map((tab) => (
-        <li
-          key={tab}
-          className={`p-2 cursor-pointer ${
-            activeTab === tab ? "bg-gray-200" : "hover:bg-gray-100"
-          }`}
-          onClick={() => setActiveTab(tab)}
-        >
-          {tab === "products" ? "محصولات" : "تعریف فروشنده"}
-        </li>
-      ))}
-    </ul>
-  )}
-</div>
+          <div>
+            <div
+              className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
+              onClick={() => toggleAccordion("baseInfo")}
+            >
+              <span className="font-bold">اطلاعات پایه</span>
+              {accordionState.baseInfo ? <FaChevronUp /> : <FaChevronDown />}
+            </div>
+
+            {accordionState.baseInfo && (
+              <ul className="mt-2 bg-white text-black rounded-lg shadow-md">
+                {["products", "articles"].map((tab) => (
+                  <li
+                    key={tab}
+                    className={`p-2 cursor-pointer ${
+                      activeTab === tab ? "bg-gray-200" : "hover:bg-gray-100"
+                    }`}
+                    onClick={() => setActiveTab(tab)}
+                  >
+                    {tab === "products" ? "محصولات" : "تعریف فروشنده"}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
 
           {/* Additional Headers without subitems */}
           <div>
@@ -162,7 +170,11 @@ export default function AdminPanel() {
               onClick={() => toggleAccordion("salesOperations")}
             >
               <span className="font-bold">عملیات فروش</span>
-              {accordionState.salesOperations ? <FaChevronUp /> : <FaChevronDown />}
+              {accordionState.salesOperations ? (
+                <FaChevronUp />
+              ) : (
+                <FaChevronDown />
+              )}
             </div>
             {accordionState.salesOperations && (
               <ul className="mt-2 bg-white text-black rounded-lg shadow-md">
@@ -198,7 +210,9 @@ export default function AdminPanel() {
                   <li
                     key={tab}
                     className={`p-2 cursor-pointer ${
-                      activeTab === tab ? "bg-gray-200 rounded-lg" : "hover:bg-gray-100"
+                      activeTab === tab
+                        ? "bg-gray-200 rounded-lg"
+                        : "hover:bg-gray-100"
                     }`}
                     onClick={() => setActiveTab(tab)}
                   >
@@ -242,18 +256,18 @@ export default function AdminPanel() {
           <div className="flex mb-4">
             <input
               type="text"
-              placeholder="🔍 Search..."
+              placeholder="🔍 جستجو"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="p-2 border border-gray-300 rounded mr-2"
             />
-            <input
+            {/* <input
               type="number"
               placeholder="📌 Min Visits"
               value={visitFilter}
               onChange={(e) => setVisitFilter(e.target.value)}
               className="p-2 border border-gray-300 rounded"
-            />
+            /> */}
           </div>
 
           <button
@@ -278,25 +292,25 @@ export default function AdminPanel() {
               <tr className="bg-gray-200">
                 <th
                   className="border p-2 cursor-pointer"
-                  onClick={() => setSortField("title" || "name")}
+                  onClick={() => setSortField("title")}
                 >
                   {activeTab === "news" || activeTab === "articles"
-                    ? "Title"
+                    ? "تیتر خبر"
                     : "Name"}{" "}
                   <FaSort />
                 </th>
                 <th className="border p-2">
                   {activeTab === "news" || activeTab === "articles"
-                    ? "Author"
+                    ? "نویسنده"
                     : "Seller"}
                 </th>
                 <th
                   className="border p-2 cursor-pointer"
                   onClick={() => setSortField("visits")}
                 >
-                  Visits <FaSort />
+                  ویزیت ها <FaSort />
                 </th>
-                <th className="border p-2">Actions</th>
+                <th className="border p-2">عملیات ها</th>
               </tr>
             </thead>
             <tbody>

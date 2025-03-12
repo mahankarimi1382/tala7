@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import "./index.css";
+import { fetchNews } from "./apicalling/ApiCalling";
 
 function NewsFeed() {
   const [newsItems, setNewsItems] = useState([]); // Store news leads
@@ -9,34 +9,34 @@ function NewsFeed() {
   const apiUrl = "/api/News/Get_5new_News"; // Use Vite proxy
 
   // Function to fetch news from API
-  const fetchNews = useCallback(async () => {
-    setLoading(true);
-    setError(null);
+  // const fetchNews = useCallback(async () => {
+  //   setLoading(true);
+  //   setError(null);
 
-    try {
-      const response = await axios.get(apiUrl);
-      const data = response.data; // API returns an array of objects
+  //   try {
+  //     const response = await axios.get(apiUrl);
+  //     const data = response.data; // API returns an array of objects
 
-      if (Array.isArray(data)) {
-        setNewsItems(data.map(item => item.lead)); // Extract "lead" field from each object
-      } else {
-        setNewsItems([]); // If response is unexpected, set empty list
-      }
-    } catch (error) {
-      console.error("Error fetching news:", error);
-      setError("Failed to fetch news. Please try again later.");
-    } finally {
-      setLoading(false);
-    }
-  }, [apiUrl]);
+  //     if (Array.isArray(data)) {
+  //       setNewsItems(data.map(item => item.lead)); // Extract "lead" field from each object
+  //     } else {
+  //       setNewsItems([]); // If response is unexpected, set empty list
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching news:", error);
+  //     setError("Failed to fetch news. Please try again later.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }, [apiUrl]);
 
   // Fetch news when component mounts and refresh every 1 minute
   useEffect(() => {
-    fetchNews();
+    fetchNews(setLoading, setError, apiUrl, setNewsItems);
     const intervalId = setInterval(fetchNews, 60000); // Refresh every 60 seconds
 
     return () => clearInterval(intervalId); // Cleanup interval on unmount
-  }, [fetchNews]);
+  }, []);
 
   return (
     <div>
@@ -60,7 +60,9 @@ function NewsFeed() {
             <li className="matnekhabar text-red-500">{error}</li>
           ) : newsItems.length > 0 ? (
             newsItems.map((newsItem, index) => (
-              <li key={index} className="matnekhabar">{newsItem}</li>
+              <li key={index} className="matnekhabar">
+                {newsItem}
+              </li>
             ))
           ) : (
             <li className="matnekhabar">No news available.</li>

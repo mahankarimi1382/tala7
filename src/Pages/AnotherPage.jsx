@@ -9,12 +9,12 @@ import ScrollToTopButton from "../Components/ScrollToTopButton";
 import MyFooter from "../MyFooter";
 import NewsFeed from "../NewsFeed";
 import SimpleNewsFeed from "../SimpleNewsFeed";
-import HoverImageEffect from "../MovingImage";
+// import HoverImageEffect from "../MovingImage";
 import WoodHeader from "../WoodHeader";
 import WrittenFooter from "../WrittenFooter";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import "preline";
-import Basefile from "../basefile";
+// import Basefile from "../basefile";
 import SidebarProducts from "../SidebarProducts";
 
 
@@ -86,7 +86,7 @@ function AnotherPage() {
        </div>
 
         </div>
-        <div className="secondPart mx-auto" >
+        <div className="secondPart" >
           <BreadcrumbSearch />
         </div>
       </div>

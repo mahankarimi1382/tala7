@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import PishnahadCards from "../PishnahadCards";
 import img1 from "../assets/img/containerring1.png";
 import img2 from "../assets/img/containerring2.png";
@@ -741,7 +741,7 @@ const MenuComponent = () => {
             )}
           </div>
         </div>
-        <div className="second hidden md:block xl:w-[45%] mt-4 flex justify-center h-screen
+        <div className="second  md:block xl:w-[45%] mt-4 flex justify-center h-screen
        dark:from-slate-200 dark:to-slate-100 dark:hover:bg-slate-100  focus:outline-none focus:ring focus:ring-slate-500/50 focus-visible:outline-none focus-visible:ring focus-visible:ring-slate-500/50 relative before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(140deg,transparent_25%,theme(colors.white/.5)_50%,transparent_75%,transparent_100%)] dark:before:bg-[linear-gradient(135deg,transparent_25%,theme(colors.white)_50%,transparent_75%,transparent_100%)] before:bg-[length:250%_250%,100%_100%] before:bg-[position:100%_100%,0_0] before:bg-no-repeat before:[transition:background-position_0s_ease] hover:before:bg-[position:100%_-100%,0_0] hover:before:duration-[1500ms]
          ">
           <img src={gift} alt="" className="rounded-2xl " />

@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import { AiOutlineClose } from "react-icons/ai";
+import SubmitPassModal from "./Modals/SubmitPassModal";
 
 const CreateAccountPopup = ({ onClose }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -9,9 +10,15 @@ const CreateAccountPopup = ({ onClose }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isCodePopupOpen, setIsCodePopupOpen] = useState(false);
-  const [verificationCode, setVerificationCode] = useState(["", "", "", "", ""]);
+  const [verificationCode, setVerificationCode] = useState([
+    "",
+    "",
+    "",
+    "",
+    "",
+  ]);
   const [codeError, setCodeError] = useState("");
-
+  const [isPassModal, setIsPassModal] = useState(false);
   // Refs for inputs to manage focus
   const inputsRef = useRef([]);
 
@@ -33,22 +40,21 @@ const CreateAccountPopup = ({ onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (phoneNumberError || !phoneNumber) return;
+    setIsPassModal(true);
 
-    setIsLoading(true);
-    setSuccessMessage("");
-    setErrorMessage("");
+    // try {
+    //   await axios.post("https://jsonplaceholder.typicode.com/posts", {
+    //     phone: phoneNumber,
+    //   });
 
-    try {
-      await axios.post("https://jsonplaceholder.typicode.com/posts", { phone: phoneNumber });
-
-      setSuccessMessage("✅ شماره تلفن با موفقیت ارسال شد!");
-      setPhoneNumber(""); // Clear input
-      setIsCodePopupOpen(true); // Open verification popup
-    } catch (error) {
-      setErrorMessage("❌ خطا در ارسال اطلاعات. لطفاً دوباره امتحان کنید.");
-    } finally {
-      setIsLoading(false);
-    }
+    //   setSuccessMessage("✅ شماره تلفن با موفقیت ارسال شد!");
+    //   setPhoneNumber(""); // Clear input
+    //   setIsCodePopupOpen(true); // Open verification popup
+    // } catch (error) {
+    //   setErrorMessage("❌ خطا در ارسال اطلاعات. لطفاً دوباره امتحان کنید.");
+    // } finally {
+    //   setIsLoading(false);
+    // }
   };
 
   // Handle verification code input
@@ -96,11 +102,18 @@ const CreateAccountPopup = ({ onClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-[99999] flex justify-center items-center">
       {/* Phone Number Popup */}
+      {isPassModal && (
+        <SubmitPassModal closeModal={() => setIsPassModal(false)} />
+      )}
       {!isCodePopupOpen && (
         <div className="bg-white rounded-lg p-8 max-w-md w-full shadow-lg">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold">ایجاد حساب کاربری</h2>
-            <button onClick={onClose} className="text-gray-600 hover:text-black" aria-label="Close">
+            <button
+              onClick={onClose}
+              className="text-gray-600 hover:text-black"
+              aria-label="Close"
+            >
               <AiOutlineClose size={20} />
             </button>
           </div>
@@ -110,25 +123,34 @@ const CreateAccountPopup = ({ onClose }) => {
               شماره تلفن (۱۱ رقم با ۰۹ شروع شود):
             </label>
             <input
+              dir="rtl"
               type="tel"
               value={phoneNumber}
               onChange={handlePhoneNumberChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2"
+              className="mt-1 border outline-none block w-full rounded-md border-gray-300 shadow-sm p-2"
               required
             />
-            {phoneNumberError && <p className="text-red-600 mt-2 text-sm">{phoneNumberError}</p>}
-            {successMessage && <p className="text-green-600 mt-2 text-sm">{successMessage}</p>}
-            {errorMessage && <p className="text-red-600 mt-2 text-sm">{errorMessage}</p>}
+            {phoneNumberError && (
+              <p className="text-red-600 mt-2 text-sm">{phoneNumberError}</p>
+            )}
+            {successMessage && (
+              <p className="text-green-600 mt-2 text-sm">{successMessage}</p>
+            )}
+            {errorMessage && (
+              <p className="text-red-600 mt-2 text-sm">{errorMessage}</p>
+            )}
 
             <div className="mt-6 flex justify-end">
               <button
                 type="submit"
                 className={`rounded-md py-2 px-4 font-medium text-white shadow-sm ${
-                  isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-[#caa984] hover:bg-[#093937]"
+                  isLoading
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-[#caa984] hover:bg-[#093937]"
                 }`}
                 disabled={!!phoneNumberError || isLoading}
               >
-                {isLoading ? "در حال ارسال..." : "ثبت نام"}
+                {isLoading ? "در حال ارسال..." : "ثبت "}
               </button>
             </div>
           </form>
@@ -140,7 +162,10 @@ const CreateAccountPopup = ({ onClose }) => {
         <div className="bg-white rounded-lg p-8 max-w-md w-full shadow-lg">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold">تایید کد</h2>
-            <button onClick={onClose} className="text-gray-600 hover:text-black">
+            <button
+              onClick={onClose}
+              className="text-gray-600 hover:text-black"
+            >
               <AiOutlineClose size={20} />
             </button>
           </div>
@@ -162,7 +187,9 @@ const CreateAccountPopup = ({ onClose }) => {
             ))}
           </div>
 
-          {codeError && <p className="text-red-600 mt-2 text-sm">{codeError}</p>}
+          {codeError && (
+            <p className="text-red-600 mt-2 text-sm">{codeError}</p>
+          )}
         </div>
       )}
     </div>
