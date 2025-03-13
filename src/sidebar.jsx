@@ -5,12 +5,14 @@ import { GoPerson } from "react-icons/go";
 import { Link } from "react-router-dom";
 import CreateAccountPopup from "./CreateAccountPopup.jsx"; // Import the new popup component
 import PropTypes from "prop-types";
+import { signin } from "./apicalling/ApiCalling.js";
+import { TokenStore } from "./Store/Store.js";
 
 const Sidebar = (props) => {
+  const { setToken } = TokenStore();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
-    rememberMe: false,
   });
   const [isCreateAccountPopupOpen, setIsCreateAccountPopupOpen] =
     useState(false); // State for the popup visibility
@@ -34,7 +36,7 @@ const Sidebar = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your authentication logic here
+    signin(formData,setToken);
     console.log("Form data:", formData);
   };
 
@@ -97,7 +99,7 @@ const Sidebar = (props) => {
               name="username"
               value={formData.username}
               onChange={handleChange}
-              className="mt-3 h-8 block w-full rounded-md border border-gray-400 shadow-sm  sm:text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              className="mt-3 px-2 h-8 block w-full rounded-md border border-gray-400 shadow-sm  sm:text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
               required
             />
           </div>
@@ -115,7 +117,7 @@ const Sidebar = (props) => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="mt-3 h-8 block w-full rounded-md border border-gray-400 shadow-sm  sm:text-sm focus:outline-none
+              className="mt-3 px-2 h-8 block w-full rounded-md border border-gray-400 shadow-sm  sm:text-sm focus:outline-none
                             focus:ring-2 focus:ring-yellow-400"
               required
             />
@@ -167,7 +169,7 @@ const Sidebar = (props) => {
           >
             ایجاد حساب کاربری
           </button>
-          <Link to="/AddSomeNews" className="">
+          <Link to="/AdminPannel/basic-details/products" className="">
             <div className="text-sm font-bold hover:text-black">ورود ادمین</div>
           </Link>
           <Link to="/testpage" className="">

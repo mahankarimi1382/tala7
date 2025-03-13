@@ -103,7 +103,10 @@ const CreateAccountPopup = ({ onClose }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 z-[99999] flex justify-center items-center">
       {/* Phone Number Popup */}
       {isPassModal && (
-        <SubmitPassModal closeModal={() => setIsPassModal(false)} />
+        <SubmitPassModal
+          phoneNumber={phoneNumber}
+          closeModal={() => setIsPassModal(false)}
+        />
       )}
       {!isCodePopupOpen && (
         <div className="bg-white rounded-lg p-8 max-w-md w-full shadow-lg">

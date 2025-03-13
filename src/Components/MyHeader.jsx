@@ -60,7 +60,7 @@ const MyHeader = () => {
   ];
 
   return (
-    <header className="sticky top-10 bg-[#FAFAFA] shadow-md z-50 hidden md:block">
+    <header className="sticky top-10 bg-[#FAFAFA] shadow-md z-30 hidden md:block">
       <nav className="container mx-auto px-4 py-2 flex justify-center items-center">
         <ul className="flex space-x-7 relative">
           {navItems.map((item, index) => (

@@ -33,7 +33,7 @@ function NewsFeed() {
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden  ">
+    <div className=" fixed z-30 w-full overflow-hidden  ">
       <div className="bg-gradient-to-l from-[#c7a984] to-orange-100 sticky z-[50] flex items-center py-2 sm:py-[1px] sm:ps-4 sm:rounded-lg shadow-md">
 
         {/* Title with ping animation */}

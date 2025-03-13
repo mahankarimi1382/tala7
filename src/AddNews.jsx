@@ -11,7 +11,7 @@ import Modal from "./Modals/Modal";
 import { Link } from "react-router-dom";
 
 export default function AdminPanel() {
-  const [activeTab, setActiveTab] = useState("news");
+    const [activeTab, setActiveTab] = useState("news");
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({});
   const [editingIndex, setEditingIndex] = useState(null);

@@ -8,26 +8,48 @@ import HomePage from "./HomePage.jsx";
 import HoverPage from "./HoverPage.jsx";
 import Mytester from "../mytester.jsx";
 import ScrollToTop from "../ScrollToTop.jsx";
-import Admin from "./Admin.jsx";
 import AddNews from "../AddNews.jsx";
-
-
-
-
+import Products from "./AdminPanel/BasicDetails/Products.jsx";
+import { ToastContainer } from "react-toastify";
+import MasterProduct from "./AdminPanel/BasicDetails/MasterProduct.jsx";
+import SubMasterProduct from "./AdminPanel/BasicDetails/SubMasterProduct.jsx";
+import AddToVitrin from "./AdminPanel/SaleAction/Vitrin/AddToVitrin.jsx";
+import AddToSafeBox from "./AdminPanel/SaleAction/SafeBox/AddToSafeBox.jsx";
+import News from "./AdminPanel/News/News.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-    <ScrollToTop/>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/search-product" element={<AnotherPage />} />
         <Route path="/hover-product-page" element={<HoverPage />} />
-        <Route path="/testpage" element={<Mytester/>} />
-        <Route path="/AdminPannel" element={<Admin/>} />
-        <Route path="/AddSomeNews" element={<AddNews/>} />
-
+        <Route path="/testpage" element={<Mytester />} />
+        <Route
+          path="/AdminPannel/basic-details/products"
+          element={<Products />}
+        />
+        <Route
+          path="/AdminPannel/basic-details/add-master-product"
+          element={<MasterProduct />}
+        />
+        <Route
+          path="/AdminPannel/basic-details/add-subbmaster-product"
+          element={<SubMasterProduct />}
+        />
+        <Route
+          path="/AdminPannel/sale-action/vitrin"
+          element={<AddToVitrin />}
+        />
+        <Route
+          path="/AdminPannel/sale-action/safe-box"
+          element={<AddToSafeBox />}
+        />
+        <Route path="/AdminPannel/news" element={<News />} />
+        <Route path="/AddSomeNews" element={<AddNews />} />
       </Routes>
     </BrowserRouter>
+    <ToastContainer />
   </StrictMode>
 );
