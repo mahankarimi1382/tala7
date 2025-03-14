@@ -16,6 +16,10 @@ import SubMasterProduct from "./AdminPanel/BasicDetails/SubMasterProduct.jsx";
 import AddToVitrin from "./AdminPanel/SaleAction/Vitrin/AddToVitrin.jsx";
 import AddToSafeBox from "./AdminPanel/SaleAction/SafeBox/AddToSafeBox.jsx";
 import News from "./AdminPanel/News/News.jsx";
+import CreateSeller from "./AdminPanel/BasicDetails/CreateSeller.jsx";
+import WalletToman from "./AdminPanel/Wallet/WalletToman.jsx";
+import Rate from "./AdminPanel/rate/rate.jsx";
+import Setting from "./AdminPanel/setting/Setting.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -39,6 +43,10 @@ createRoot(document.getElementById("root")).render(
           element={<SubMasterProduct />}
         />
         <Route
+          path="/AdminPannel/basic-details/create-seller"
+          element={<CreateSeller />}
+        />
+        <Route
           path="/AdminPannel/sale-action/vitrin"
           element={<AddToVitrin />}
         />
@@ -46,6 +54,11 @@ createRoot(document.getElementById("root")).render(
           path="/AdminPannel/sale-action/safe-box"
           element={<AddToSafeBox />}
         />
+        <Route path="/AdminPannel/wallet/tooman" element={<WalletToman />} />
+        <Route path="/AdminPannel/wallet/gold" element={<WalletToman />} />
+        <Route path="/AdminPannel/rate" element={<Rate />} />
+        <Route path="/AdminPannel/setting" element={<Setting />} />
+
         <Route path="/AdminPannel/news" element={<News />} />
         <Route path="/AddSomeNews" element={<AddNews />} />
       </Routes>

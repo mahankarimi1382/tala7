@@ -42,7 +42,7 @@ function Products() {
     Get_All_SubMasterProduct(setSubMasterProduct);
   }, [isModal]);
   return (
-    <div className=" w-full h-screen flex items-center">
+    <div className=" w-full min-h-screen flex items-center">
       <AdminMenu />
       {isModal && (
         <AddThingsModal

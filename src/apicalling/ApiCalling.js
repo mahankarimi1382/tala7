@@ -206,3 +206,60 @@ export const CreateNews = (data, setIsModal) => {
       console.log(err);
     });
 };
+export const Get_All_Users = async () => {
+  try {
+    const response = await axios.get(
+      "http://tala7.com:44/api/Admin/UsersDropdown"
+    );
+    const users = response.data;
+    console.log(users);
+    return users;
+  } catch (error) {
+    console.error("Error fetching specialties:", error);
+    return null;
+  }
+};
+export const Create_Seller = (data, setIsModal) => {
+  console.log(data)
+  axios
+    .post("http://tala7.com:44/api/Seller/CreateSeller", data)
+    .then((res) => {
+      setIsModal(false);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+export const Get_All_Sellers = (setSellers) => {
+  axios
+    .post("http://tala7.com:44/api/Seller/Get_All_Sellers", {
+      metadata: {
+        userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        userName: "string",
+        userNameforC: "string",
+      },
+      pagenumber: 0,
+      pagesize: 10,
+    })
+    .then((res) => {
+      setSellers(res.data.response_List);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const Create_DocStore = (data, setIsModal) => {
+  console.log(data)
+  axios
+    .post("http://tala7.com:44/api/DocStore/Create_DocStore", data)
+    .then((res) => {
+      setIsModal(false);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

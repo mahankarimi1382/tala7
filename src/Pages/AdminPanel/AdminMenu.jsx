@@ -13,6 +13,8 @@ function AdminMenu() {
     news: false,
     articles: false,
     salesOperationsDetails: false,
+    Wallet: false,
+    rate: false,
   });
   const toggleAccordion = (key) => {
     setAccordionState((prevState) => ({
@@ -36,11 +38,13 @@ function AdminMenu() {
     } else if (tab == "products") {
       return <Link to="/AdminPannel/basic-details/products">محصولات</Link>;
     } else if (tab == "seller") {
-      return "تعریف فروشنده";
+      return (
+        <Link to="/AdminPannel/basic-details/create-seller">تعریف فروشنده</Link>
+      );
     }
   };
   return (
-    <div className=" w-1/5 h-screen bg-gradient-to-b flex flex-col items-center  from-teal-950 to-teal-900 text-white p-2 ">
+    <div className=" w-1/5 min-h-screen bg-gradient-to-b flex flex-col items-center  from-teal-950 to-teal-900 text-white p-2 ">
       <h5>پنل مدیریت</h5>
       {/* <h2 className="text-lg font-bold mb-4">{MyTitle}</h2> */}
 
@@ -98,6 +102,52 @@ function AdminMenu() {
             </Link>
           </ul>
         )}
+      </div>
+      <div className=" w-full">
+        <div
+          className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
+          onClick={() => toggleAccordion("Wallet")}
+        >
+          <span className="font-bold">کیف پول</span>
+          {accordionState.Wallet ? <FaChevronUp /> : <FaChevronDown />}
+        </div>
+        {accordionState.Wallet && (
+          <ul className="mt-2 bg-white flex flex-col text-black rounded-lg shadow-md">
+            <Link
+              to="/AdminPannel/wallet/gold"
+              className="p-2 cursor-pointer hover:bg-gray-100"
+              onClick={() => {}}
+            >
+              کیف پول طلا
+            </Link>
+            <Link
+              to="/AdminPannel/wallet/tooman"
+              className="p-2 cursor-pointer hover:bg-gray-100"
+            >
+              کیف پول تومان
+            </Link>
+          </ul>
+        )}
+      </div>
+      <div className=" w-full">
+        <div
+          className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
+          onClick={() => toggleAccordion("installmentRequests")}
+        >
+          <Link to="/AdminPannel/rate" className="font-bold">
+            نرخ لحظه ای
+          </Link>
+        </div>
+      </div>
+      <div className=" w-full">
+        <div
+          className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
+          onClick={() => toggleAccordion("installmentRequests")}
+        >
+          <Link to="/AdminPannel/setting" className="font-bold">
+            تنظیمات
+          </Link>
+        </div>
       </div>
 
       {/* Sales Operations Details */}
