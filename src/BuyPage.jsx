@@ -17,8 +17,8 @@ import DashBoard from "./dashBoard";
 
 const sidebarItems = [
   { icon: HiOutlineHome, label: "داشبورد", content: <DashBoard/> },
-  { icon: RiShoppingCart2Line, label: "خرید", content: <DashBoard/> },
-  { icon: MdOutlineSell, label: "فروش", content: <DashBoard/> },
+  { icon: RiShoppingCart2Line, label: "خرید", content:  <div>محتوای خرید</div> },
+  { icon: MdOutlineSell, label: "فروش", content:  <div>محتوای فروش </div> },
   { icon: SlWallet, label: "کیف پول", content: <div>محتوای کیف پول</div> },
   { icon: LuBellRing, label: "اعلانات", content: <div>محتوای اعلانات</div> },
   { icon: IoChatbubblesOutline, label: "تیکت ها", content: <div>محتوای تیکت ها</div> },
