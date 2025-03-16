@@ -37,8 +37,8 @@ const PriceCard = ({ title, value, isUp }) => {
         </div>
       </div>
       <div className="relative flex justify-center items-center h-5 w-5 mx-3">
-        <span className={`animate-ping absolute inline-flex h-[10px] w-[10px] rounded-full ${pingColor} opacity-100`}></span>
-        <span className={`inline-flex h-[6px] w-[6px] rounded-full ${pingColor}`}></span>
+        <span className={`animate-ping absolute inline-flex h-[15px] w-[15px] rounded-full ${pingColor} opacity-100`}></span>
+        <span className={`inline-flex h-[0px] w-[0px] rounded-full ${pingColor}`}></span>
       </div>
     </div>
   );
