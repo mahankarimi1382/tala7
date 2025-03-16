@@ -26,7 +26,7 @@ const PriceCard = ({ title, value, isUp }) => {
   const pingColor = isUp ? "bg-green-600" : "bg-red-600";
 
   return (
-    <div className="flex-1 p-3 border flex justify-between items-center hover:bg-gray-50 transition">
+    <div className="flex-1 p-3 border flex justify-between items-center hover:bg-gray-50 transition rounded-lg">
       <div className="flex flex-col">
         <div className="text-[12px] font-bold">{title}</div>
         <div className="flex gap-1 items-center">
@@ -46,7 +46,7 @@ const PriceCard = ({ title, value, isUp }) => {
 
 // ✅ Inline TransactionCard component
 const TransactionCard = ({ title, Icon, items = [], link = "#" }) => (
-  <div className="border rounded-lg p-3 h-48 flex flex-col">
+  <div className="border rounded-lg p-3 h-48 flex flex-col shadow-sm">
     {/* Header */}
     <div className="flex justify-between p-3">
       <div className="flex gap-2 items-center">
@@ -74,7 +74,6 @@ const TransactionCard = ({ title, Icon, items = [], link = "#" }) => (
   </div>
 );
 
-
 // ✅ Main Dashboard Component
 function DashBoard() {
   const prices = [
@@ -85,34 +84,36 @@ function DashBoard() {
   ];
 
   return (
-    <div className="p-4">
+    <div className="p-4 mx-auto max-w-[1400px]">
       {/* Header */}
       <div className="flex gap-2 items-center text-[#0f4c9d] mb-4">
         <Link to="/" target="_blank" rel="noopener noreferrer">
           <IoHomeOutline className="text-[23px]" />
         </Link>
-        <p className="text-[18px] font-extrabold">حساب کابری</p>
+        <p className="text-[18px] font-extrabold">حساب کاربری</p>
       </div>
 
       <hr className="my-4" />
 
-      {/* Admin Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
-        <AdminPageCad ImageNum={img1} />
-        <AdminPageCad ImageNum={img2} Icon={GiMoneyStack} />
-        <AdminPageCad ImageNum={img3} Icon={FaChartLine} />
-        <AdminPageCad ImageNum={img4} Icon={TbBrandDaysCounter} />
+      {/* ✅ Centered Admin Cards */}
+      <div className="flex justify-center mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 max-w-7xl">
+          <AdminPageCad ImageNum={img1} />
+          <AdminPageCad ImageNum={img2} Icon={GiMoneyStack} />
+          <AdminPageCad ImageNum={img3} Icon={FaChartLine} />
+          <AdminPageCad ImageNum={img4} Icon={TbBrandDaysCounter} />
+        </div>
       </div>
 
-      {/* Price Cards */}
-      <div className="flex justify-center w-[95%] border rounded-lg mx-auto overflow-hidden">
+      {/* ✅ Responsive Price Cards Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-[95%] mx-auto">
         {prices.map((item, idx) => (
           <PriceCard key={idx} {...item} />
         ))}
       </div>
 
-      {/* Transaction Cards */}
-      <div className="rounded-lg mt-6 grid grid-cols-1 lg:grid-cols-2 gap-2">
+      {/* ✅ Transaction Cards */}
+      <div className="rounded-lg mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
         <TransactionCard title="آخرین خریدها" Icon={LuShoppingBasket} link="/purchases" />
         <TransactionCard title="آخرین فروش‌ها" Icon={FcSalesPerformance} link="/sales" />
         <TransactionCard title="آخرین واریزها" Icon={PiHandDeposit} link="/deposits" />
