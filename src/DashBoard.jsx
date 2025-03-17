@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 import { IoHomeOutline } from "react-icons/io5";
 import { GiMoneyStack } from "react-icons/gi";
 import { FaChartLine } from "react-icons/fa6";
@@ -14,35 +17,20 @@ import img1 from "./assets/CardBG/corner-1.png";
 import img2 from "./assets/CardBG/corner-2.png";
 import img3 from "./assets/CardBG/corner-3.png";
 import img4 from "./assets/CardBG/corner-5.png";
+import MomentalPrice from "./MomentalPrice";
+
 
 // ✅ Helper function to convert number to Persian digits with thousand separators
 const toPersianDigits = (num) => {
-  const formattedNumber = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  if (num === null || num === undefined) return "-";
+  const formattedNumber = num
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return formattedNumber.replace(/\d/g, (digit) => "۰۱۲۳۴۵۶۷۸۹"[digit]);
 };
 
 // ✅ Reusable PriceCard component
-const PriceCard = ({ title, value, isUp }) => {
-  const pingColor = isUp ? "bg-green-600" : "bg-red-600";
 
-  return (
-    <div className="flex-1 p-3 border flex justify-between items-center hover:bg-gray-50 transition rounded-lg">
-      <div className="flex flex-col">
-        <div className="text-[12px] font-bold">{title}</div>
-        <div className="flex gap-1 items-center">
-          <div className="text-[14px]">{toPersianDigits(value)}</div>
-          <div className={`text-[15px] ${isUp ? "text-green-600" : "text-red-600"}`}>
-            {isUp ? <GoArrowUpLeft /> : <GoArrowDownLeft />}
-          </div>
-        </div>
-      </div>
-      <div className="relative flex justify-center items-center h-5 w-5 mx-3">
-        <span className={`animate-ping absolute inline-flex h-[15px] w-[15px] rounded-full ${pingColor} opacity-100`}></span>
-        <span className={`inline-flex h-[0px] w-[0px] rounded-full ${pingColor}`}></span>
-      </div>
-    </div>
-  );
-};
 
 // ✅ Inline TransactionCard component
 const TransactionCard = ({ title, Icon, items = [], link = "#" }) => (
@@ -76,12 +64,9 @@ const TransactionCard = ({ title, Icon, items = [], link = "#" }) => (
 
 // ✅ Main Dashboard Component
 function DashBoard() {
-  const prices = [
-    { title: "طلای 18 عیار", value: 12000890, isUp: true },
-    { title: "انس طلا", value: 2985.04, isUp: false },
-    { title: "مثقال طلا", value: 295030000, isUp: false },
-    { title: "طلای آبشده", value: 295090000, isUp: true },
-  ];
+  const [prices, setPrices] = useState([]);
+
+ 
 
   return (
     <div className="p-4 mx-auto max-w-[1400px]">
@@ -106,11 +91,9 @@ function DashBoard() {
       </div>
 
       {/* ✅ Responsive Price Cards Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-[95%] mx-auto">
-        {prices.map((item, idx) => (
-          <PriceCard key={idx} {...item} />
-        ))}
-      </div>
+      
+
+<MomentalPrice/>
 
       {/* ✅ Transaction Cards */}
       <div className="rounded-lg mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
