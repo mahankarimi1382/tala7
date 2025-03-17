@@ -7,7 +7,7 @@ import { SlWallet } from "react-icons/sl";
 import { LuBellRing } from "react-icons/lu";
 import { IoChatbubblesOutline, IoPersonCircleOutline } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
-import DashBoard from "./MomentalPrice";
+import DashBoard from "./Dashboard";
 import { Link } from "react-router-dom"; // Optional if you want to link "خروج" or others
 
 
