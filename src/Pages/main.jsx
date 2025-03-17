@@ -20,6 +20,8 @@ import CreateSeller from "./AdminPanel/BasicDetails/CreateSeller.jsx";
 import WalletToman from "./AdminPanel/Wallet/WalletToman.jsx";
 import Rate from "./AdminPanel/rate/rate.jsx";
 import Setting from "./AdminPanel/setting/Setting.jsx";
+import AllProducts from "../AllProducts.jsx";
+
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -61,6 +63,7 @@ createRoot(document.getElementById("root")).render(
 
         <Route path="/AdminPannel/news" element={<News />} />
         <Route path="/AddSomeNews" element={<AddNews />} />
+        <Route path="/AllProducts" element={<AllProducts />} />
       </Routes>
     </BrowserRouter>
     <ToastContainer />
