@@ -8,7 +8,6 @@ import { TbBrandDaysCounter } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { GoArrowUpLeft, GoArrowDownLeft } from "react-icons/go";
 import { LuShoppingBasket } from "react-icons/lu";
-import { FcSalesPerformance } from "react-icons/fc";
 import { PiHandDeposit, PiHandWithdraw } from "react-icons/pi";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
 
@@ -37,7 +36,7 @@ const TransactionCard = ({ title, Icon, items = [], link = "#" }) => (
   <div className="border rounded-lg p-3 h-48 flex flex-col shadow-sm">
     {/* Header */}
     <div className="flex justify-between p-3">
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center text-2xl">
         <Icon />
         <div className="text-sm text-gray-700">{title}</div>
       </div>
@@ -71,11 +70,11 @@ function DashBoard() {
   return (
     <div className="p-4 mx-auto max-w-[1400px]">
       {/* Header */}
-      <div className="flex gap-2 items-center text-[#0f4c9d] mb-4">
+      <div className="flex gap-4 items-center text-[#0f4c9d] mb-4">
         <Link to="/" target="_blank" rel="noopener noreferrer">
           <IoHomeOutline className="text-[23px]" />
         </Link>
-        <p className="text-[18px] font-extrabold">حساب کاربری</p>
+        <p className="text-[18px] font-extrabold tracking-tight">حساب کاربری</p>
       </div>
 
       <hr className="my-4" />
@@ -98,7 +97,7 @@ function DashBoard() {
       {/* ✅ Transaction Cards */}
       <div className="rounded-lg mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
         <TransactionCard title="آخرین خریدها" Icon={LuShoppingBasket} link="/purchases" />
-        <TransactionCard title="آخرین فروش‌ها" Icon={FcSalesPerformance} link="/sales" />
+        <TransactionCard title="آخرین فروش‌ها" Icon={GiMoneyStack} link="/sales" />
         <TransactionCard title="آخرین واریزها" Icon={PiHandDeposit} link="/deposits" />
         <TransactionCard title="آخرین برداشت‌ها" Icon={PiHandWithdraw} link="/withdrawals" />
       </div>

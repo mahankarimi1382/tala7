@@ -47,7 +47,7 @@ const MyHeader = () => {
     { label: "", path: "/" },
     {
       label: "محصولات",
-      path: "/search-product",
+      path: "/AllProducts",
       dropdownItems: [
         { label: "انواع محصولات", subItems: ["زنانه", "مردانه", "بچگانه", "بزرگسال"] },
         { label: "مدل ها", subItems: ["اسپرت", "کلاسیک", "سنتی"] },
