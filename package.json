@@ -22,7 +22,7 @@
     "@preline/dropdown": "^2.6.0",
     "@preline/tree-view": "^2.6.0",
     "@trendyol-js/react-carousel": "^3.0.3",
-    "axios": "^1.8.1",
+    "axios": "^1.8.4",
     "bootstrap-icons": "^1.11.3",
     "cheerio": "^1.0.0",
     "cors": "^2.8.5",
