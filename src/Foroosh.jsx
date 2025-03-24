@@ -9,7 +9,7 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaRegCreditCard } from "react-icons/fa6";
 import svgImage from "../src/assets/img/buy.svg"
 
-function Kharid() {
+function Foroosh() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [goldPricePerMilligram, setGoldPricePerMilligram] = useState(0);
   const [goldPricePerGram, setGoldPricePerGram] = useState(0);
@@ -52,7 +52,7 @@ function Kharid() {
       <div className="flex items-center gap-2">
         <IoChevronForwardCircleOutline className="text-4xl text-blue-900" />
         <RiShoppingBasketLine className="text-4xl text-blue-900" />
-        <p className="text-xl">خرید</p>
+        <p className="text-xl">فروش</p>
       </div>
 
       <div className="flex gap-3 mt-5">
@@ -61,7 +61,7 @@ function Kharid() {
           className="flex items-center gap-2 text-blue-900 hover:text-white py-2 px-4 shadow-md bg-[#E2F2FD] hover:bg-[#0f4c75] rounded-lg"
         >
           <RiShoppingBasketLine className="text-2xl" />
-          <p>خرید</p>
+          <p>فروش</p>
         </a>
         <a
           href="#"
@@ -138,4 +138,4 @@ function Kharid() {
   );
 }
 
-export default Kharid;
+export default Foroosh;
