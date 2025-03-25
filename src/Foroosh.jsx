@@ -7,7 +7,7 @@ import SimpleDropdown from "./Components/SimpleDropdown";
 import GoldInput from "./Components/GoldInput";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaRegCreditCard } from "react-icons/fa6";
-import svgImage from "../src/assets/img/buy.svg"
+import svgImage from "../src/assets/img/sell.svg"
 
 function Foroosh() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -93,6 +93,7 @@ function Foroosh() {
             }`}
           >
             <SimpleDropdown
+            options={['بازار فروشی اول', 'بازار فروشی دوم', 'بازار فروشی سوم']} defaultLabel="نوع بازار را انتخاب کنید"
               className="w-full"
               onToggle={(isOpen) => setIsDropdownOpen(isOpen)}
             />
@@ -113,7 +114,7 @@ function Foroosh() {
           </div>
 
           <div className="mt-3">
-            <p>مبلغ پرداختی</p>
+            <p>مبلغ دریافتی</p>
             <div className="flex justify-between text-sm bg-gray-100 border border-gray-600 rounded-lg p-2 mt-1">
               <p>{formatNumber(0)}</p>
               <p>ریال</p>
@@ -127,7 +128,7 @@ function Foroosh() {
 
           <button className="flex justify-center items-center gap-2 bg-[#0F4C75] w-full rounded-lg text-white py-2 mt-4 shadow-md hover:bg-blue-800">
             <FaRegCreditCard />
-            <p>پرداخت</p>
+            <p>تأیید و ادامه</p>
           </button>
         </div>
         <div className="w-[450px]  mx-auto my-auto">

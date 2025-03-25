@@ -93,6 +93,7 @@ function Kharid() {
             }`}
           >
             <SimpleDropdown
+            options={['بازار خرید اول', 'بازار خرید دوم', 'بازار خرید سوم']} defaultLabel="نوع بازار را انتخاب کنید"
               className="w-full"
               onToggle={(isOpen) => setIsDropdownOpen(isOpen)}
             />
