@@ -12,6 +12,13 @@ import img9 from "../src/assets/img/GoldenRing.jpg";
 import img10 from "../src/assets/img/ring.jpg";
 import { Link } from "react-router-dom";
 import { IoHomeOutline } from "react-icons/io5";
+import NewsFeed from "./NewsFeed";
+import WoodHeader from "./WoodHeader";
+import MyHeader from "./Components/MyHeader";
+import HamburgerBar from "./Components/HamburgerBar";
+import ScrollToTopButton from "./Components/ScrollToTopButton.jsx";
+import WrittenFooter from "./WrittenFooter.jsx";
+import MyFooter from "./MyFooter.jsx";
 
 const products = [
   {
@@ -765,7 +772,21 @@ function AllProducts() {
   };
 
   return (
-    <div className="bg-gradient-to-bl from-white via-[#fbe8cf] to-white">
+ <div>
+  <NewsFeed />
+      <hr />
+      {/* <SimpleNewsFeed /> */}
+      <hr />
+      <WoodHeader />
+      <hr />
+      <MyHeader />
+      <hr />
+      <HamburgerBar />
+      <ScrollToTopButton />
+
+    
+
+     <div className="bg-gradient-to-bl from-white via-[#fbe8cf] to-white">
       <div className=" ms-4 p-3 flex gap-5 items-center text-[#0f4c9d] mb-4 ">
         <Link to="/" target="_blank" rel="noopener noreferrer">
           <IoHomeOutline className="text-[23px]" />
@@ -806,6 +827,10 @@ function AllProducts() {
         </button>
       </div>
     </div>
+    <WrittenFooter />
+
+<MyFooter />
+ </div>
   );
 }
 

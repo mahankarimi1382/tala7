@@ -53,7 +53,7 @@ const HamburgerBar = () => {
           <div className=" mx-auto">
             <img src={centralLogo} alt="Logo" className="h-10 w-auto" />
           </div>
-          <div ref={menuRef} className={` fixed top-10  right-0 bg-[#f4e0c5] rounded-lg  p-4 mt-1 w-64 transform transition-all duration-300 origin-top-right z-50 ${menuOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"}`}>
+          <div ref={menuRef} className={` fixed top-10  right-0 bg-[#f4e0c5] rounded-lg h-screen p-4 mt-1 w-64 transform transition-all duration-300 origin-top-right z-50 ${menuOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"}`}>
             <ul className="text-right">
               {menuItems.map((item) => (
                 <li key={item.id} className="relative group" onMouseEnter={() => handleSubItemsHover(item.id, true)} onMouseLeave={() => handleSubItemsHover(item.id, false)}>
