@@ -786,7 +786,7 @@ function AllProducts() {
 
     
 
-     <div className="bg-gradient-to-bl from-white via-[#fbe8cf] to-white">
+     <div className="bg-white">
       <div className=" ms-4 p-3 flex gap-5 items-center text-[#0f4c9d] mb-4 ">
         <Link to="/" target="_blank" rel="noopener noreferrer">
           <IoHomeOutline className="text-[23px]" />
