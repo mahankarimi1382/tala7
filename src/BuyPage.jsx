@@ -8,10 +8,10 @@ import { LuBellRing } from "react-icons/lu";
 import { IoChatbubblesOutline, IoPersonCircleOutline } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
 import DashBoard from "./Dashboard";
-
 import { Link } from "react-router-dom"; // Optional if you want to link "خروج" or others
 import Kharid from "./Kharid";
 import Foroosh from "./Foroosh";
+import KifePool from "./KifePool";
 
 
 // ✅ Sidebar items with icons and dynamic content
@@ -19,7 +19,7 @@ const sidebarItems = [
   { icon: HiOutlineHome, label: "داشبورد", content: <DashBoard /> },
   { icon: RiShoppingCart2Line, label: "خرید", content: <Kharid/> },
   { icon: MdOutlineSell, label: "فروش", content: <Foroosh/> },
-  { icon: SlWallet, label: "کیف پول", content: <div>محتوای کیف پول</div> },
+  { icon: SlWallet, label: "کیف پول", content: <KifePool/> },
   { icon: LuBellRing, label: "اعلانات", content: <div>محتوای اعلانات</div> },
   { icon: IoChatbubblesOutline, label: "تیکت ها", content: <div>محتوای تیکت ها</div> },
   { icon: IoPersonCircleOutline, label: "پروفایل", content: <div>محتوای پروفایل</div> },

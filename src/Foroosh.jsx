@@ -7,7 +7,10 @@ import SimpleDropdown from "./Components/SimpleDropdown";
 import GoldInput from "./Components/GoldInput";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaRegCreditCard } from "react-icons/fa6";
-import svgImage from "../src/assets/img/sell.svg"
+import { MdOutlineSell } from "react-icons/md";
+import svgImage from "../src/assets/img/sell.svg";
+import { Link } from "react-router-dom";
+
 
 function Foroosh() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -50,8 +53,9 @@ function Foroosh() {
   return (
     <div className="p-4">
       <div className="flex items-center gap-2">
-        <IoChevronForwardCircleOutline className="text-4xl text-blue-900" />
-        <RiShoppingBasketLine className="text-4xl text-blue-900" />
+      <Link to="/" target="_blank" rel="noopener noreferrer">
+          <IoChevronForwardCircleOutline className="text-4xl text-blue-900" />
+        </Link>        <MdOutlineSell className="text-4xl text-blue-900" />
         <p className="text-xl">فروش</p>
       </div>
 
@@ -60,7 +64,7 @@ function Foroosh() {
           href="#"
           className="flex items-center gap-2 text-blue-900 hover:text-white py-2 px-4 shadow-md bg-[#E2F2FD] hover:bg-[#0f4c75] rounded-lg"
         >
-          <RiShoppingBasketLine className="text-2xl" />
+          <MdOutlineSell className="text-2xl" />
           <p>فروش</p>
         </a>
         <a

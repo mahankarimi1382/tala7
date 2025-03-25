@@ -18,18 +18,14 @@ import img3 from "./assets/CardBG/corner-3.png";
 import img4 from "./assets/CardBG/corner-5.png";
 import MomentalPrice from "./MomentalPrice";
 
-
 // ✅ Helper function to convert number to Persian digits with thousand separators
 const toPersianDigits = (num) => {
   if (num === null || num === undefined) return "-";
-  const formattedNumber = num
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const formattedNumber = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return formattedNumber.replace(/\d/g, (digit) => "۰۱۲۳۴۵۶۷۸۹"[digit]);
 };
 
 // ✅ Reusable PriceCard component
-
 
 // ✅ Inline TransactionCard component
 const TransactionCard = ({ title, Icon, items = [], link = "#" }) => (
@@ -52,7 +48,9 @@ const TransactionCard = ({ title, Icon, items = [], link = "#" }) => (
       {items.length === 0 ? (
         <>
           <HiOutlineExclamationCircle className="text-[40px] text-gray-500 mb-2" />
-          <div className="text-sm text-gray-500">لیستی برای نمایش وجود ندارد</div>
+          <div className="text-sm text-gray-500">
+            لیستی برای نمایش وجود ندارد
+          </div>
         </>
       ) : (
         items.map((item, idx) => <div key={idx}>{item}</div>)
@@ -64,8 +62,6 @@ const TransactionCard = ({ title, Icon, items = [], link = "#" }) => (
 // ✅ Main Dashboard Component
 function DashBoard() {
   const [prices, setPrices] = useState([]);
-
- 
 
   return (
     <div className="p-4 mx-auto max-w-[1400px]">
@@ -82,7 +78,14 @@ function DashBoard() {
       {/* ✅ Centered Admin Cards */}
       <div className="flex justify-center mb-6">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 max-w-7xl">
-          <AdminPageCad ImageNum={img1} />
+          <AdminPageCad
+            ImageNum={img1}
+            First=" دارایی‌ها"
+            Second="طلا"
+            Third="0 ریال"
+            Fourth="موجودی کل"
+            Fifth="خرید طلا"
+          />
           <AdminPageCad ImageNum={img2} Icon={GiMoneyStack} />
           <AdminPageCad ImageNum={img3} Icon={FaChartLine} />
           <AdminPageCad ImageNum={img4} Icon={TbBrandDaysCounter} />
@@ -90,16 +93,31 @@ function DashBoard() {
       </div>
 
       {/* ✅ Responsive Price Cards Section */}
-      
 
-<MomentalPrice/>
+      <MomentalPrice />
 
       {/* ✅ Transaction Cards */}
       <div className="rounded-lg mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <TransactionCard title="آخرین خریدها" Icon={LuShoppingBasket} link="/purchases" />
-        <TransactionCard title="آخرین فروش‌ها" Icon={GiMoneyStack} link="/sales" />
-        <TransactionCard title="آخرین واریزها" Icon={PiHandDeposit} link="/deposits" />
-        <TransactionCard title="آخرین برداشت‌ها" Icon={PiHandWithdraw} link="/withdrawals" />
+        <TransactionCard
+          title="آخرین خریدها"
+          Icon={LuShoppingBasket}
+          link="/purchases"
+        />
+        <TransactionCard
+          title="آخرین فروش‌ها"
+          Icon={GiMoneyStack}
+          link="/sales"
+        />
+        <TransactionCard
+          title="آخرین واریزها"
+          Icon={PiHandDeposit}
+          link="/deposits"
+        />
+        <TransactionCard
+          title="آخرین برداشت‌ها"
+          Icon={PiHandWithdraw}
+          link="/withdrawals"
+        />
       </div>
     </div>
   );

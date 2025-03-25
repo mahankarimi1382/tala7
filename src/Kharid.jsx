@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios"; // Importing axios
 import { IoChevronForwardCircleOutline } from "react-icons/io5";
-import { RiShoppingBasketLine } from "react-icons/ri";
 import { AiOutlineTransaction } from "react-icons/ai";
 import SimpleDropdown from "./Components/SimpleDropdown";
 import GoldInput from "./Components/GoldInput";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaRegCreditCard } from "react-icons/fa6";
-import svgImage from "../src/assets/img/buy.svg"
+import { RiShoppingCart2Line } from "react-icons/ri";
+import { Link } from "react-router-dom";
+
+import svgImage from "../src/assets/img/buy.svg";
 
 function Kharid() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -50,8 +52,10 @@ function Kharid() {
   return (
     <div className="p-4">
       <div className="flex items-center gap-2">
-        <IoChevronForwardCircleOutline className="text-4xl text-blue-900" />
-        <RiShoppingBasketLine className="text-4xl text-blue-900" />
+        <Link to="/" target="_blank" rel="noopener noreferrer">
+          <IoChevronForwardCircleOutline className="text-4xl text-blue-900" />
+        </Link>
+        <RiShoppingCart2Line className="text-4xl text-blue-900" />
         <p className="text-xl">خرید</p>
       </div>
 
@@ -60,7 +64,7 @@ function Kharid() {
           href="#"
           className="flex items-center gap-2 text-blue-900 hover:text-white py-2 px-4 shadow-md bg-[#E2F2FD] hover:bg-[#0f4c75] rounded-lg"
         >
-          <RiShoppingBasketLine className="text-2xl" />
+          <RiShoppingCart2Line className="text-2xl" />
           <p>خرید</p>
         </a>
         <a
@@ -93,7 +97,8 @@ function Kharid() {
             }`}
           >
             <SimpleDropdown
-            options={['بازار خرید اول', 'بازار خرید دوم', 'بازار خرید سوم']} defaultLabel="نوع بازار را انتخاب کنید"
+              options={["بازار خرید اول", "بازار خرید دوم", "بازار خرید سوم"]}
+              defaultLabel="نوع بازار را انتخاب کنید"
               className="w-full"
               onToggle={(isOpen) => setIsDropdownOpen(isOpen)}
             />
