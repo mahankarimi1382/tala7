@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios"; // Importing axios
 import { IoChevronForwardCircleOutline } from "react-icons/io5";
-import { RiShoppingBasketLine } from "react-icons/ri";
+// import { RiShoppingBasketLine } from "react-icons/ri";
 import { AiOutlineTransaction } from "react-icons/ai";
 import SimpleDropdown from "./Components/SimpleDropdown";
 import GoldInput from "./Components/GoldInput";
@@ -10,7 +10,6 @@ import { FaRegCreditCard } from "react-icons/fa6";
 import { MdOutlineSell } from "react-icons/md";
 import svgImage from "../src/assets/img/sell.svg";
 import { Link } from "react-router-dom";
-
 
 function Foroosh() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -53,9 +52,10 @@ function Foroosh() {
   return (
     <div className="p-4">
       <div className="flex items-center gap-2">
-      <Link to="/" target="_blank" rel="noopener noreferrer">
+        <Link to="/" target="_blank" rel="noopener noreferrer">
           <IoChevronForwardCircleOutline className="text-4xl text-blue-900" />
-        </Link>        <MdOutlineSell className="text-4xl text-blue-900" />
+        </Link>{" "}
+        <MdOutlineSell className="text-4xl text-blue-900" />
         <p className="text-xl">فروش</p>
       </div>
 
@@ -97,7 +97,12 @@ function Foroosh() {
             }`}
           >
             <SimpleDropdown
-            options={['بازار فروشی اول', 'بازار فروشی دوم', 'بازار فروشی سوم']} defaultLabel="نوع بازار را انتخاب کنید"
+              options={[
+                "بازار فروشی اول",
+                "بازار فروشی دوم",
+                "بازار فروشی سوم",
+              ]}
+              defaultLabel="نوع بازار را انتخاب کنید"
               className="w-full"
               onToggle={(isOpen) => setIsDropdownOpen(isOpen)}
             />

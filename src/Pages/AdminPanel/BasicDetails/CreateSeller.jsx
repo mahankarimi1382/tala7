@@ -180,7 +180,7 @@ function CreateSeller() {
                             {item.seller_code}
                           </h5>
                           <h5 className=" flex justify-center gap-5 items-center w-1/5">
-                            <button className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-red-500 text-white">
+                            <button onClick={()=>console.log(item)} className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-red-500 text-white">
                               حذف از فروشنده
                             </button>
                           </h5>

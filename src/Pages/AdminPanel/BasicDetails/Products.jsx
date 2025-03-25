@@ -11,6 +11,7 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import AddThingsModal from "./AddThingsModal";
+import EditThingsModal from "./EditThingsModal";
 
 function Products() {
   const [subMasterProduct, setSubMasterProduct] = useState([]);
@@ -20,7 +21,9 @@ function Products() {
   const [product_Code, setProduct_Code] = useState("");
   const [typeProduct_SubMasterId, setTypeProduct_SubMasterId] = useState("");
   const [isModal, setIsModal] = useState(false);
-
+  const [isEditModal, setIsEditModal] = useState(false);
+  const [selectedProductID, setSelectedProductID] = useState({});
+  console.log(selectedProductID);
   const data = {
     metadata: {
       userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -82,6 +85,48 @@ function Products() {
           </div>
         </AddThingsModal>
       )}
+      {isEditModal && (
+        <EditThingsModal
+          title="محصولات"
+          submitFn={() => Create_Product(data, setIsModal)}
+          closeModal={() => setIsEditModal(false)}
+        >
+          <input
+            value={product_Name}
+            onChange={(e) => setProduct_Name(e.target.value)}
+            className=" w-full p-3 outline-none border rounded"
+            placeholder="عنوان محصول"
+          />
+          <input
+            value={product_Description}
+            onChange={(e) => setProduct_Description(e.target.value)}
+            className=" w-full p-3 outline-none border rounded"
+            placeholder="توضیحات"
+          />
+          <input
+            value={product_Code}
+            onChange={(e) => setProduct_Code(e.target.value)}
+            className=" w-full p-3 outline-none border rounded"
+            placeholder="کد محصول"
+          />
+          <div className=" flex items-center w-full gap-2">
+            <h5>تخصیص به زیرگروه:</h5>
+            <select
+              value={typeProduct_SubMasterId}
+              onChange={(e) => setTypeProduct_SubMasterId(e.target.value)}
+              className=" border"
+            >
+              {subMasterProduct.map((item) => {
+                return (
+                  <option key={item.id} value={item.id}>
+                    {item.nameTypeProduct_SubMaster}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        </EditThingsModal>
+      )}
       <div className=" w-5/6 flex p-5 justify-center h-screen">
         <div className=" w-full rounded p-2 bg-white shadow-xl h-full flex flex-col">
           <div className=" w-full flex flex-col gap-5 items-start">
@@ -130,7 +175,20 @@ function Products() {
                           {item.product_Code}
                         </h5>
                         <h5 className=" flex justify-center gap-5 items-center w-1/5">
-                          <FaEdit className=" text-xl text-teal-600 hover:text-green-600" />
+                          <FaEdit
+                            onClick={() => {
+                              console.log(item)
+                              setSelectedProductID(item.id)
+                              setProduct_Name(item.product_Name);
+                              setProduct_Description(item.product_Description);
+                              setProduct_Code(item.product_Code);
+                              setTypeProduct_SubMasterId(
+                                item.typeProduct_SubMasterId
+                              );
+                              setIsEditModal(true);
+                            }}
+                            className=" text-xl text-teal-600 hover:text-green-600"
+                          />
                           <MdDeleteForever className=" text-teal-600 text-xl hover:text-red-600" />
                           <MdOutlineRemoveRedEye className=" text-teal-600 text-xl hover:text-blue-500" />
                         </h5>
