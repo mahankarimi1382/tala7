@@ -264,6 +264,7 @@ export const Create_DocStore = (data, setIsModal) => {
   axios
     .post("http://tala7.com:44/api/DocStore/Create_DocStore", data)
     .then((res) => {
+      success("محصول به گاوصندوق افزوده شد");
       setIsModal(false);
       console.log(res);
     })
@@ -284,7 +285,7 @@ export const Edit_TypeProduct_Master = (data, setIsEditingModal, id) => {
     });
 };
 
-export const EnterVitrin_DocStore = (id) => {
+export const EnterVitrin_DocStore = (id, setDocStore) => {
   axios
     .post(`http://tala7.com:44/api/DocStore/EnterVitrin_DocStore`, {
       metadata: {
@@ -298,6 +299,7 @@ export const EnterVitrin_DocStore = (id) => {
     .then((res) => {
       success("محصول به ویترین افزوده شد");
       console.log(res);
+      Get_Products_InStore(setDocStore, 1);
     })
     .catch((err) => {
       console.log(err);

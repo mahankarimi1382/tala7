@@ -88,7 +88,7 @@ function AddToVitrin() {
                           </h5>
                           <h5 className=" flex justify-center gap-5 items-center w-1/5">
                             <button
-                              onClick={() => EnterVitrin_DocStore(item.id)}
+                              onClick={() => EnterVitrin_DocStore(item.id,setDocStore)}
                               className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-teal-500 text-white"
                             >
                               افزودن به ویترین

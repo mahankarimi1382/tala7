@@ -60,7 +60,7 @@ function AddToSafeBox() {
     Get_Products_InStore(setInVitrin, currentPage);
 
     Get_All_Product(setProducts);
-  }, [currentPage,isVitrin]);
+  }, [currentPage, isVitrin]);
   const numbersTo20 = [];
   for (let i = 1; i <= 20; i += 0.5) {
     numbersTo20.push(i);
@@ -102,10 +102,10 @@ function AddToSafeBox() {
     freeShipment,
     specialSale,
     specialSaleDate,
-    product_Size,
-    gold_Color,
-    gold_Model,
-    gold_Made,
+    product_Size: Number(product_Size),
+    gold_Color: Number(gold_Color),
+    gold_Model: Number(gold_Model),
+    gold_Made: Number(gold_Made),
     isInstallment,
     desc,
     placeStatus,
@@ -127,34 +127,42 @@ function AddToSafeBox() {
           submitFn={() => {
             if (!sellerProfileId) {
               Eror("انتخاب فروشنده الزامیست");
-            }else if(!logoImage2&&!logoImage1){
-              Eror("وارد کردن عکس های محصول الزامیست")
+            } else if (!logoImage2 && !logoImage1) {
+              Eror("وارد کردن عکس های محصول الزامیست");
             } else {
               Create_DocStore(data, setIsModal);
             }
           }}
         >
           <div className=" h-[290px] flex flex-col w-full gap-2 overflow-auto">
+            <h2>وزن طلا به گرم:</h2>
             <input
               className=" w-full p-3 outline-none border rounded"
               placeholder="وزن طلا به گرم"
               onChange={(e) => setWieght_Gold(e.target.value)}
             />
+            <h2>وزن سنگ به گرم:</h2>
+
             <input
               className=" w-full p-3 outline-none border rounded"
               placeholder="وزن سنگ به گرم"
               onChange={(e) => setWieght_Stone(e.target.value)}
             />
+            <h2>قیمت فروش سنگ:</h2>
+
             <input
               className=" w-full p-3 outline-none border rounded"
               placeholder="قیمت فروش سنگ"
               onChange={(e) => setStone_Sale_Price(e.target.value)}
             />
+            <h2>سهم فروشنده از سنگ:</h2>
+
             <input
               className=" w-full p-3 outline-none border rounded"
               placeholder="سهم فروشنده از سنگ"
               onChange={(e) => setStone_Sale_Bonakdar_price(e.target.value)}
             />
+            <h2>انتخاب فروشنده:</h2>
 
             <select
               onChange={(e) => {
@@ -180,6 +188,7 @@ function AddToSafeBox() {
                 );
               })}
             </select>
+            <h2>نرخ کارمرزد:</h2>
 
             <select
               className=" w-full p-3 outline-none border rounded"
@@ -190,6 +199,7 @@ function AddToSafeBox() {
                 return <option key={item.id}>{item}</option>;
               })}
             </select>
+            <h2>نرخ کارمرزد فزوشنده:</h2>
 
             <select
               value={wage_Bonakdar_Percent}
@@ -201,6 +211,8 @@ function AddToSafeBox() {
                 return <option key={item.id}>{item}</option>;
               })}
             </select>
+            <h2>نرخ سود:</h2>
+
             <select
               className=" w-full p-3 outline-none border rounded"
               onChange={(e) => setBenefit_Percent(e.target.value)}
@@ -210,12 +222,15 @@ function AddToSafeBox() {
                 return <option key={item.id}>{item}</option>;
               })}
             </select>
+            <h2>درصد تخفیف:</h2>
 
             <input
               onChange={(e) => setDiscount_Benefit_Percent(e.target.value)}
               className=" w-full p-3 outline-none border rounded"
               placeholder="درصد تخفیف"
             />
+            <h2>سایز محصول:</h2>
+
             <select
               onChange={(e) => setProduct_Size(e.target.value)}
               className=" w-full p-3 outline-none border rounded"
@@ -226,6 +241,8 @@ function AddToSafeBox() {
               <option value={3}>large</option>
               <option value={4}>free size</option>
             </select>
+            <h2>رنگ طلا:</h2>
+
             <select
               onChange={(e) => setGold_Color(e.target.value)}
               className=" w-full p-3 outline-none border rounded"
@@ -236,6 +253,8 @@ function AddToSafeBox() {
               <option value={3}>رزگلد</option>
               <option value={4}>شامپاینی</option>
             </select>
+            <h2>مدل طلا:</h2>
+
             <select
               onChange={(e) => setGold_Model(e.target.value)}
               className=" w-full p-3 outline-none border rounded"
@@ -249,6 +268,8 @@ function AddToSafeBox() {
               <option value={1}>کلاسیک</option>
               <option value={2}>اسپرت</option>
             </select>
+            <h2>کشور سازنده:</h2>
+
             <select
               onChange={(e) => setGold_Made(e.target.value)}
               className=" w-full p-3 outline-none border rounded"
@@ -316,6 +337,7 @@ function AddToSafeBox() {
               setImage={setLogoImage2}
               title="عکس دوم"
             />
+            <h2>توضیحات:</h2>
 
             <input
               onChange={(e) => setDesc(e.target.value)}
@@ -404,8 +426,8 @@ function AddToSafeBox() {
                               onClick={() => {
                                 setProductId(item.id);
                                 setIsModal(true);
-                                setLogoImage1("")
-                                setLogoImage2("")
+                                setLogoImage1("");
+                                setLogoImage2("");
                               }}
                               className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-teal-500 text-white"
                             >
