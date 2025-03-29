@@ -147,31 +147,39 @@ export const Create_Product = (data, setIsModal) => {
       console.log(err);
     });
 };
-export const Get_Products_InVitrin = async () => {
-  try {
-    const response = await axios.get(
-      "http://tala7.com:44/api/DocStore/Get_Products_InVitrin"
-    );
-    const vitrin = response.data;
-    console.log(vitrin);
-    return vitrin;
-  } catch (error) {
-    console.error("Error fetching specialties:", error);
-    return null;
-  }
-};
-export const Get_Products_InStore = async () => {
-  try {
-    const response = await axios.get(
-      "http://tala7.com:44/api/DocStore/Get_Products_InStore"
-    );
-    const SafeBox = response.data;
-    console.log(SafeBox);
-    return SafeBox;
-  } catch (error) {
-    console.error("Error fetching specialties:", error);
-    return null;
-  }
+
+// export const Get_Products_InStore = async () => {
+//   try {
+//     const response = await axios.get(
+//       "http://tala7.com:44/api/DocStore/Get_Products_In_Safebox"
+//     );
+//     const SafeBox = response.data;
+//     console.log(SafeBox);
+//     return SafeBox;
+//   } catch (error) {
+//     console.error("Error fetching specialties:", error);
+//     return null;
+//   }
+// };
+
+export const Get_Products_InStore = (setInVitrin, currentPage) => {
+  axios
+    .post("http://tala7.com:44/api/DocStore/Get_Products_In_Safebox", {
+      metadata: {
+        userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        userName: "string",
+        userNameforC: "string",
+      },
+      pagenumber: currentPage,
+      pagesize: 30,
+    })
+    .then((res) => {
+      setInVitrin(res.data.response_List);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 export const Get_All_News = (setNews) => {
@@ -220,7 +228,7 @@ export const Get_All_Users = async () => {
   }
 };
 export const Create_Seller = (data, setIsModal) => {
-  console.log(data)
+  console.log(data);
   axios
     .post("http://tala7.com:44/api/Seller/CreateSeller", data)
     .then((res) => {
@@ -252,11 +260,83 @@ export const Get_All_Sellers = (setSellers) => {
 };
 
 export const Create_DocStore = (data, setIsModal) => {
-  console.log(data)
+  console.log(data);
   axios
     .post("http://tala7.com:44/api/DocStore/Create_DocStore", data)
     .then((res) => {
       setIsModal(false);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+export const Edit_TypeProduct_Master = (data, setIsEditingModal, id) => {
+  console.log(data);
+  axios
+    .post(`http://tala7.com:44/api/Product/Edit_TypeProduct_Master/${id}`, data)
+    .then((res) => {
+      setIsEditingModal(false);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const EnterVitrin_DocStore = (id) => {
+  axios
+    .post(`http://tala7.com:44/api/DocStore/EnterVitrin_DocStore`, {
+      metadata: {
+        userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        userName: "string",
+        userNameforC: "string",
+      },
+      id,
+      dateOfVitrin: "2025-03-28",
+    })
+    .then((res) => {
+      success("محصول به ویترین افزوده شد");
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+export const Get_Products_InVitrin = (setInVitrin, currentPage) => {
+  axios
+    .post(`http://tala7.com:44/api/DocStore/Get_Products_InVitrin`, {
+      metadata: {
+        userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        userName: "string",
+        userNameforC: "string",
+      },
+      pagenumber: currentPage,
+      pagesize: 10,
+    })
+    .then((res) => {
+      setInVitrin(res.data.response_List);
+
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+export const Get_Products_Show_InVitrin = (setVitrinShow, currentPage) => {
+  axios
+    .post(`http://tala7.com:44/api/DocStore/Get_Products_Show_InVitrin`, {
+      metadata: {
+        userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        userName: "string",
+        userNameforC: "string",
+      },
+      pagenumber: currentPage,
+      pagesize: 100,
+    })
+    .then((res) => {
+      setVitrinShow(res.data.response_List);
+
       console.log(res);
     })
     .catch((err) => {

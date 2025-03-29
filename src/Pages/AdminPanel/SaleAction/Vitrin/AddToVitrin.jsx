@@ -2,29 +2,32 @@ import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
 import {
-  Get_All_Product,
+  EnterVitrin_DocStore,
+  Get_Products_InStore,
   Get_Products_InVitrin,
 } from "../../../../apicalling/ApiCalling";
 
 import AdminMenu from "../../AdminMenu";
+import { Pagination } from "@mui/material";
 
 function AddToVitrin() {
-  const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const [docStore, setDocStore] = useState([]);
   const [inVitrin, setInVitrin] = useState([]);
   console.log(inVitrin);
   const [isVitrin, setIsVitrin] = useState(false);
-  const fetchData = async () => {
-    const data = await Get_Products_InVitrin();
-    if (data) {
-      setInVitrin(data);
-    }
-  };
-  console.log(products);
-  useEffect(() => {
-    fetchData();
 
-    Get_All_Product(setProducts);
-  }, []);
+  useEffect(() => {
+    Get_Products_InVitrin(setInVitrin, currentPage);
+    Get_Products_InStore(setDocStore, currentPage);
+  }, [currentPage,isVitrin]);
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+    console.log("Selected Page:", value);
+  };
+
   return (
     <div className=" w-full h-screen flex items-center">
       <AdminMenu />
@@ -36,7 +39,7 @@ function AddToVitrin() {
               onClick={() => setIsVitrin(false)}
               className={!isVitrin && "border-b-2 border-teal-500"}
             >
-              محصولات
+              موجودی گاوصندوق
             </button>
             <button
               onClick={() => setIsVitrin(true)}
@@ -59,33 +62,35 @@ function AddToVitrin() {
                 </label>
               </div>
               <div className=" w-full flex justify-center items-center">
-                <div className=" border w-[90%] flex flex-col">
+                <div className=" border gap-2 w-[90%] flex flex-col">
                   <div className=" py-4 w-full bg-teal-900 text-white flex items-center justify-start">
                     <h5 className=" text-center w-1/5">عنوان محصول</h5>
-                    <h5 className=" text-center w-1/5">فروشنده</h5>
-                    <h5 className=" text-center w-1/5">دسته بندی</h5>
+                    <h5 className=" text-center w-2/5">توضیحات</h5>
                     <h5 className=" text-center w-1/5">کد محصول</h5>
                     <h5 className=" text-center w-1/5">عملیات</h5>
                   </div>
-                  <div className="  w-full flex items-center flex-col">
-                    {products.map((item) => {
+                  <div className="  h-[400px] overflow-auto  w-full flex items-center flex-col">
+                    {docStore.map((item) => {
                       return (
                         <div
                           key={item.id}
                           className="w-full border-b last:border-b-0 py-2 bg-white  flex items-center justify-start"
                         >
                           <h5 className=" text-center w-1/5">
-                            {item.product_Name}
+                            {item.productName}
                           </h5>
-                          <h5 className=" text-center w-1/5"></h5>
-                          <h5 className=" text-center w-1/5">
-                            {item.typeProduct_SubMaster_name}
+                          <h5 className=" text-center w-2/5">
+                            {/* {item.product_Description} */}
                           </h5>
+
                           <h5 className=" text-center w-1/5">
-                            {item.product_Code}
+                            {/* {item.product.product_Code} */}
                           </h5>
                           <h5 className=" flex justify-center gap-5 items-center w-1/5">
-                            <button className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-teal-500 text-white">
+                            <button
+                              onClick={() => EnterVitrin_DocStore(item.id)}
+                              className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-teal-500 text-white"
+                            >
                               افزودن به ویترین
                               <FaPlus className=" text-white text-xl" />
                             </button>
@@ -93,6 +98,14 @@ function AddToVitrin() {
                         </div>
                       );
                     })}
+                  </div>
+                  <div className=" justify-center flex items-center" dir="ltr">
+                    <Pagination
+                      onChange={handlePageChange}
+                      page={currentPage}
+                      count={10}
+                      color="primary"
+                    />
                   </div>
                 </div>
               </div>
@@ -118,7 +131,7 @@ function AddToVitrin() {
                     <h5 className=" text-center w-1/5">کد محصول</h5>
                     <h5 className=" text-center w-1/5">عملیات</h5>
                   </div>
-                  <div className="  w-full flex items-center flex-col">
+                  <div className=" h-[450px] overflow-auto  w-full flex items-center flex-col">
                     {inVitrin.map((item) => {
                       return (
                         <div
@@ -126,14 +139,14 @@ function AddToVitrin() {
                           className="w-full border-b last:border-b-0 py-2 bg-white  flex items-center justify-start"
                         >
                           <h5 className=" text-center w-1/5">
-                            {item.product.product_Name}
+                            {item.productName}
                           </h5>
                           <h5 className=" text-center w-2/5">
-                            {item.product.product_Description}
+                            {/* {item.product.product_Description} */}
                           </h5>
 
                           <h5 className=" text-center w-1/5">
-                            {item.product.product_Code}
+                            {/* {item.product.product_Code} */}
                           </h5>
                           <h5 className=" flex justify-center gap-5 items-center w-1/5">
                             <button className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-red-500 text-white">

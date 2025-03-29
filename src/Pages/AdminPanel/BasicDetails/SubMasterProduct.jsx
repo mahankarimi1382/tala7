@@ -11,6 +11,8 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import AddThingsModal from "./AddThingsModal";
+import EditThingsModal from "./EditThingsModal";
+import DeletingModal from "./DeletingModal";
 
 function SubMasterProduct() {
   const [subMasterProduct, setSubMasterProduct] = useState([]);
@@ -22,6 +24,10 @@ function SubMasterProduct() {
   const [typeProductCode_SubMaster, setTypeProductCode_SubMaster] =
     useState("");
   const [typeProduct_MasterId, setTypeProduct_MasterId] = useState("");
+  const [isEditingModal, setIsEsitingModal] = useState(false);
+  const [selectedId, setSelectedId] = useState(0);
+
+  const [isDeletingModal, setIsDeletingModal] = useState(false);
   const data = {
     metadata: {
       userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -75,6 +81,48 @@ function SubMasterProduct() {
           </div>
         </AddThingsModal>
       )}
+      {isEditingModal && (
+        <EditThingsModal
+          title="ویرایش زیرگروه"
+          submitFn={() => Create_TypeProduct_SubMaster(data, setIsModal)}
+          closeModal={() => setIsEsitingModal(false)}
+        >
+          <input
+            value={nameTypeProduct_SubMaster}
+            onChange={(e) => setNameTypeProduct_SubMaster(e.target.value)}
+            className=" w-full p-3 outline-none border rounded"
+            placeholder="عنوان زیرگروه"
+          />
+          <input
+            value={typeProductCode_SubMaster}
+            onChange={(e) => setTypeProductCode_SubMaster(e.target.value)}
+            className=" w-full p-3 outline-none border rounded"
+            placeholder="کد"
+          />
+          <div className=" flex items-center w-full gap-2">
+            <h5>تخصیص به سرگروه:</h5>
+            <select
+              value={typeProduct_MasterId}
+              onChange={(e) => setTypeProduct_MasterId(e.target.value)}
+              className=" border"
+            >
+              {masterProduct.map((item) => {
+                return (
+                  <option key={item.id} value={item.id}>
+                    {item.nameTypeProduct_Master}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        </EditThingsModal>
+      )}
+      {isDeletingModal && (
+        <DeletingModal
+          title={nameTypeProduct_SubMaster}
+          closeModal={() => setIsDeletingModal(false)}
+        />
+      )}
       <div className=" w-5/6 flex p-5 justify-center h-screen">
         <div className=" w-full rounded p-2 bg-white shadow-xl h-full flex flex-col">
           <div className=" w-full flex flex-col gap-5 items-start">
@@ -122,9 +170,32 @@ function SubMasterProduct() {
                           {item.typeProductCode_SubMaster}
                         </h5>
                         <h5 className=" flex justify-center gap-5 items-center w-1/4">
-                          <FaEdit className=" text-xl text-teal-600 hover:text-green-600" />
-                          <MdDeleteForever className=" text-teal-600 text-xl hover:text-red-600" />
-                          <MdOutlineRemoveRedEye className=" text-teal-600 text-xl hover:text-blue-500" />
+                          <FaEdit
+                            onClick={() => {
+                              setTypeProductCode_SubMaster(
+                                item.typeProductCode_SubMaster
+                              );
+                              setNameTypeProduct_SubMaster(
+                                item.nameTypeProduct_SubMaster
+                              );
+                              setTypeProduct_MasterId(
+                                item.typeProduct_MasterId
+                              );
+                              setSelectedId(item.id);
+                              setIsEsitingModal(true);
+                            }}
+                            className=" text-xl text-teal-600 hover:text-green-600"
+                          />
+                          <MdDeleteForever
+                            onClick={() => {
+                              setIsDeletingModal(true);
+                              setNameTypeProduct_SubMaster(
+                                item.nameTypeProduct_SubMaster
+                              );
+                            }}
+                            className=" text-teal-600 text-xl hover:text-red-600"
+                          />
+                          {/* <MdOutlineRemoveRedEye className=" text-teal-600 text-xl hover:text-blue-500" /> */}
                         </h5>
                       </div>
                     );

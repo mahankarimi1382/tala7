@@ -12,6 +12,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import AddThingsModal from "./AddThingsModal";
 import EditThingsModal from "./EditThingsModal";
+import DeletingModal from "./DeletingModal";
 
 function Products() {
   const [subMasterProduct, setSubMasterProduct] = useState([]);
@@ -23,6 +24,8 @@ function Products() {
   const [isModal, setIsModal] = useState(false);
   const [isEditModal, setIsEditModal] = useState(false);
   const [selectedProductID, setSelectedProductID] = useState({});
+  const [isDeletingModal, setIsDeletingModal] = useState(false);
+
   console.log(selectedProductID);
   const data = {
     metadata: {
@@ -74,6 +77,8 @@ function Products() {
               onChange={(e) => setTypeProduct_SubMasterId(e.target.value)}
               className=" border"
             >
+              <option></option>
+
               {subMasterProduct.map((item) => {
                 return (
                   <option key={item.id} value={item.id}>
@@ -116,6 +121,7 @@ function Products() {
               onChange={(e) => setTypeProduct_SubMasterId(e.target.value)}
               className=" border"
             >
+              <option></option>
               {subMasterProduct.map((item) => {
                 return (
                   <option key={item.id} value={item.id}>
@@ -126,6 +132,12 @@ function Products() {
             </select>
           </div>
         </EditThingsModal>
+      )}
+      {isDeletingModal && (
+        <DeletingModal
+          title={product_Name}
+          closeModal={() => setIsDeletingModal(false)}
+        />
       )}
       <div className=" w-5/6 flex p-5 justify-center h-screen">
         <div className=" w-full rounded p-2 bg-white shadow-xl h-full flex flex-col">
@@ -177,8 +189,8 @@ function Products() {
                         <h5 className=" flex justify-center gap-5 items-center w-1/5">
                           <FaEdit
                             onClick={() => {
-                              console.log(item)
-                              setSelectedProductID(item.id)
+                              console.log(item);
+                              setSelectedProductID(item.id);
                               setProduct_Name(item.product_Name);
                               setProduct_Description(item.product_Description);
                               setProduct_Code(item.product_Code);
@@ -189,8 +201,14 @@ function Products() {
                             }}
                             className=" text-xl text-teal-600 hover:text-green-600"
                           />
-                          <MdDeleteForever className=" text-teal-600 text-xl hover:text-red-600" />
-                          <MdOutlineRemoveRedEye className=" text-teal-600 text-xl hover:text-blue-500" />
+                          <MdDeleteForever
+                            onClick={() => {
+                              setIsDeletingModal(true);
+                              setProduct_Name(item.product_Name);
+                            }}
+                            className=" text-teal-600 text-xl hover:text-red-600"
+                          />
+                          {/* <MdOutlineRemoveRedEye className=" text-teal-600 text-xl hover:text-blue-500" /> */}
                         </h5>
                       </div>
                     );

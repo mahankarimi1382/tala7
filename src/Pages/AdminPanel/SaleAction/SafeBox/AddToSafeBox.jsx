@@ -11,8 +11,12 @@ import {
 import AdminMenu from "../../AdminMenu";
 import AddThingsModal from "../../BasicDetails/AddThingsModal";
 import { Pagination } from "@mui/material";
+import Base64Uploader from "../../../../Components/utils/Base64Uploader";
+import { Eror } from "../../../../Components/ToastAlerts";
 
 function AddToSafeBox() {
+  const [logoImage1, setLogoImage1] = useState("");
+  const [logoImage2, setLogoImage2] = useState("");
   const [productId, setProductId] = useState(0);
   const [wieght_Gold, setWieght_Gold] = useState(0);
   const [wieght_Stone, setWieght_Stone] = useState(0);
@@ -50,19 +54,13 @@ function AddToSafeBox() {
   console.log(sellers);
   console.log(inVitrin);
   const [isVitrin, setIsVitrin] = useState(false);
-  const fetchData = async () => {
-    const data = await Get_Products_InStore();
-    if (data) {
-      setInVitrin(data);
-    }
-  };
   console.log(products);
   useEffect(() => {
-    fetchData();
     Get_All_Sellers(setSellers);
+    Get_Products_InStore(setInVitrin, currentPage);
 
     Get_All_Product(setProducts);
-  }, []);
+  }, [currentPage,isVitrin]);
   const numbersTo20 = [];
   for (let i = 1; i <= 20; i += 0.5) {
     numbersTo20.push(i);
@@ -79,12 +77,14 @@ function AddToSafeBox() {
     setCurrentPage(value);
     console.log("Selected Page:", value);
   };
+
   const data = {
     metadata: {
       userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
       userName: "string",
       userNameforC: "string",
     },
+
     productId,
     wieght_Gold,
     wieght_Stone,
@@ -102,17 +102,20 @@ function AddToSafeBox() {
     freeShipment,
     specialSale,
     specialSaleDate,
-    product_Size: Number(product_Size),
-    gold_Color: Number(gold_Color),
-    gold_Model: Number(gold_Model),
-    gold_Made: Number(gold_Made),
+    product_Size,
+    gold_Color,
+    gold_Model,
+    gold_Made,
     isInstallment,
     desc,
     placeStatus,
-    pic1,
-    pic2,
-    pic3,
+    logoImage1,
+    logoImage2,
+    ufcr: {
+      idList: ["3fa85f64-5717-4562-b3fc-2c963f66afa6"],
+    },
   };
+
   return (
     <div className=" w-full min-h-screen flex items-center">
       <AdminMenu />
@@ -121,7 +124,15 @@ function AddToSafeBox() {
           // submitFn={() => Create_Seller(data, setIsModal)}
           title="به گاوصندوق"
           closeModal={() => setIsModal(false)}
-          submitFn={() => Create_DocStore(data, setIsModal)}
+          submitFn={() => {
+            if (!sellerProfileId) {
+              Eror("انتخاب فروشنده الزامیست");
+            }else if(!logoImage2&&!logoImage1){
+              Eror("وارد کردن عکس های محصول الزامیست")
+            } else {
+              Create_DocStore(data, setIsModal);
+            }
+          }}
         >
           <div className=" h-[290px] flex flex-col w-full gap-2 overflow-auto">
             <input
@@ -295,12 +306,24 @@ function AddToSafeBox() {
                 ارسال رایگان
               </label>
             </div>
+            <Base64Uploader
+              image={logoImage1}
+              setImage={setLogoImage1}
+              title="عکس اول"
+            />
+            <Base64Uploader
+              image={logoImage2}
+              setImage={setLogoImage2}
+              title="عکس دوم"
+            />
+
             <input
               onChange={(e) => setDesc(e.target.value)}
               className=" w-full p-3 outline-none border rounded"
               placeholder="توضیحات"
             />
           </div>
+
           {/* <div className=" flex items-center w-full gap-2">
             <h5>درصد سود:</h5>
             <select
@@ -381,6 +404,8 @@ function AddToSafeBox() {
                               onClick={() => {
                                 setProductId(item.id);
                                 setIsModal(true);
+                                setLogoImage1("")
+                                setLogoImage2("")
                               }}
                               className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-teal-500 text-white"
                             >
@@ -409,14 +434,14 @@ function AddToSafeBox() {
                 </label>
               </div>
               <div className=" w-full flex justify-center items-center">
-                <div className=" border w-[90%] flex flex-col">
+                <div className=" border gap-2 w-[90%] flex flex-col">
                   <div className=" py-4 w-full bg-teal-900 text-white flex items-center justify-start">
                     <h5 className=" text-center w-1/5">عنوان محصول</h5>
                     <h5 className=" text-center w-2/5">توضیحات</h5>
                     <h5 className=" text-center w-1/5">کد محصول</h5>
                     <h5 className=" text-center w-1/5">عملیات</h5>
                   </div>
-                  <div className="  w-full flex items-center flex-col">
+                  <div className="  h-[400px] overflow-auto  w-full flex items-center flex-col">
                     {inVitrin.map((item) => {
                       return (
                         <div
@@ -424,14 +449,14 @@ function AddToSafeBox() {
                           className="w-full border-b last:border-b-0 py-2 bg-white  flex items-center justify-start"
                         >
                           <h5 className=" text-center w-1/5">
-                            {item.product.product_Name}
+                            {item.productName}
                           </h5>
                           <h5 className=" text-center w-2/5">
-                            {item.product.product_Description}
+                            {/* {item.product_Description} */}
                           </h5>
 
                           <h5 className=" text-center w-1/5">
-                            {item.product.product_Code}
+                            {/* {item.product.product_Code} */}
                           </h5>
                           <h5 className=" flex justify-center gap-5 items-center w-1/5">
                             <button className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-red-500 text-white">
