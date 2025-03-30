@@ -13,6 +13,9 @@ export const signup = (data) => {
       console.log(err);
     });
 };
+
+
+
 export const fetchNews = async (setLoading, setError, apiUrl, setNewsItems) => {
   setLoading(true);
   setError(null);
@@ -33,6 +36,9 @@ export const fetchNews = async (setLoading, setError, apiUrl, setNewsItems) => {
     setLoading(false);
   }
 };
+
+
+
 export const signin = (data, setToken) => {
   console.log(data);
   axios
@@ -54,6 +60,10 @@ export const signin = (data, setToken) => {
       console.log(err);
     });
 };
+
+
+
+
 export const Get_All_Product = (setProducts) => {
   axios
     .post("http://tala7.com:44/api/Product/Get_All_Product", {
@@ -73,6 +83,9 @@ export const Get_All_Product = (setProducts) => {
       console.log(err);
     });
 };
+
+
+
 export const Get_All_MasterProduct = (setMasterProduct) => {
   axios
     .post("http://tala7.com:44/api/Product/Get_All_TypeMasterProduct", {
@@ -92,6 +105,9 @@ export const Get_All_MasterProduct = (setMasterProduct) => {
       console.log(err);
     });
 };
+
+
+
 export const Get_All_SubMasterProduct = (setSubMasterProduct) => {
   axios
     .post("http://tala7.com:44/api/Product/Get_All_TypeSubMasterProduct", {
@@ -111,6 +127,9 @@ export const Get_All_SubMasterProduct = (setSubMasterProduct) => {
       console.log(err);
     });
 };
+
+
+
 export const Create_TypeProduct_Master = (data, setIsModal) => {
   console.log(data);
   axios
@@ -123,6 +142,9 @@ export const Create_TypeProduct_Master = (data, setIsModal) => {
       console.log(err);
     });
 };
+
+
+
 export const Create_TypeProduct_SubMaster = (data, setIsModal) => {
   console.log(data);
   axios
@@ -135,6 +157,9 @@ export const Create_TypeProduct_SubMaster = (data, setIsModal) => {
       console.log(err);
     });
 };
+
+
+
 export const Create_Product = (data, setIsModal) => {
   console.log(data);
   axios
@@ -214,6 +239,8 @@ export const CreateNews = (data, setIsModal) => {
       console.log(err);
     });
 };
+
+
 export const Get_All_Users = async () => {
   try {
     const response = await axios.get(
@@ -227,6 +254,8 @@ export const Get_All_Users = async () => {
     return null;
   }
 };
+
+
 export const Create_Seller = (data, setIsModal) => {
   console.log(data);
   axios
@@ -239,6 +268,9 @@ export const Create_Seller = (data, setIsModal) => {
       console.log(err);
     });
 };
+
+
+
 export const Get_All_Sellers = (setSellers) => {
   axios
     .post("http://tala7.com:44/api/Seller/Get_All_Sellers", {
@@ -272,6 +304,8 @@ export const Create_DocStore = (data, setIsModal) => {
       console.log(err);
     });
 };
+
+
 export const Edit_TypeProduct_Master = (data, setIsEditingModal, id) => {
   console.log(data);
   axios
@@ -305,6 +339,8 @@ export const EnterVitrin_DocStore = (id, setDocStore) => {
       console.log(err);
     });
 };
+
+
 export const Get_Products_InVitrin = (setInVitrin, currentPage) => {
   axios
     .post(`http://tala7.com:44/api/DocStore/Get_Products_InVitrin`, {
@@ -344,4 +380,10 @@ export const Get_Products_Show_InVitrin = (setVitrinShow, currentPage) => {
     .catch((err) => {
       console.log(err);
     });
+
+
+
+
+
+    
 };

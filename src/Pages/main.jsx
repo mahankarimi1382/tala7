@@ -21,6 +21,7 @@ import WalletToman from "./AdminPanel/Wallet/WalletToman.jsx";
 import Rate from "./AdminPanel/rate/rate.jsx";
 import Setting from "./AdminPanel/setting/Setting.jsx";
 import AllProducts from "../AllProducts.jsx";
+import ShoppingCartPage from "./AdminPanel/BasicDetails/ShoppingCartPage.jsx";
 
 
 createRoot(document.getElementById("root")).render(
@@ -32,6 +33,8 @@ createRoot(document.getElementById("root")).render(
         <Route path="/search-product" element={<AnotherPage />} />
         <Route path="/hover-product-page" element={<HoverPage />} />
         <Route path="/testpage" element={<Mytester />} />
+        <Route path="/ShoppingCart" element={<ShoppingCartPage />} />
+        
         <Route
           path="/AdminPannel/basic-details/products"
           element={<Products />}
@@ -56,8 +59,10 @@ createRoot(document.getElementById("root")).render(
           path="/AdminPannel/sale-action/safe-box"
           element={<AddToSafeBox />}
         />
-        <Route path="/AdminPannel/wallet/tooman" element={<WalletToman />} />
         <Route path="/AdminPannel/wallet/gold" element={<WalletToman />} />
+        <Route path="/AdminPannel/wallet/tooman" element={<WalletToman />} />
+        <Route path="/AdminPannel/wallet/Aghsat" element={<WalletToman />} />
+
         <Route path="/AdminPannel/rate" element={<Rate />} />
         <Route path="/AdminPannel/setting" element={<Setting />} />
 

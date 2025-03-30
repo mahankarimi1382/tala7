@@ -118,13 +118,19 @@ function AdminMenu() {
               className="p-2 cursor-pointer hover:bg-gray-100"
               onClick={() => {}}
             >
-              کیف پول طلا
+              شارژ کیف پول طلا
             </Link>
             <Link
               to="/AdminPannel/wallet/tooman"
               className="p-2 cursor-pointer hover:bg-gray-100"
             >
-              کیف پول تومان
+              شارژ کیف پول تومان{" "}
+            </Link>
+            <Link
+              to="/AdminPannel/wallet/Aghsat"
+              className="p-2 cursor-pointer hover:bg-gray-100"
+            >
+              شارژ کیف پول اقساط
             </Link>
           </ul>
         )}

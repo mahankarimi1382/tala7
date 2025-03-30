@@ -47,38 +47,23 @@ function WalletToman() {
       {isModal && (
         <AddThingsModal
           submitFn={() => Create_Seller(data, setIsModal)}
-          title="فروشنده"
+          title="شارژ تومان"
           closeModal={() => setIsModal(false)}
         >
           <input
             onChange={(e) => setAddress(e.target.value)}
             className=" w-full p-3 outline-none border rounded"
-            placeholder="آدرس"
+            placeholder="مبلغ"
           />
-          <div className=" flex items-center w-full gap-2">
-            <h5>درصد سود:</h5>
-            <select
-              onChange={(e) => setShare_Benefit_Percent(e.target.value)}
-              className=" border"
-            >
-              <option value="1">1%</option>
-              <option value="1.5">1.5%</option>
-              <option value="2">2%</option>
-              <option value="2.5">2.5%</option>
-              <option value="3">3%</option>
-
-              <option value="3.5">3.5%</option>
-              <option value="4">4%</option>
-              <option value="4.5">4.5%</option>
-              <option value="5">5%</option>
-            </select>
-          </div>
+        
         </AddThingsModal>
       )}
       <div className=" w-5/6 flex p-5 justify-center h-screen">
         <div className=" w-full rounded p-2 bg-white shadow-xl h-full flex flex-col">
           <div className=" w-full flex flex-col gap-5 items-start">
-            <h5 className=" text-xl font-semibold">کیف پول</h5>
+            <h5 className=" text-xl font-semibold">
+              کیف پول تومان
+              </h5>
             <div className=" flex items-center w-full justify-start gap-5">
               <label className=" w-1/5 px-2 p-2 border rounded-sm flex items-center bg-white">
                 <CiSearch className=" text-xl text-slate-500" />
@@ -110,6 +95,20 @@ function WalletToman() {
                         <h5 className=" text-center w-1/2">{item.userName}</h5>
 
                         <h5 className=" flex justify-center gap-5 items-center w-1/2"></h5>
+
+                        <h5 className=" flex justify-center gap-5 items-center w-1/2">
+                            <button
+                              onClick={() => {
+                                setApplicationUserId(item.userId);
+                                setIsModal(true);
+                              }}
+                              className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-teal-500 text-white"
+                            >
+                             شارژ کیف پول تومان
+                              <FaPlus className=" text-white text-xl" />
+                            </button>
+                          </h5>
+
                       </div>
                     );
                   })}
