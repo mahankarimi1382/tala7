@@ -30,7 +30,7 @@ function ShoppingCartPage() {
         {/* Left Section (Cart Summary) */}
         <div className="w-full lg:w-[70%] p-4 rounded-lg">
           {/* Title */}
-          <div className="flex gap-2 items-baseline mb-6">
+          <div className="flex gap-5 items-baseline mb-6 ">
             <p className="text-lg font-medium">سبد خرید شما</p>
             <p className="text-sm text-gray-600">1 مرسوله</p>
           </div>
@@ -71,7 +71,7 @@ function ShoppingCartPage() {
         </div>
 
         {/* Right Section (Price Details) */}
-        <div className="w-full lg:w-[25%] h-auto border border-gray-200 rounded-lg p-5 flex flex-col space-y-4">
+        <div className="w-full lg:w-[25%] h-[200px] border border-gray-200 rounded-lg p-5 flex flex-col space-y-4">
           <div className="flex justify-between text-[14px]">
             <p className="text-gray-600">قیمت کالاها</p>
             <p className="text-gray-600 text-right">
