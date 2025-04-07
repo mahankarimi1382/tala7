@@ -140,7 +140,7 @@ function Foroosh() {
             <p>تأیید و ادامه</p>
           </button>
         </div>
-        <div className="w-[450px]  mx-auto my-auto">
+        <div className="w-[450px]  mx-auto my-auto hidden lg:block">
           <img src={svgImage} alt="" />
         </div>
       </div>

@@ -603,3 +603,10 @@ follow the guidde in https://www.npmjs.com/package/react-responsive-carousel */
 .GoldTitle:hover{
 border-bottom-width: 1px;
 }
+
+
+/* ایجاد بالت پیش از توضحیات محصول در صفلحه سبد خرید */
+.mybullet:before {
+  content: ' \003E';
+  padding-left: 7px;
+}

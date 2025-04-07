@@ -9,6 +9,8 @@ import MyFooter from "../../../MyFooter";
 import img1 from "../../../assets/img/containerring3.png";
 import img2 from "../../../assets/img/containerring4.png";
 import { GoTrash } from "react-icons/go";
+import "../../../../src/index.css";
+
 
 const convertToPersianDigits = (num) => {
   return num.toLocaleString("fa-IR"); // Converts to Persian digits with thousand separators
@@ -54,9 +56,12 @@ function ShoppingCartPage() {
             </div>
 
             {/* Product Name */}
-            <p className="text-md font-medium text-center sm:text-left">
+           <div className="flex flex-col">
+           <p className="text-md font-medium text-center sm:text-left">
               حلقه رزگلد زیبا
             </p>
+            <p className="text-[13px] mybullet"> وزن: {convertToPersianDigits(13)} گرم</p>
+           </div>
           </div>
 
           {/* Price & Delete Button */}
@@ -92,7 +97,7 @@ function ShoppingCartPage() {
           </div>
 
           {/* Confirmation Button */}
-          <button className="bg-rose-500 hover:bg-rose-600 transition text-white text-center rounded-md py-2 w-full text-[15px] font-medium">
+          <button className="bg-[#356b6e] hover:bg-[#183335] transition text-white text-center rounded-md py-2 w-full text-[15px] font-medium">
             تأیید و تکمیل سفارش
           </button>
         </div>

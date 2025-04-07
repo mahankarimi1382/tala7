@@ -12,6 +12,7 @@ import DashBoard from "./Dashboard";
 import Kharid from "./Kharid";
 import Foroosh from "./Foroosh";
 import KifePool from "./KifePool";
+import MyProfile from "./MyProfile";
 
 
 // ✅ Sidebar items with icons and dynamic content
@@ -22,7 +23,7 @@ const sidebarItems = [
   { icon: SlWallet, label: "کیف پول", content: <KifePool/> },
   { icon: LuBellRing, label: "اعلانات", content: <div>محتوای اعلانات</div> },
   { icon: IoChatbubblesOutline, label: "تیکت ها", content: <div>محتوای تیکت ها</div> },
-  { icon: IoPersonCircleOutline, label: "پروفایل", content: <div>محتوای پروفایل</div> },
+  { icon: IoPersonCircleOutline, label: "پروفایل", content: <MyProfile/> },
   { icon: RiShutDownLine, label: "خروج", content: <div>محتوای خروج</div> }, // Optional: Can be a link or logout action
 ];
 
