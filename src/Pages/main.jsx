@@ -22,6 +22,8 @@ import Rate from "./AdminPanel/rate/rate.jsx";
 import Setting from "./AdminPanel/setting/Setting.jsx";
 import AllProducts from "../AllProducts.jsx";
 import ShoppingCartPage from "./AdminPanel/BasicDetails/ShoppingCartPage.jsx";
+import InstallmentRequest from "../InstallmentRequest.jsx";
+import InstallmentTrack from "../InstallmentTrack.jsx";
 
 
 createRoot(document.getElementById("root")).render(
@@ -34,6 +36,8 @@ createRoot(document.getElementById("root")).render(
         <Route path="/hover-product-page" element={<HoverPage />} />
         <Route path="/testpage" element={<Mytester />} />
         <Route path="/ShoppingCart" element={<ShoppingCartPage />} />
+        <Route path="/installments/request" element={<InstallmentRequest />} />
+        <Route path="/installments/track" element={<InstallmentTrack />} />
         
         <Route
           path="/AdminPannel/basic-details/products"

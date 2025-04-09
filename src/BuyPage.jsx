@@ -8,6 +8,7 @@ import { SlWallet } from "react-icons/sl";
 import { LuBellRing } from "react-icons/lu";
 import { IoChatbubblesOutline, IoPersonCircleOutline } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
+
 import DashBoard from "./Dashboard";
 import Kharid from "./Kharid";
 import Foroosh from "./Foroosh";
