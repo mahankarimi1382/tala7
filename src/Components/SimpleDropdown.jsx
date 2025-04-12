@@ -40,13 +40,13 @@ const SimpleDropdown = ({ options = [], defaultLabel = 'Select an option' }) => 
   }, []);
 
   return (
-    <div className="relative w-full text-center" ref={dropdownRef}>
+    <div className={` relative w-full text-center  ${isOpen ? 'z-50' : 'z-40'}`} ref={dropdownRef}>
       <button
         type="button"
         ref={buttonRef}
         onClick={toggleDropdown}
         aria-expanded={isOpen}
-        className="inline-flex justify-between items-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        className="inline-flex  justify-between items-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-400 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
       >
         {selectedOption}
         <svg
