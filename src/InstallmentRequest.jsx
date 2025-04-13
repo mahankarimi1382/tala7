@@ -15,6 +15,7 @@ import HamburgerBar from "./Components/HamburgerBar";
 import ScrollToTopButton from "./Components/ScrollToTopButton";
 import WrittenFooter from "./WrittenFooter";
 import MyFooter from "./MyFooter";
+import img3 from '@images/4.png'
 
 // Enhanced InputField with numeric-only logic
 const InputField = ({
@@ -84,6 +85,7 @@ const InstallmentRequest = () => {
     <div>
       <NewsFeed />
       <hr />
+      
       <WoodHeader />
       <hr />
       <MyHeader />
@@ -106,31 +108,46 @@ const InstallmentRequest = () => {
         </header>
 
         {/* Action Buttons with Chevron Separators and Active State */}
-        <div className="flex gap-3 mt-5 justify-center lg:justify-start items-center flex-wrap">
-          {[
-            { label: "ثبت درخواست", icon: <VscGitStashApply className="text-2xl" /> },
-            { label: "بررسی مدارک", icon: <GrInspect className="text-2xl" /> },
-            { label: "مراجعه حضوری", icon: <FaPersonBiking className="text-2xl" /> },
-            { label: "پایان", icon: <MdMobileFriendly className="text-2xl" /> },
-          ].map((item, index, arr) => (
-            <div className="flex items-center" key={index}>
-              <button
-                onClick={() => setActiveStep(index)}
-                className={`flex items-center gap-2 py-2 px-4 shadow-md rounded-lg transition duration-300 ${
-                  activeStep === index
-                    ? "bg-blue-900 text-white"
-                    : "bg-[#E2F2FD] text-blue-900 hover:bg-[#0f4c75] hover:text-white"
-                }`}
-              >
-                {item.icon}
-                <p className="text-[14px]">{item.label}</p>
-              </button>
-              {index !== arr.length - 1 && (
-                <FaChevronLeft  className="text-[15px] text-[#183335] mx-5 " />
-              )}
-            </div>
-          ))}
+       
+
+        <div className="flex gap-3 mt-5 justify-center md:justify-start items-center flex-col md:flex-row md:flex-wrap">
+  {[
+    { label: "ثبت درخواست", icon: <VscGitStashApply className="text-2xl" /> },
+    { label: "بررسی مدارک", icon: <GrInspect className="text-2xl" /> },
+    { label: "مراجعه حضوری", icon: <FaPersonBiking className="text-2xl" /> },
+    { label: "پایان", icon: <MdMobileFriendly className="text-2xl" /> },
+  ].map((item, index, arr) => (
+    <div className="relative flex items-center" key={index}>
+      <button
+        onClick={() => setActiveStep(index)}
+        className={`relative flex items-center gap-2 py-5 w-[190px] justify-center px-4 shadow-md rounded-[23px] transition duration-300 ${
+          activeStep === index
+            ? "bg-green-600 text-white"
+            : "bg-gray-100 text-gray-800"
+        }`}
+      >
+        {/* Circle Number Badge */}
+        <div className={`absolute -bottom-3 right-3 w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md z-10 border-2 ${
+          activeStep === index
+            ? "bg-green-800 border-green-700 text-white"
+            : "bg-green-900 border-green-800 text-white"
+        }`}>
+          {index + 1}
         </div>
+
+        {item.icon}
+        <p className="text-[16px]">{item.label}</p>
+      </button>
+
+      {/* Chevron (only if not last) */}
+      {index !== arr.length - 1 && (
+        <FaChevronLeft className="text-[15px] text-[#183335] mx-5" />
+      )}
+    </div>
+  ))}
+</div>
+
+
 
         <hr className="my-5" />
 
