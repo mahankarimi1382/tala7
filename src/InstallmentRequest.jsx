@@ -94,11 +94,16 @@ const InstallmentRequest = () => {
 
       {/* Main Content Area */}
       {activeStep === 0 && <InitialRequestForm />}
-      {activeStep !== 0 && (
-        <div className="text-center text-gray-600 py-8">
-          <p>محتوای مرحله "{steps[activeStep].label}" در حال توسعه است.</p>
-        </div>
+      {activeStep === 1 && (
+        <p className="ms-6 p-5">بررسی مدارک</p>
       )}
+      {activeStep === 2 && (
+        <p className="ms-6 p-5"> مراجعه حضوری</p>
+      )}
+      {activeStep === 3 && (
+        <p className="ms-6 p-5">  پایان</p>
+      )}
+     
 
       <ScrollToTopButton />
       <br />
