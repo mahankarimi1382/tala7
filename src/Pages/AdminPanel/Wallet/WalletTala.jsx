@@ -10,7 +10,7 @@ import {
 import AdminMenu from "../AdminMenu";
 import AddThingsModal from "../BasicDetails/AddThingsModal";
 
-function WalletToman() {
+function WalletTala() {
   const [users, setUsers] = useState([]);
   console.log(users);
   //   const [inVitrin, setInVitrin] = useState([]);
@@ -47,7 +47,7 @@ function WalletToman() {
       {isModal && (
         <AddThingsModal
           submitFn={() => Create_Seller(data, setIsModal)}
-          title="شارژ تومان"
+          title="شارژ طلا"
           closeModal={() => setIsModal(false)}
         >
           <div className="utline-none border rounded p-2 w-full"> 
@@ -56,7 +56,7 @@ function WalletToman() {
             className=" w-full p-3 outline-none border rounded"
             placeholder="گرم"
           />
-          <p className=" ml-auto mt-3">موجودی فعلی: 127 تومان</p>
+          <p className=" ml-auto mt-3">موجودی فعلی: 127 گرم</p>
           </div>
 <p>          لیست تراکنش ها
 </p>
@@ -70,7 +70,7 @@ function WalletToman() {
         <div className=" w-full rounded p-2 bg-white shadow-xl h-full flex flex-col">
           <div className=" w-full flex flex-col gap-5 items-start">
             <h5 className=" text-xl font-semibold">
-              کیف پول تومان
+              کیف پول طلا
               </h5>
             <div className=" flex items-center w-full justify-start gap-5">
               <label className=" w-1/5 px-2 p-2 border rounded-sm flex items-center bg-white">
@@ -112,7 +112,7 @@ function WalletToman() {
                               }}
                               className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-teal-500 text-white"
                             >
-                             شارژ کیف پول تومان
+                             شارژ کیف پول طلا
                               <FaPlus className=" text-white text-xl" />
                             </button>
                           </h5>
@@ -130,4 +130,4 @@ function WalletToman() {
   );
 }
 
-export default WalletToman;
+export default WalletTala;

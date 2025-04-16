@@ -108,7 +108,7 @@ function AdminMenu() {
           className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
           onClick={() => toggleAccordion("Wallet")}
         >
-          <span className="font-bold">کیف پول</span>
+          <span className="font-bold">شارژ کیف پول</span>
           {accordionState.Wallet ? <FaChevronUp /> : <FaChevronDown />}
         </div>
         {accordionState.Wallet && (

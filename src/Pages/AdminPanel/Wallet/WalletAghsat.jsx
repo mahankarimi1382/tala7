@@ -10,7 +10,7 @@ import {
 import AdminMenu from "../AdminMenu";
 import AddThingsModal from "../BasicDetails/AddThingsModal";
 
-function WalletToman() {
+function WalletAghsat() {
   const [users, setUsers] = useState([]);
   console.log(users);
   //   const [inVitrin, setInVitrin] = useState([]);
@@ -47,7 +47,7 @@ function WalletToman() {
       {isModal && (
         <AddThingsModal
           submitFn={() => Create_Seller(data, setIsModal)}
-          title="شارژ تومان"
+          title="شارژ اقساط"
           closeModal={() => setIsModal(false)}
         >
           <div className="utline-none border rounded p-2 w-full"> 
@@ -62,7 +62,6 @@ function WalletToman() {
 </p>
 <div className="utline-none border rounded p-2 w-full"> 
 </div>
-
         
         </AddThingsModal>
       )}
@@ -70,7 +69,7 @@ function WalletToman() {
         <div className=" w-full rounded p-2 bg-white shadow-xl h-full flex flex-col">
           <div className=" w-full flex flex-col gap-5 items-start">
             <h5 className=" text-xl font-semibold">
-              کیف پول تومان
+              کیف پول اقساط
               </h5>
             <div className=" flex items-center w-full justify-start gap-5">
               <label className=" w-1/5 px-2 p-2 border rounded-sm flex items-center bg-white">
@@ -82,7 +81,7 @@ function WalletToman() {
                 />
               </label>
               <button className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-teal-500 text-white">
-                شارژ کیف پول
+                شارژ کیف اقساط
                 <FaPlus className=" text-white text-xl" />
               </button>
             </div>
@@ -112,7 +111,7 @@ function WalletToman() {
                               }}
                               className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-teal-500 text-white"
                             >
-                             شارژ کیف پول تومان
+                             شارژ کیف پول اقساط
                               <FaPlus className=" text-white text-xl" />
                             </button>
                           </h5>
@@ -130,4 +129,4 @@ function WalletToman() {
   );
 }
 
-export default WalletToman;
+export default WalletAghsat;
