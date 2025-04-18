@@ -104,6 +104,7 @@ const CreateAccountPopup = ({ onClose }) => {
       {/* Phone Number Popup */}
       {isPassModal && (
         <SubmitPassModal
+          onClose={onClose}
           phoneNumber={phoneNumber}
           closeModal={() => setIsPassModal(false)}
         />

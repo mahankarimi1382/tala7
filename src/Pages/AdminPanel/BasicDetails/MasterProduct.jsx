@@ -4,6 +4,7 @@ import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
 import {
   Create_TypeProduct_Master,
+  DeleteTypeProduct_Master,
   Edit_TypeProduct_Master,
   Get_All_MasterProduct,
 } from "../../../apicalling/ApiCalling";
@@ -13,6 +14,7 @@ import { FaEdit } from "react-icons/fa";
 import AddThingsModal from "./AddThingsModal";
 import EditThingsModal from "./EditThingsModal";
 import DeletingModal from "./DeletingModal";
+import { Eror } from "../../../Components/ToastAlerts";
 
 function MasterProduct() {
   const [isModal, setIsModal] = useState(false);
@@ -36,14 +38,20 @@ function MasterProduct() {
   console.log(masterProduct);
   useEffect(() => {
     Get_All_MasterProduct(setMasterProduct);
-  }, [isModal, isEditingModal]);
+  }, [isModal, isEditingModal, isDeletingModal]);
   return (
     <div className=" w-full min-h-screen flex items-center">
       <AdminMenu />
       {isModal && (
         <AddThingsModal
           title="سرگروه"
-          submitFn={() => Create_TypeProduct_Master(data, setIsModal)}
+          submitFn={() => {
+            if (nameTypeProduct_Master && typeProductCode_Master) {
+              Create_TypeProduct_Master(data, setIsModal);
+            } else {
+              Eror("لطفا اطلاعات را کامل وارد کنید");
+            }
+          }}
           closeModal={() => setIsModal(false)}
         >
           <input
@@ -61,9 +69,13 @@ function MasterProduct() {
       {isEditingModal && (
         <EditThingsModal
           title="ویرایش سرگروه"
-          submitFn={() =>
-            Edit_TypeProduct_Master(data, setIsEsitingModal, selectedId)
-          }
+          submitFn={() => {
+            if (nameTypeProduct_Master && typeProductCode_Master) {
+              Edit_TypeProduct_Master(data, setIsEsitingModal, selectedId);
+            } else {
+              Eror("لطفا اطلاعات را کامل وارد کنید");
+            }
+          }}
           closeModal={() => setIsEsitingModal(false)}
         >
           <input
@@ -82,6 +94,8 @@ function MasterProduct() {
       )}
       {isDeletingModal && (
         <DeletingModal
+          id={selectedId}
+          DeletingFn={DeleteTypeProduct_Master}
           title={nameTypeProduct_Master}
           closeModal={() => setIsDeletingModal(false)}
         />
@@ -148,6 +162,7 @@ function MasterProduct() {
                           />
                           <MdDeleteForever
                             onClick={() => {
+                              setSelectedId(item.id);
                               setIsDeletingModal(true);
                               setNameTypeProduct_Master(
                                 item.nameTypeProduct_Master

@@ -1,13 +1,15 @@
 import axios from "axios";
-import { success } from "../Components/ToastAlerts";
+import { Eror, success } from "../Components/ToastAlerts";
 
-export const signup = (data) => {
+export const signup = (data, closeModal, onClose) => {
   console.log(data);
   axios
     .post("http://tala7.com:44/api/Applicant/register", data)
     .then((res) => {
       console.log(res);
       success("ثبت نام انجام شد");
+      closeModal();
+      onClose();
     })
     .catch((err) => {
       console.log(err);
@@ -121,6 +123,7 @@ export const Create_TypeProduct_Master = (data, setIsModal) => {
     })
     .catch((err) => {
       console.log(err);
+      Eror("خطا");
     });
 };
 export const Create_TypeProduct_SubMaster = (data, setIsModal) => {
@@ -133,6 +136,7 @@ export const Create_TypeProduct_SubMaster = (data, setIsModal) => {
     })
     .catch((err) => {
       console.log(err);
+      Eror("خطا");
     });
 };
 export const Create_Product = (data, setIsModal) => {
@@ -144,6 +148,7 @@ export const Create_Product = (data, setIsModal) => {
       console.log(res);
     })
     .catch((err) => {
+      Eror("خطا");
       console.log(err);
     });
 };
@@ -282,6 +287,7 @@ export const Edit_TypeProduct_Master = (data, setIsEditingModal, id) => {
     })
     .catch((err) => {
       console.log(err);
+      Eror("خطا");
     });
 };
 
@@ -344,4 +350,80 @@ export const Get_Products_Show_InVitrin = (setVitrinShow, currentPage) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+export const DeleteTypeProduct_Master = async (id, closeModal) => {
+  console.log(id);
+  try {
+    const response = await axios.get(
+      `http://tala7.com:44/api/Product/DeleteTypeProduct_Master/${id}`
+    );
+    console.log("Data fetched successfully:", response.data);
+    closeModal();
+  } catch (error) {
+    console.error(
+      "Error while fetching data:",
+      error.response ? error.response.data : error.message
+    );
+  }
+};
+
+export const Edit_TypeProduct_SubMaster = (data, setIsEditingModal, id) => {
+  console.log(data);
+  axios
+    .post(
+      `http://tala7.com:44/api/Product/Edit_TypeProduct_SubMaster/${id}`,
+      data
+    )
+    .then((res) => {
+      setIsEditingModal(false);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+      Eror("خطا");
+    });
+};
+export const EditProduct = (data, setIsEditingModal, id) => {
+  console.log(data);
+  axios
+    .post(`http://tala7.com:44/api/Product/EditProduct?id=${id}`, data)
+    .then((res) => {
+      setIsEditingModal(false);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+      Eror("خطا");
+    });
+};
+export const DeleteTypeProduct_SubMaster = async (id, closeModal) => {
+  console.log(id);
+  try {
+    const response = await axios.get(
+      `http://tala7.com:44/api/Product/DeleteTypeProduct_SubMaster/${id}`
+    );
+    console.log("Data fetched successfully:", response.data);
+    closeModal();
+  } catch (error) {
+    console.error(
+      "Error while fetching data:",
+      error.response ? error.response.data : error.message
+    );
+  }
+};
+export const DeleteProduct = async (id, closeModal) => {
+  console.log(id);
+  try {
+    const response = await axios.get(
+      `http://tala7.com:44/api/Product/DeleteProduct/${id}`
+    );
+    console.log("Data fetched successfully:", response.data);
+    closeModal();
+  } catch (error) {
+    console.error(
+      "Error while fetching data:",
+      error.response ? error.response.data : error.message
+    );
+  }
 };

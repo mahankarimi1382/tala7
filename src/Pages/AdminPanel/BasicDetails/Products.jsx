@@ -4,6 +4,8 @@ import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
 import {
   Create_Product,
+  DeleteProduct,
+  EditProduct,
   Get_All_Product,
   Get_All_SubMasterProduct,
 } from "../../../apicalling/ApiCalling";
@@ -13,6 +15,7 @@ import { FaEdit } from "react-icons/fa";
 import AddThingsModal from "./AddThingsModal";
 import EditThingsModal from "./EditThingsModal";
 import DeletingModal from "./DeletingModal";
+import { Eror } from "../../../Components/ToastAlerts";
 
 function Products() {
   const [subMasterProduct, setSubMasterProduct] = useState([]);
@@ -42,18 +45,35 @@ function Products() {
     type_sell: 0,
     typeProduct_SubMasterId,
   };
+  const data2 = {
+    id: selectedProductID,
+    product_Name,
+    product_Description,
+    product_Code,
+    saleStatus: 0,
+    counting_Unit_Type: 0,
+    price_Calculation_Method: 0,
+    type_sell: 0,
+    typeProduct_SubMasterId,
+  };
   console.log(products);
   useEffect(() => {
     Get_All_Product(setProducts);
     Get_All_SubMasterProduct(setSubMasterProduct);
-  }, [isModal]);
+  }, [isModal, isEditModal, isDeletingModal]);
   return (
     <div className=" w-full min-h-screen flex items-center">
       <AdminMenu />
       {isModal && (
         <AddThingsModal
           title="محصولات"
-          submitFn={() => Create_Product(data, setIsModal)}
+          submitFn={() => {
+            if (product_Code && product_Description && product_Name) {
+              Create_Product(data, setIsModal);
+            } else {
+              Eror("لطفا اطلاعات را کامل وارد کنید");
+            }
+          }}
           closeModal={() => setIsModal(false)}
         >
           <input
@@ -77,7 +97,7 @@ function Products() {
               onChange={(e) => setTypeProduct_SubMasterId(e.target.value)}
               className=" border"
             >
-              <option></option>
+              <option value={null}>زیر گروه را انتخاب کنید</option>
 
               {subMasterProduct.map((item) => {
                 return (
@@ -93,7 +113,13 @@ function Products() {
       {isEditModal && (
         <EditThingsModal
           title="محصولات"
-          submitFn={() => Create_Product(data, setIsModal)}
+          submitFn={() => {
+            if (product_Code && product_Description && product_Name) {
+              EditProduct(data2, setIsEditModal, selectedProductID);
+            } else {
+              Eror("لطفا اطلاعات را کامل وارد کنید");
+            }
+          }}
           closeModal={() => setIsEditModal(false)}
         >
           <input
@@ -121,7 +147,7 @@ function Products() {
               onChange={(e) => setTypeProduct_SubMasterId(e.target.value)}
               className=" border"
             >
-              <option></option>
+              <option value={null}>زیر گروه را انتخاب کنید</option>
               {subMasterProduct.map((item) => {
                 return (
                   <option key={item.id} value={item.id}>
@@ -135,6 +161,8 @@ function Products() {
       )}
       {isDeletingModal && (
         <DeletingModal
+          id={selectedProductID}
+          DeletingFn={DeleteProduct}
           title={product_Name}
           closeModal={() => setIsDeletingModal(false)}
         />
@@ -205,6 +233,7 @@ function Products() {
                             onClick={() => {
                               setIsDeletingModal(true);
                               setProduct_Name(item.product_Name);
+                              setSelectedProductID(item.id)
                             }}
                             className=" text-teal-600 text-xl hover:text-red-600"
                           />

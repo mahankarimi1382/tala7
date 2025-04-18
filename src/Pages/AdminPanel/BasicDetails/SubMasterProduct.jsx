@@ -4,15 +4,17 @@ import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
 import {
   Create_TypeProduct_SubMaster,
+  DeleteTypeProduct_SubMaster,
+  Edit_TypeProduct_SubMaster,
   Get_All_MasterProduct,
   Get_All_SubMasterProduct,
 } from "../../../apicalling/ApiCalling";
-import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import AddThingsModal from "./AddThingsModal";
 import EditThingsModal from "./EditThingsModal";
 import DeletingModal from "./DeletingModal";
+import { Eror } from "../../../Components/ToastAlerts";
 
 function SubMasterProduct() {
   const [subMasterProduct, setSubMasterProduct] = useState([]);
@@ -39,19 +41,37 @@ function SubMasterProduct() {
     status: 0,
     typeProduct_MasterId,
   };
+  const data2 = {
+    id: selectedId,
+    nameTypeProduct_SubMaster,
+    typeProductCode_SubMaster,
+    status: 0,
+    typeProduct_MasterId,
+    typeProduct_Master_name: "string",
+  };
   console.log(subMasterProduct);
   useEffect(() => {
     Get_All_MasterProduct(setMasterProduct);
 
     Get_All_SubMasterProduct(setSubMasterProduct);
-  }, [isModal]);
+  }, [isModal, isEditingModal, isDeletingModal]);
   return (
     <div className=" w-full min-h-screen flex items-center">
       <AdminMenu />
       {isModal && (
         <AddThingsModal
           title="زیرگروه"
-          submitFn={() => Create_TypeProduct_SubMaster(data, setIsModal)}
+          submitFn={() => {
+            if (
+              nameTypeProduct_SubMaster &&
+              typeProductCode_SubMaster &&
+              typeProduct_MasterId
+            ) {
+              Create_TypeProduct_SubMaster(data, setIsModal);
+            } else {
+              Eror("لطفا اطلاعات را کامل وارد کنید");
+            }
+          }}
           closeModal={() => setIsModal(false)}
         >
           <input
@@ -70,6 +90,7 @@ function SubMasterProduct() {
               onChange={(e) => setTypeProduct_MasterId(e.target.value)}
               className=" border"
             >
+              <option key={null}>انتخاب سرگروه</option>
               {masterProduct.map((item) => {
                 return (
                   <option key={item.id} value={item.id}>
@@ -84,7 +105,17 @@ function SubMasterProduct() {
       {isEditingModal && (
         <EditThingsModal
           title="ویرایش زیرگروه"
-          submitFn={() => Create_TypeProduct_SubMaster(data, setIsModal)}
+          submitFn={() => {
+            if (
+              nameTypeProduct_SubMaster &&
+              typeProductCode_SubMaster &&
+              typeProduct_MasterId
+            ) {
+              Edit_TypeProduct_SubMaster(data2, setIsEsitingModal, selectedId);
+            } else {
+              Eror("لطفا اطلاعات را کامل وارد کنید");
+            }
+          }}
           closeModal={() => setIsEsitingModal(false)}
         >
           <input
@@ -119,6 +150,8 @@ function SubMasterProduct() {
       )}
       {isDeletingModal && (
         <DeletingModal
+          id={selectedId}
+          DeletingFn={DeleteTypeProduct_SubMaster}
           title={nameTypeProduct_SubMaster}
           closeModal={() => setIsDeletingModal(false)}
         />
@@ -189,6 +222,7 @@ function SubMasterProduct() {
                           <MdDeleteForever
                             onClick={() => {
                               setIsDeletingModal(true);
+                              setSelectedId(item.id);
                               setNameTypeProduct_SubMaster(
                                 item.nameTypeProduct_SubMaster
                               );

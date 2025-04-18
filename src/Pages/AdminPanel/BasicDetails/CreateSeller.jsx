@@ -111,7 +111,7 @@ function CreateSeller() {
 
                     <h5 className=" text-center w-1/2">عملیات</h5>
                   </div>
-                  <div className="  w-full flex items-center flex-col">
+                  <div className=" overflow-auto bg-blue-300 h-[350px]  w-full flex items-center flex-col">
                     {users.map((item) => {
                       return (
                         <div

@@ -2,7 +2,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
 import { signup } from "../apicalling/ApiCalling";
 
-function SubmitPassModal({ closeModal, phoneNumber }) {
+function SubmitPassModal({ closeModal, phoneNumber,onClose }) {
   const [pass, setPass] = useState();
 
   console.log(phoneNumber);
@@ -19,7 +19,7 @@ function SubmitPassModal({ closeModal, phoneNumber }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signup(data);
+    signup(data,closeModal,onClose);
     console.log("Form data:", data);
   };
 

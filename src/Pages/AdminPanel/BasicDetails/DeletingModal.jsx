@@ -13,7 +13,9 @@ function DeletingModal(props) {
         </div>
         <div className=" absolute bottom-5 mx-auto flex w-[90%] justify-between">
           <button
-            onClick={props.submitFn}
+            onClick={() => {
+              props.DeletingFn(props.id, props.closeModal);
+            }}
             className="bg-red-500 text-white  px-4 py-2 rounded flex items-center"
           >
             <RxCross2 className="mr-2" /> حذف
