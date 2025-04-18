@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { IoChevronUp, IoChevronDown } from "react-icons/io5";
 
@@ -14,64 +14,41 @@ const CurrencyPrice = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(
-        "https://brsapi.ir/FreeTsetmcBourseApi/Api_Free_Gold_Currency.json"
-      );
+      const response = await axios.get('Access-Control-Allow-Origin',"https://www.tala.ir/banner");
+      const data = response.data;
 
-      console.log("API Response:", response.data); // Debugging
+      if (data) {
+        const newPrices = {
+          "طلای 18 عیار": { price: data.geram18 || 0 },
+          "سکه امامی": { price: data.sekkejad || 0 },
+          "ربع سکه": { price: data.sekkerob || 0 },
+          "نیم سکه": { price: data.sekkenim || 0 },
+          "سکه بهار آزادی": { price: data.sekkegad || 0 },
+          "دلار": { price: data.usd || 0 },
+        };
 
-      if (response.data) {
-        const data = response.data;
-        const updateTime = data.time || ""; // API update time
-        const goldPrices = Array.isArray(data.gold) ? data.gold : [];
-        const currencyPrices = Array.isArray(data.currency) ? data.currency : [];
-        const newPrices = {};
+        const updateTime = data.time || "";
 
-        // Extract relevant prices
-        goldPrices.forEach((item) => {
-          if (["سکه بهار آزادی", "نیم سکه", "ربع سکه", "سکه امامی", "گرم طلای 18 عیار"].includes(item.name)) {
-            newPrices[item.name] = {
-              price: item.price || 0
-            };
+        setPreviousPrices(prices);
+
+        setFirstPrices((prev) => {
+          let updatedFirstPrices = { ...prev };
+
+          if (!firstTime || updateTime < firstTime) {
+            updatedFirstPrices = {};
+            setFirstTime(updateTime);
           }
-        });
 
-        currencyPrices.forEach((item) => {
-          if (item.name === "دلار") {
-            newPrices["دلار"] = {
-              price: item.price || 0
-            };
-          }
-        });
-
-        console.log("Processed Prices:", newPrices); // Debugging
-
-        if (Object.keys(newPrices).length === 0) {
-          setError("اطلاعات موجود نیست");
-        } else {
-          setPreviousPrices(prices); // Save last fetched prices
-
-          // Set first price if it's a new day or time is earlier than the stored first time
-          setFirstPrices((prev) => {
-            let updatedFirstPrices = { ...prev };
-
-            // If first time is null (first fetch) or we get an earlier time, reset prices
-            if (!firstTime || updateTime < firstTime) {
-              updatedFirstPrices = {};
-              setFirstTime(updateTime);
+          Object.entries(newPrices).forEach(([name, data]) => {
+            if (!updatedFirstPrices[name]) {
+              updatedFirstPrices[name] = data.price;
             }
-
-            Object.entries(newPrices).forEach(([name, data]) => {
-              if (!updatedFirstPrices[name]) {
-                updatedFirstPrices[name] = data.price;
-              }
-            });
-
-            return updatedFirstPrices;
           });
 
-          setPrices(newPrices);
-        }
+          return updatedFirstPrices;
+        });
+
+        setPrices(newPrices);
       } else {
         setError("اطلاعات موجود نیست");
       }
@@ -94,7 +71,7 @@ const CurrencyPrice = () => {
 
   return (
     <div className="mt-2 p-4">
-      <p className="hidden  p-2">نرخ لحظه‌ای ارز و طلا / تومان</p>
+      <p className="hidden p-2">نرخ لحظه‌ای ارز و طلا / تومان</p>
       <div className="grid grid-cols-3 lg:grid-cols-6 gap-4">
         {Object.entries(prices).map(([name, data]) => {
           const previousPrice = previousPrices[name]?.price || data.price;
@@ -108,23 +85,16 @@ const CurrencyPrice = () => {
           const dailyChangePercent = ((dailyChange / firstPrice) * 100).toFixed(2);
 
           return (
-            <div key={name} className="shadow-lg rounded-lg p-3 bg-white ">
-              {/* Name with background */}
-              <div className="flex justify-between text-center items-center bg-gray-200 p-2 rounded-t-lg text-[12px] lg:text-[14px] ">
+            <div key={name} className="shadow-lg rounded-lg p-3 bg-white">
+              <div className="flex justify-between text-center items-center bg-gray-200 p-2 rounded-t-lg text-[12px] lg:text-[14px]">
                 <span className="font-bold mx-auto">{name}</span>
               </div>
-
-              {/* Price with color & chevron */}
               <div className={`lg:text-[16px] md:text-[15px] text-[12px] font-bold text-center py-2 flex items-center justify-center ${isPriceUp ? "text-green-600" : isPriceDown ? "text-red-600" : "text-black"}`}>
                 {isPriceUp && <IoChevronUp className="w-5 h-5 text-green-600 mr-1" />}
                 {isPriceDown && <IoChevronDown className="w-5 h-5 text-red-600 mr-1" />}
                 {data.price.toLocaleString("fa-IR")} تومان
               </div>
-
-              {/* Divider */}
               <hr className="my-2 hidden" />
-
-              {/* Daily Change */}
               <div className="flex hidden justify-between text-sm text-gray-600 px-2">
                 <span>٪ {dailyChangePercent}</span>
                 <span>{dailyChange.toLocaleString("fa-IR")} تومان</span>

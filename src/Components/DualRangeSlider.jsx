@@ -77,7 +77,7 @@ const DualRangeSlider = () => {
 
       <div className="flex justify-around text-sm text-gray-500 mt-4 text-end">
        <span  dir="ltr">
-        قیمت از <span style={{fontSize: '1.1rem'}}> {minValue} </span> الی <span  style={{fontSize: '1.1rem'}}>  {maxValue} </span> هزار تومان
+        قیمت از <span style={{fontSize: '1.1rem'}}> {minValue} </span> الی <span  style={{fontSize: '1.1rem'}}>  {maxValue} </span> میلیون تومان
        </span>
        
       

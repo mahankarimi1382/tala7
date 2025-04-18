@@ -4,6 +4,7 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { RiShoppingCartLine } from "react-icons/ri";
 import { GoPerson } from "react-icons/go";
 import FooterSidebar from "./FooterSidebar";
+import { Link } from "react-router-dom";
 
 function MyFooter() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -25,9 +26,9 @@ function MyFooter() {
             <p className="text-[10px]">علاقه مندی</p>
           </div>
           <div className="flex flex-col items-center">
-            <a href="">
+          <Link to="/ShoppingCart" className="">
               <RiShoppingCartLine className="text-[28px] hover:text-gray-600 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-200" />
-            </a>
+              </Link>
             <p className="text-[10px]">سبد خرید</p>
           </div>
           {/* Person Icon to Open Sidebar */}

@@ -7,11 +7,10 @@ const MyHeader = () => {
   const [dropdownOpen, setDropdownOpen] = useState(null);
   const [subDropdownOpen, setSubDropdownOpen] = useState(null);
   const subMenuRefs = useRef({});
-  const timeoutRef = useRef(null); // <-- Used for delay
+  const timeoutRef = useRef(null);
 
-  // Handle main dropdown hover
   const handleMouseEnter = (index) => {
-    clearTimeout(timeoutRef.current); // Prevent closing too soon
+    clearTimeout(timeoutRef.current);
     setDropdownOpen(index);
     setSubDropdownOpen(null);
   };
@@ -20,12 +19,11 @@ const MyHeader = () => {
     timeoutRef.current = setTimeout(() => {
       setDropdownOpen(null);
       setSubDropdownOpen(null);
-    }, 200); // <-- Adds a delay before closing
+    }, 200);
   };
 
-  // Handle sub-menu hover
   const handleSubMouseEnter = (index) => {
-    clearTimeout(timeoutRef.current); // Prevent closing too soon
+    clearTimeout(timeoutRef.current);
     setSubDropdownOpen(index);
   };
 
@@ -36,27 +34,31 @@ const MyHeader = () => {
   };
 
   useEffect(() => {
-    return () => clearTimeout(timeoutRef.current); // Cleanup on unmount
+    return () => clearTimeout(timeoutRef.current);
   }, []);
-
-  const transitionClasses = "transition-opacity duration-200 transform";
-  const chevronTransitionClasses = "transition-opacity duration-200";
 
   const navItems = [
     { label: "خانه", path: "/" },
     { label: "", path: "/" },
-    {
-      label: "محصولات",
-      path: "/AllProducts",
+    { 
+      label: "محصولات", 
+      path: "/AllProducts", 
       dropdownItems: [
         { label: "انواع محصولات", subItems: ["زنانه", "مردانه", "بچگانه", "بزرگسال"] },
         { label: "مدل ها", subItems: ["اسپرت", "کلاسیک", "سنتی"] },
         { label: "طرح های فروش", subItems: ["فروش ویژه", "بدون اجرت", "تخفیف دار"] },
-      ],
+      ]
     },
     { label: "معاملات آنی", dropdownItems: [{ label: "سکه" }, { label: "ارز" }] },
     { label: "تالار معاملات", path: "/trading-hall" },
-    { label: "خرید قسطی", dropdownItems: [{ label: "ثبت درخواست" }, { label: "پیگیری درخواست" }] },
+    { 
+      label: "خرید قسطی", 
+      path: "/",
+      dropdownItems: [
+        { label: "ثبت درخواست", path: "/installments/request" }, 
+        { label: "پیگیری درخواست", path: "/installments/track" }
+      ]
+    }
   ];
 
   return (
@@ -71,17 +73,17 @@ const MyHeader = () => {
               onMouseLeave={handleMouseLeave}
             >
               <Link
-                to={item.path || "#"} 
-                className="text-black px-1 cursor-pointer hover:text-gray-500 flex items-center p-2 hover-underline-animation left"
+                to={item.path || "#"}
+                className="text-black px-1 cursor-pointer hover:text-gray-500 flex items-center p-2 hover-underline-animation"
               >
                 {item.label}
-                {item.dropdownItems && <FontAwesomeIcon icon={faChevronDown} className={`mr-[6px] ${chevronTransitionClasses}`} />}
+                {item.dropdownItems && <FontAwesomeIcon icon={faChevronDown} className="mr-2" />}
               </Link>
 
               {dropdownOpen === index && item.dropdownItems && (
                 <ul
-                  className={`absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-md shadow-lg w-48 ${transitionClasses}`}
-                  onMouseEnter={() => clearTimeout(timeoutRef.current)} // Prevent closing when mouse is inside
+                  className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-md shadow-lg w-48"
+                  onMouseEnter={() => clearTimeout(timeoutRef.current)}
                   onMouseLeave={handleMouseLeave}
                 >
                   {item.dropdownItems.map((dropItem, dropIndex) => (
@@ -91,10 +93,16 @@ const MyHeader = () => {
                       onMouseEnter={() => handleSubMouseEnter(dropIndex)}
                       onMouseLeave={handleSubMouseLeave}
                     >
-                      <Link to={item.label === "محصولات" ? "/search-product" : "#"} target="_blank" rel="noopener noreferrer" className="text-black flex items-center hover:text-slate-600">
-                        {dropItem.label}
-                        {dropItem.subItems && <FontAwesomeIcon icon={faChevronLeft} className="ml-2 text-sm p-[6px] " />}
-                      </Link>
+                      {dropItem.path ? (
+                        <Link 
+                          to={dropItem.path} 
+                          className="text-black flex items-center hover:text-slate-600"
+                        >
+                          {dropItem.label}
+                        </Link>
+                      ) : (
+                        <span className="text-black">{dropItem.label}</span>
+                      )}
 
                       {dropItem.subItems && subDropdownOpen === dropIndex && (
                         <ul
@@ -105,7 +113,7 @@ const MyHeader = () => {
                         >
                           {dropItem.subItems.map((subItem, subIndex) => (
                             <li key={`${index}-${dropIndex}-${subIndex}`} className="px-4 py-2 hover:bg-gray-100">
-                              <Link to="/search-product" target="_blank" rel="noopener noreferrer" className="block text-gray-800">{subItem}</Link>
+                              <Link to="/search-product" className="block text-gray-800">{subItem}</Link>
                             </li>
                           ))}
                         </ul>

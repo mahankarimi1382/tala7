@@ -40,7 +40,7 @@ const SimpleDropdown = ({ options = [], defaultLabel = 'Select an option' }) => 
   }, []);
 
   return (
-    <div className={` relative w-full text-center p-[7px] ${isOpen ? 'z-50' : 'z-40'}`} ref={dropdownRef}>
+    <div className={` relative w-full text-center p-[7px] ${isOpen ? 'z-50' : 'z-10'}`} ref={dropdownRef}>
       <button
         type="button"
         ref={buttonRef}

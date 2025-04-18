@@ -108,7 +108,7 @@ function AdminMenu() {
           className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
           onClick={() => toggleAccordion("Wallet")}
         >
-          <span className="font-bold">کیف پول</span>
+          <span className="font-bold">شارژ کیف پول</span>
           {accordionState.Wallet ? <FaChevronUp /> : <FaChevronDown />}
         </div>
         {accordionState.Wallet && (
@@ -118,13 +118,19 @@ function AdminMenu() {
               className="p-2 cursor-pointer hover:bg-gray-100"
               onClick={() => {}}
             >
-              کیف پول طلا
+              شارژ کیف پول طلا
             </Link>
             <Link
               to="/AdminPannel/wallet/tooman"
               className="p-2 cursor-pointer hover:bg-gray-100"
             >
-              کیف پول تومان
+              شارژ کیف پول تومان{" "}
+            </Link>
+            <Link
+              to="/AdminPannel/wallet/Aghsat"
+              className="p-2 cursor-pointer hover:bg-gray-100"
+            >
+              شارژ کیف پول اقساط
             </Link>
           </ul>
         )}

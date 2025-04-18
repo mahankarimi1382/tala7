@@ -100,10 +100,10 @@ function KifePool() {
         </a>
       </div>
       <hr className="my-4" />
-<div className="flex flex-wrap justify-around gap-3">
+<div className="flex flex-wrap justify-center gap-5">
 <div>
 <div
-        className="w-[300px]  flex flex-col"
+        className="w-[350px]  flex flex-col rounded-lg"
         style={{
           backgroundImage: `url(${img1})`,
           backgroundSize: "cover",
@@ -137,7 +137,7 @@ function KifePool() {
           </div>
         </div>
       </div>
-  <div className="w-[300px] mt-2">
+  <div className="w-[350px] mt-2">
   <TransactionCard
               title=" تراکنش‌های ریالی"
               Icon={GrTransaction  }
@@ -146,7 +146,7 @@ function KifePool() {
   </div>
 </div><div>
 <div
-        className="w-[300px]  flex flex-col"
+        className="w-[350px]  flex flex-col rounded-lg"
         style={{
           backgroundImage: `url(${img2})`,
           backgroundSize: "cover",
@@ -180,7 +180,7 @@ function KifePool() {
           </div>
         </div>
       </div>
-  <div className="w-[300px] mt-2">
+  <div className="w-[350px] mt-2">
   <TransactionCard
               title=" تراکنش‌های ریالی"
               Icon={GrTransaction  }
@@ -189,7 +189,7 @@ function KifePool() {
   </div>
 </div><div>
 <div
-        className="w-[300px]  flex flex-col"
+        className="w-[350px]  flex flex-col rounded-lg"
         style={{
           backgroundImage: `url(${img3})`,
           backgroundSize: "cover",
@@ -223,7 +223,7 @@ function KifePool() {
           </div>
         </div>
       </div>
-  <div className="w-[300px] mt-2">
+  <div className="w-[350px] mt-2">
   <TransactionCard
               title=" تراکنش‌های ریالی"
               Icon={GrTransaction  }
