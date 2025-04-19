@@ -36,7 +36,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/" element={<HomePage />} />
         <Route path="/search-product" element={<AnotherPage />} />
         <Route path="/hover-product-page" element={<HoverPage />} />
-        <Route path="/testpage" element={<Mytester />} />
+        <Route path="/userPanel" element={<Mytester />} />
         <Route path="/ShoppingCart" element={<ShoppingCartPage />} />
         <Route path="/installments/request" element={<InstallmentRequest />} />
         <Route path="/installments/track" element={<InstallmentTrack />} />

@@ -3,75 +3,79 @@ import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
 
 import {
-  Create_Seller,
-  Get_All_Sellers,
-  Get_All_Users,
+
+  Get_All_Applicants,
+  SharzhWallet_Gold,
+  Get_Wallet_gold_By_ApplicantId,
 } from "../../../apicalling/ApiCalling";
 import AdminMenu from "../AdminMenu";
 import AddThingsModal from "../BasicDetails/AddThingsModal";
 
 function WalletTala() {
-  const [users, setUsers] = useState([]);
-  console.log(users);
+  const [walletInfo, setWalletInfo] = useState([]);
+  console.log(walletInfo);
+  const [aplicantUsers, setAplicantUsers] = useState([]);
+  console.log(aplicantUsers);
   //   const [inVitrin, setInVitrin] = useState([]);
-  const [isVitrin, setIsVitrin] = useState(false);
-  const [sellers, setSellers] = useState([]);
-  console.log(sellers);
+  const [sharzhValue, setSharzhValue] = useState(0);
+  const [applicantId, setApplicantId] = useState(null);
+
   const [isModal, setIsModal] = useState(false);
-  const [share_Benefit_Percent, setShare_Benefit_Percent] = useState("");
-  const [address, setAddress] = useState("");
-  const [applicationUserId, setApplicationUserId] = useState("");
   const data = {
-    metadata: {
-      userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      userName: "string",
-      userNameforC: "string",
-    },
-    share_Benefit_Percent,
-    address,
-    applicationUserId,
+    sharzhValue,
+    applicantId,
   };
   const fetchData = async () => {
-    const data = await Get_All_Users();
-    if (data) {
-      setUsers(data);
-    }
+    Get_All_Applicants(setAplicantUsers);
   };
+
   useEffect(() => {
     fetchData();
-    Get_All_Sellers(setSellers);
   }, []);
   return (
     <div className=" w-full min-h-screen flex items-center">
       <AdminMenu />
       {isModal && (
         <AddThingsModal
-          submitFn={() => Create_Seller(data, setIsModal)}
+          submitFn={() => SharzhWallet_Gold(data, setIsModal)}
           title="شارژ طلا"
           closeModal={() => setIsModal(false)}
         >
-          <div className="utline-none border rounded p-2 w-full"> 
-          <input
-            onChange={(e) => setAddress(e.target.value)}
-            className=" w-full p-3 outline-none border rounded"
-            placeholder="گرم"
-          />
-          <p className=" ml-auto mt-3">موجودی فعلی: 127 گرم</p>
+          <div className=" flex flex-col gap-2  rounded w-full">
+            <input
+              onChange={(e) => setSharzhValue(e.target.value)}
+              className=" w-full p-3 outline-none border rounded"
+              placeholder="گرم"
+            />
+            <p className="">
+              موجودی فعلی: {walletInfo.exist_Gold}
+            </p>
           </div>
-<p>          لیست تراکنش ها
-</p>
-<div className="utline-none border rounded p-2 w-full"> 
-</div>
-
-        
+          <p> لیست تراکنش ها</p>
+          <div className=" border h-36 overflow-auto rounded p-2 w-full">
+            <div className=" pb-3 border-teal-500 border-b-2 w-full flex justify-between px-5">
+              <h5>تاریخ و ساعت</h5>
+              <h5>موجودی</h5>
+            </div>
+            {walletInfo.savabegh &&
+              walletInfo.savabegh.map((item) => {
+                return (
+                  <div
+                    className="w-full py-1 flex justify-between px-5"
+                    key={item.id}
+                  >
+                    <h5 className=" text-gray-700">{item.date_register}</h5>
+                    <h5 className=" text-gray-700">{item.exist_Gold}</h5>
+                  </div>
+                );
+              })}
+          </div>
         </AddThingsModal>
       )}
       <div className=" w-5/6 flex p-5 justify-center h-screen">
         <div className=" w-full rounded p-2 bg-white shadow-xl h-full flex flex-col">
           <div className=" w-full flex flex-col gap-5 items-start">
-            <h5 className=" text-xl font-semibold">
-              کیف پول طلا
-              </h5>
+            <h5 className=" text-xl font-semibold">کیف پول طلا</h5>
             <div className=" flex items-center w-full justify-start gap-5">
               <label className=" w-1/5 px-2 p-2 border rounded-sm flex items-center bg-white">
                 <CiSearch className=" text-xl text-slate-500" />
@@ -81,10 +85,6 @@ function WalletTala() {
                   placeholder="جستجو در کاربران"
                 />
               </label>
-              <button className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-teal-500 text-white">
-                شارژ کیف پول
-                <FaPlus className=" text-white text-xl" />
-              </button>
             </div>
             <div className=" w-full flex justify-center items-center">
               <div className=" border w-[90%] flex flex-col">
@@ -94,29 +94,32 @@ function WalletTala() {
                   <h5 className=" text-center w-1/2">عملیات</h5>
                 </div>
                 <div className="  w-full flex items-center flex-col">
-                  {users.map((item) => {
+                  {aplicantUsers.map((item) => {
                     return (
                       <div
                         key={item.id}
                         className="w-full border-b last:border-b-0 py-2 bg-white  flex items-center justify-start"
                       >
-                        <h5 className=" text-center w-1/2">{item.userName}</h5>
-
-                        <h5 className=" flex justify-center gap-5 items-center w-1/2"></h5>
+                        <h5 className=" text-center w-1/2">
+                          {item.applicationUser.mobile}
+                        </h5>
 
                         <h5 className=" flex justify-center gap-5 items-center w-1/2">
-                            <button
-                              onClick={() => {
-                                setApplicationUserId(item.userId);
-                                setIsModal(true);
-                              }}
-                              className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-teal-500 text-white"
-                            >
-                             شارژ کیف پول طلا
-                              <FaPlus className=" text-white text-xl" />
-                            </button>
-                          </h5>
-
+                          <button
+                            onClick={() => {
+                              Get_Wallet_gold_By_ApplicantId(
+                                item.id,
+                                setWalletInfo
+                              );
+                              setApplicantId(item.id);
+                              setIsModal(true);
+                            }}
+                            className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-teal-500 text-white"
+                          >
+                            شارژ کیف پول طلا
+                            <FaPlus className=" text-white text-xl" />
+                          </button>
+                        </h5>
                       </div>
                     );
                   })}

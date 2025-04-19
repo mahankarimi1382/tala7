@@ -6,6 +6,8 @@ import { FaRegCreditCard } from "react-icons/fa";
 import svgImage from "../src/assets/img/personage.svg";
 import { CiCreditCard2 } from "react-icons/ci";
 import { CiGift } from "react-icons/ci";
+import { useState } from "react";
+import useProvincesAndCities from "./Components/useProvincesAndCities";
 
 const convertToPersianDigits = (num) => {
   return num.toLocaleString("fa-IR"); // Converts to Persian digits with thousand separators
@@ -19,11 +21,22 @@ const PersianDigits = (num) => {
 const Birthdate = "1370/03/18";
 const NationalCode = "005683210";
 const CellNumber = "09121111111";
+
 const persianDate = PersianDigits(Birthdate);
 const CodeMelli = PersianDigits(NationalCode);
 const MobilePhone = PersianDigits(CellNumber);
 
 function MyProfile() {
+  const { provinces, citiesMap, loading } = useProvincesAndCities();
+
+  const [formData, setFormData] = useState({
+    nationalCode: "",
+    branchCode: "",
+    workPhone: "",
+    homePhone: "",
+    province: "",
+    city: "",
+  });
   return (
     <div className="p-4">
       {/* Header Section */}
@@ -111,7 +124,11 @@ function MyProfile() {
             <div className="border shadow-lg rounded-lg p-4 text-sm">
               <div className="flex justify-between">
                 <p className="text-gray-600"> نام </p>
-                <p>علی </p>
+                {/* <p>علی </p> */}
+                <input
+                  placeholder="نام  "
+                  className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
+                />
               </div>
 
               {/* Dotted Divider */}
@@ -119,33 +136,119 @@ function MyProfile() {
 
               <div className="flex justify-between">
                 <p className="text-gray-600"> نام خانوادگی </p>
-                <p>علی مددی </p>
+                {/* <p>علی مددی </p> */}
+                <input
+                  placeholder="نام خانوادگی "
+                  className=" text-xs  border-b border-gray-600 px-1  border-dashed w-28 outline-none"
+                />
               </div>
               <hr className="my-3 border-t-1 border-gray-200 border-dashed" />
 
               <div className="flex justify-between">
                 <p className="text-gray-600"> تاریخ تولد </p>
-                <p>{persianDate}</p>
+                {/* <p>{persianDate}</p> */}
+                <input
+                  placeholder="تاریخ تولد "
+                  className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
+                />
               </div>
               <hr className="my-3 border-t-1 border-gray-200 border-dashed" />
               <div className="flex justify-between">
                 <p className="text-gray-600"> کد ملی </p>
-                <p>{CodeMelli}</p>
+                {/* <p>{CodeMelli}</p> */}
+                <input
+                  placeholder="کد ملی "
+                  className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
+                />
               </div>
             </div>
             <p className="my-4">اطلاعات تماس</p>
             <div className="border shadow-lg rounded-lg p-4 text-sm">
-              
-
-
               <div className="flex justify-between">
-                <p className="text-gray-600">  تلفن همراه </p>
-                <p>{MobilePhone}</p>
+                <p className="text-gray-600"> تلفن همراه </p>
+                {/* <p>{MobilePhone}</p> */}
+                <input
+                  placeholder="تلفن همراه "
+                  className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
+                />
               </div>
               <hr className="my-3 border-t-1 border-gray-200 border-dashed" />
               <div className="flex justify-between">
-                <p className="text-gray-600"> ایمیل  </p>
-                <p>ali@gmail.com</p>
+                <p className="text-gray-600"> ایمیل </p>
+                {/* <p>ali@gmail.com</p> */}
+                <input
+                  placeholder="ایمیل "
+                  className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
+                />
+              </div>
+            </div>
+            <p className="my-4">اطلاعات محل سکونت</p>
+            <div className="border shadow-lg rounded-lg p-4 text-sm">
+              <div className="flex justify-between">
+                <p className="text-gray-600"> آدرس </p>
+                {/* <p>{MobilePhone}</p> */}
+                <input
+                  placeholder="آدرس"
+                  className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
+                />
+              </div>
+              <hr className="my-3 border-t-1 border-gray-200 border-dashed" />
+              <div className="flex justify-between">
+                <p className="text-gray-600"> کد پستی </p>
+                {/* <p>ali@gmail.com</p> */}
+                <input
+                  placeholder="ایمیل "
+                  className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
+                />
+              </div>
+              <hr className="my-3 border-t-1 border-gray-200 border-dashed" />
+              <div className="flex justify-between">
+                <p className="text-gray-600"> شهر سکونت </p>
+                {/* <p>ali@gmail.com</p> */}
+                <div className="flex gap-2">
+                  <select
+                    className="w-1/2 h-6 border border-gray-300 rounded"
+                    value={formData.province}
+                    onChange={(e) => {
+                      const selectedProvince = e.target.value;
+                      setFormData((prev) => ({
+                        ...prev,
+                        province: selectedProvince,
+                        city: "",
+                      }));
+                    }}
+                    disabled={loading}
+                  >
+                    <option value="">استان</option>
+                    {provinces.map((province) => (
+                      <option key={province.id} value={province.name}>
+                        {province.name}
+                      </option>
+                    ))}
+                  </select>
+
+                  <select
+                    className="w-1/2 h-6 border border-gray-300 rounded"
+                    value={formData.city}
+                    onChange={(e) =>
+                      setFormData((prev) => ({ ...prev, city: e.target.value }))
+                    }
+                    disabled={!formData.province || loading}
+                  >
+                    <option value="">
+                      {formData.province
+                        ? loading
+                          ? "در حال دریافت شهرها..."
+                          : "شهر"
+                        : "ابتدا استان را انتخاب کنید"}
+                    </option>
+                    {(citiesMap[formData.province] || []).map((city) => (
+                      <option key={city} value={city}>
+                        {city}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </div>
           </div>

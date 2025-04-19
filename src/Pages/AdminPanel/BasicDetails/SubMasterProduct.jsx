@@ -137,6 +137,8 @@ function SubMasterProduct() {
               onChange={(e) => setTypeProduct_MasterId(e.target.value)}
               className=" border"
             >
+              <option key={null}>انتخاب سرگروه</option>
+
               {masterProduct.map((item) => {
                 return (
                   <option key={item.id} value={item.id}>

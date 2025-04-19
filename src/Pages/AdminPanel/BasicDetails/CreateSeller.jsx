@@ -16,8 +16,11 @@ function CreateSeller() {
   //   const [inVitrin, setInVitrin] = useState([]);
   const [isVitrin, setIsVitrin] = useState(false);
   const [sellers, setSellers] = useState([]);
-  console.log(sellers)
+  console.log(sellers);
   const [isModal, setIsModal] = useState(false);
+  const [sellerName, setSellerName] = useState("");
+  const [sellerFamily, setSellerFamily] = useState("");
+
   const [share_Benefit_Percent, setShare_Benefit_Percent] = useState("");
   const [address, setAddress] = useState("");
   const [applicationUserId, setApplicationUserId] = useState("");
@@ -27,6 +30,8 @@ function CreateSeller() {
       userName: "string",
       userNameforC: "string",
     },
+    sellerName,
+    sellerFamily,
     share_Benefit_Percent,
     address,
     applicationUserId,
@@ -40,7 +45,7 @@ function CreateSeller() {
   useEffect(() => {
     fetchData();
     Get_All_Sellers(setSellers);
-  }, []);
+  }, [isVitrin]);
   return (
     <div className=" w-full min-h-screen flex items-center">
       <AdminMenu />
@@ -50,6 +55,16 @@ function CreateSeller() {
           title="فروشنده"
           closeModal={() => setIsModal(false)}
         >
+          <input
+            onChange={(e) => setSellerName(e.target.value)}
+            className=" w-full p-3 outline-none border rounded"
+            placeholder="نام"
+          />{" "}
+          <input
+            onChange={(e) => setSellerFamily(e.target.value)}
+            className=" w-full p-3 outline-none border rounded"
+            placeholder="نام خانوادگی"
+          />
           <input
             onChange={(e) => setAddress(e.target.value)}
             className=" w-full p-3 outline-none border rounded"
@@ -111,7 +126,7 @@ function CreateSeller() {
 
                     <h5 className=" text-center w-1/2">عملیات</h5>
                   </div>
-                  <div className=" overflow-auto bg-blue-300 h-[350px]  w-full flex items-center flex-col">
+                  <div className=" overflow-auto h-[350px]  w-full flex items-center flex-col">
                     {users.map((item) => {
                       return (
                         <div
@@ -157,10 +172,10 @@ function CreateSeller() {
               <div className=" w-full flex justify-center items-center">
                 <div className=" border w-[90%] flex flex-col">
                   <div className=" py-4 w-full bg-teal-900 text-white flex items-center justify-start">
-                    <h5 className=" text-center w-1/5">آدرس</h5>
-                    <h5 className=" text-center w-2/5">درصد</h5>
-                    <h5 className=" text-center w-1/5">کد </h5>
-                    <h5 className=" text-center w-1/5">عملیات</h5>
+                    <h5 className=" text-center w-1/4">نلم و نام خانوادگی</h5>
+                    <h5 className=" text-center w-1/4">درصد</h5>
+                    <h5 className=" text-center w-1/4">کد </h5>
+                    <h5 className=" text-center w-1/4">عملیات</h5>
                   </div>
                   <div className="  w-full flex items-center flex-col">
                     {sellers.map((item) => {
@@ -169,18 +184,21 @@ function CreateSeller() {
                           key={item.id}
                           className="w-full border-b last:border-b-0 py-2 bg-white  flex items-center justify-start"
                         >
-                          <h5 className=" text-center w-1/5">
-                            {item.address}
+                          <h5 className=" text-center w-1/4">
+                            {item.sellerName} {item.sellerFamily}
                           </h5>
-                          <h5 className=" text-center w-2/5">
+                          <h5 className=" text-center w-1/4">
                             {item.share_Benefit_Percent}
                           </h5>
 
-                          <h5 className=" text-center w-1/5">
+                          <h5 className=" text-center w-1/4">
                             {item.seller_code}
                           </h5>
-                          <h5 className=" flex justify-center gap-5 items-center w-1/5">
-                            <button onClick={()=>console.log(item)} className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-red-500 text-white">
+                          <h5 className=" flex justify-center gap-5 items-center w-1/4">
+                            <button
+                              onClick={() => console.log(item)}
+                              className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-red-500 text-white"
+                            >
                               حذف از فروشنده
                             </button>
                           </h5>
