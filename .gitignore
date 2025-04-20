@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+# ignore the dist folder and the zipped version
+
+dist/
+dist.zip
