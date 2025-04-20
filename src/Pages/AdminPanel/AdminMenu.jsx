@@ -6,7 +6,7 @@ function AdminMenu() {
   const [activeTab, setActiveTab] = useState("news");
 
   const [accordionState, setAccordionState] = useState({
-    baseInfo: true,
+    baseInfo: false,
     salesOperations: false,
     installmentRequests: false,
     reports: false,
