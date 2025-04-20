@@ -36,7 +36,7 @@ const Sidebar = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signin(formData,setToken);
+    signin(formData, setToken);
     console.log("Form data:", formData);
   };
 
@@ -172,7 +172,7 @@ const Sidebar = (props) => {
           <Link to="/AdminPannel/basic-details/products" className="">
             <div className="text-sm font-bold hover:text-black">ورود ادمین</div>
           </Link>
-          <Link to="/testpage" className="">
+          <Link to="/userPanel" className="">
             <div className="text-sm font-bold hover:text-black">
               ورود به صفحه پروفایل
             </div>

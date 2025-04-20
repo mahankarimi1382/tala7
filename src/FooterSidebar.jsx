@@ -150,7 +150,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           <Link to="/AddSomeNews" className="">
           <div className="text-sm font-bold hover:text-black ">ورود ادمین</div>
           </Link>
-          <Link to="/testpage" className="">
+          <Link to="/userPanele" className="">
             <div className="text-sm font-bold hover:text-black">
               ورود به صفحه پروفایل
             </div>

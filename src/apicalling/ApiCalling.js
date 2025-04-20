@@ -16,8 +16,6 @@ export const signup = (data, closeModal, onClose) => {
     });
 };
 
-
-
 export const fetchNews = async (setLoading, setError, apiUrl, setNewsItems) => {
   setLoading(true);
   setError(null);
@@ -38,8 +36,6 @@ export const fetchNews = async (setLoading, setError, apiUrl, setNewsItems) => {
     setLoading(false);
   }
 };
-
-
 
 export const signin = (data, setToken) => {
   console.log(data);
@@ -63,9 +59,6 @@ export const signin = (data, setToken) => {
     });
 };
 
-
-
-
 export const Get_All_Product = (setProducts) => {
   axios
     .post("http://tala7.com:44/api/Product/Get_All_Product", {
@@ -85,8 +78,6 @@ export const Get_All_Product = (setProducts) => {
       console.log(err);
     });
 };
-
-
 
 export const Get_All_MasterProduct = (setMasterProduct) => {
   axios
@@ -108,8 +99,6 @@ export const Get_All_MasterProduct = (setMasterProduct) => {
     });
 };
 
-
-
 export const Get_All_SubMasterProduct = (setSubMasterProduct) => {
   axios
     .post("http://tala7.com:44/api/Product/Get_All_TypeSubMasterProduct", {
@@ -130,8 +119,6 @@ export const Get_All_SubMasterProduct = (setSubMasterProduct) => {
     });
 };
 
-
-
 export const Create_TypeProduct_Master = (data, setIsModal) => {
   console.log(data);
   axios
@@ -146,8 +133,6 @@ export const Create_TypeProduct_Master = (data, setIsModal) => {
     });
 };
 
-
-
 export const Create_TypeProduct_SubMaster = (data, setIsModal) => {
   console.log(data);
   axios
@@ -161,8 +146,6 @@ export const Create_TypeProduct_SubMaster = (data, setIsModal) => {
       Eror("خطا");
     });
 };
-
-
 
 export const Create_Product = (data, setIsModal) => {
   console.log(data);
@@ -245,7 +228,6 @@ export const CreateNews = (data, setIsModal) => {
     });
 };
 
-
 export const Get_All_Users = async () => {
   try {
     const response = await axios.get(
@@ -260,7 +242,6 @@ export const Get_All_Users = async () => {
   }
 };
 
-
 export const Create_Seller = (data, setIsModal) => {
   console.log(data);
   axios
@@ -273,8 +254,6 @@ export const Create_Seller = (data, setIsModal) => {
       console.log(err);
     });
 };
-
-
 
 export const Get_All_Sellers = (setSellers) => {
   axios
@@ -310,7 +289,6 @@ export const Create_DocStore = (data, setIsModal) => {
     });
 };
 
-
 export const Edit_TypeProduct_Master = (data, setIsEditingModal, id) => {
   console.log(data);
   axios
@@ -345,7 +323,6 @@ export const EnterVitrin_DocStore = (id, setDocStore) => {
       console.log(err);
     });
 };
-
 
 export const Get_Products_InVitrin = (setInVitrin, currentPage) => {
   axios
@@ -386,12 +363,6 @@ export const Get_Products_Show_InVitrin = (setVitrinShow, currentPage) => {
     .catch((err) => {
       console.log(err);
     });
-
-
-
-
-
-    
 };
 
 export const DeleteTypeProduct_Master = async (id, closeModal) => {
@@ -468,4 +439,137 @@ export const DeleteProduct = async (id, closeModal) => {
       error.response ? error.response.data : error.message
     );
   }
+};
+export const Get_All_Applicants = (setAplicantUsers, currentPage) => {
+  axios
+    .post(`http://tala7.com:44/api/Applicant/Get_All_Applicants`, {
+      metadata: {
+        userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        userName: "string",
+        userNameforC: "string",
+      },
+      pagenumber: currentPage,
+      pagesize: 100,
+    })
+    .then((res) => {
+      console.log(res.data.response_List);
+      setAplicantUsers(res.data.response_List);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+export const SharzhWallet_Gold = (data, setIsModal) => {
+  axios
+    .post(
+      `http://tala7.com:44/api/Wallet_Gold/SharzhWallet_Gold?SharzhValue=${data.sharzhValue}&Exist_gold=0&ApplicantId=${data.applicantId}`,
+      {
+        metadata: {
+          userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          userName: "string",
+          userNameforC: "string",
+        },
+        exist_Gold: "string",
+        applicantId: 0,
+        parent_Id: 0,
+      }
+    )
+    .then((res) => {
+      setIsModal(false);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+export const Get_Wallet_gold_By_ApplicantId = async (id, setWalletInfo) => {
+  try {
+    const response = await axios.get(
+      `http://tala7.com:44/api/Wallet_Gold/Get_Wallet_gold_By_ApplicantId/${id}`
+    );
+    console.log("Data fetched successfully:", response);
+    setWalletInfo(response.data);
+  } catch (error) {
+    console.error(
+      "Error while fetching data:",
+      error.response ? error.response.data : error.message
+    );
+  }
+};
+export const Get_Wallet_toman_By_ApplicantId = async (id, setWalletInfo) => {
+  try {
+    const response = await axios.get(
+      `http://tala7.com:44/api/WalletToman/Get_Wallet_toman_By_ApplicantId/${id}`
+    );
+    console.log("Data fetched successfully:", response);
+    setWalletInfo(response.data);
+  } catch (error) {
+    console.error(
+      "Error while fetching data:",
+      error.response ? error.response.data : error.message
+    );
+  }
+};
+export const SharzhWallet_toman = (data, setIsModal) => {
+  axios
+    .post(
+      `http://tala7.com:44/api/WalletToman/SharzhWallet_toman?SharzhValue=${data.sharzhValue}&Exist_toman=0&ApplicantId=${data.applicantId}`,
+      {
+        metadata: {
+          userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          userName: "string",
+          userNameforC: "string",
+        },
+        exist_toman: "string",
+        applicantId: 0,
+        old_Wallet_toman_Id: 0,
+      }
+    )
+    .then((res) => {
+      setIsModal(false);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+export const Get_Wallet_Installment_Purchase_By_ApplicantId = async (
+  id,
+  setWalletInfo
+) => {
+  try {
+    const response = await axios.get(
+      `http://tala7.com:44/api/Wallet_Installment_Purchase/Get_Wallet_Installment_Purchase_By_ApplicantId/${id}`
+    );
+    console.log("Data fetched successfully:", response);
+    setWalletInfo(response.data);
+  } catch (error) {
+    console.error(
+      "Error while fetching data:",
+      error.response ? error.response.data : error.message
+    );
+  }
+};
+export const SharzhWallet_Wallet_Installment_Purchase = (data, setIsModal) => {
+  axios
+    .post(
+      `http://tala7.com:44/api/Wallet_Installment_Purchase/SharzhWallet_Wallet_Installment_Purchase?SharzhValue=${data.sharzhValue}&Exist_toman=0&ApplicantId=${data.applicantId}`,
+      {
+        metadata: {
+          userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          userName: "string",
+          userNameforC: "string",
+        },
+        exist_Installment_Purchase: "string",
+        applicantId: 0,
+        old_Wallet_Installment_Purchase_Id: 0,
+      }
+    )
+    .then((res) => {
+      setIsModal(false);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
