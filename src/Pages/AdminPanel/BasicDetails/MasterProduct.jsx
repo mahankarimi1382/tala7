@@ -100,7 +100,7 @@ function MasterProduct() {
           closeModal={() => setIsDeletingModal(false)}
         />
       )}
-      <div className=" w-5/6 flex p-5 justify-center h-screen">
+      <div className=" w-full lg:w-5/6 flex p-5 justify-center h-screen">
         <div className=" w-full rounded p-2 bg-white shadow-xl h-full flex flex-col">
           <div className=" w-full flex flex-col gap-5 items-start">
             <h5 className=" text-xl font-semibold">سرگروه</h5>
