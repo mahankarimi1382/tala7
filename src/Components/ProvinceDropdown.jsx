@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {Get_All_Provice} from "../apicalling/ApiCalling"
 
 const ProvinceDropdown = () => {
   const [provinces, setProvinces] = useState([]);
