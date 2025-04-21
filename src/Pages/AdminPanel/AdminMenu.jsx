@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function AdminMenu() {
   const [activeTab, setActiveTab] = useState("news");
   const [isCollapsed, setIsCollapsed] = useState(false);
-  
+
   const [accordionState, setAccordionState] = useState({
     baseInfo: false,
     salesOperations: false,
@@ -53,7 +53,7 @@ function AdminMenu() {
   return (
     <>
       {/* Mobile Toggle Button - Positioned on the right */}
-      <button 
+      <button
         className="fixed lg:hidden z-50 top-4 right-4 p-2 bg-teal-800 text-white rounded-md shadow-lg"
         onClick={() => setIsCollapsed(!isCollapsed)}
       >
@@ -61,7 +61,8 @@ function AdminMenu() {
       </button>
 
       {/* Sidebar - Emerges from right */}
-      <div className={`
+      <div
+        className={`
         fixed lg:static
         w-[280px] lg:w-1/5
         min-h-screen
@@ -70,7 +71,8 @@ function AdminMenu() {
         transition-all duration-300 ease-in-out
         z-40
         ${isCollapsed ? "-right-[280px]" : "right-0"}
-      `}>
+      `}
+      >
         <h5 className="text-center py-4 text-lg font-semibold">پنل مدیریت</h5>
 
         {/* Base Info */}
@@ -106,7 +108,11 @@ function AdminMenu() {
             onClick={() => toggleAccordion("salesOperations")}
           >
             <span className="font-bold">عملیات فروش</span>
-            {accordionState.salesOperations ? <FaChevronUp /> : <FaChevronDown />}
+            {accordionState.salesOperations ? (
+              <FaChevronUp />
+            ) : (
+              <FaChevronDown />
+            )}
           </div>
           {accordionState.salesOperations && (
             <ul className="mt-2 bg-white flex flex-col text-black rounded-lg shadow-md">
@@ -165,7 +171,10 @@ function AdminMenu() {
             className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
             onClick={() => toggleAccordion("installmentRequests")}
           >
-            <Link to="/AdminPannel/rate" className="font-bold w-full text-right">
+            <Link
+              to="/AdminPannel/rate"
+              className="font-bold w-full text-right"
+            >
               نرخ لحظه ای
             </Link>
           </div>
@@ -177,7 +186,10 @@ function AdminMenu() {
             className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
             onClick={() => toggleAccordion("installmentRequests")}
           >
-            <Link to="/AdminPannel/setting" className="font-bold w-full text-right">
+            <Link
+              to="/AdminPannel/setting"
+              className="font-bold w-full text-right"
+            >
               تنظیمات
             </Link>
           </div>
@@ -207,7 +219,12 @@ function AdminMenu() {
             className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
             onClick={() => toggleAccordion("installmentRequests")}
           >
-            <span className="font-bold">درخواست اقساط</span>
+            <Link
+              to="/AdminPannel/InstallmentInspection "
+              className="font-bold w-full text-right"
+            >
+              درخواست اقساط
+            </Link>
           </div>
         </div>
 
