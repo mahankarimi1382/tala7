@@ -26,6 +26,7 @@ import AllProducts from "../AllProducts.jsx";
 import ShoppingCartPage from "./AdminPanel/BasicDetails/ShoppingCartPage.jsx";
 import InstallmentRequest from "../InstallmentRequest.jsx";
 import InstallmentTrack from "../InstallmentTrack.jsx";
+import InstallmentInspection from "./AdminPanel/BasicDetails/InstallmentInspection.jsx";
 
 
 createRoot(document.getElementById("root")).render(
@@ -75,6 +76,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/AdminPannel/news" element={<News />} />
         <Route path="/AddSomeNews" element={<AddNews />} />
         <Route path="/AllProducts" element={<AllProducts />} />
+        <Route path="/AdminPannel/InstallmentInspection" element={<InstallmentInspection />} />
       </Routes>
     </BrowserRouter>
     <ToastContainer />

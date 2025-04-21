@@ -2,8 +2,8 @@ import { FaCheck } from "react-icons/fa";
 
 function AddThingsModal(props) {
   return (
-    <div className=" w-full fixed top-0 right-0 flex justify-center items-center h-screen bg-black bg-opacity-50">
-      <div className=" relative bg-white rounded p-4 w-1/3 h-[60%] items-center flex flex-col gap-5">
+    <div className=" w-full backdrop-blur-sm fixed top-0 right-0 flex justify-center items-center h-screen bg-black bg-opacity-50">
+      <div className=" relative  bg-white rounded p-4 w-1/3 h-[60%] items-center flex flex-col gap-5">
         <div className=" w-full">
           <h5 className="  text-lg">افزودن {props.title}</h5>
         </div>

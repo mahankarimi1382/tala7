@@ -44,7 +44,7 @@ function AddToVitrin() {
       )}
       <AdminMenu />
 
-      <div className=" w-5/6 flex p-5 justify-center min-h-screen">
+      <div className=" w-full lg:w-5/6 flex p-5 justify-center min-h-screen">
         <div className=" w-full rounded p-2 bg-white shadow-xl h-full flex flex-col">
           <div className=" w-full flex justify-center gap-10">
             <button

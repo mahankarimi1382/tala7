@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { FaChevronDown, FaChevronUp, FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 function AdminMenu() {
   const [activeTab, setActiveTab] = useState("news");
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const [accordionState, setAccordionState] = useState({
-    baseInfo: true,
+    baseInfo: false,
     salesOperations: false,
     installmentRequests: false,
     reports: false,
@@ -16,17 +17,22 @@ function AdminMenu() {
     Wallet: false,
     rate: false,
   });
+
   const toggleAccordion = (key) => {
-    setAccordionState((prevState) => ({
-      ...prevState,
-      [key]: !prevState[key],
-    }));
+    setAccordionState((prevState) => {
+      const newState = Object.fromEntries(
+        Object.keys(prevState).map((k) => [k, false])
+      );
+      newState[key] = !prevState[key];
+      return newState;
+    });
   };
+
   const handleLinks = (tab) => {
     if (tab == "masster") {
       return (
         <Link to="/AdminPannel/basic-details/add-master-product">
-          تغریف سرگروه
+          تعریف سرگروه
         </Link>
       );
     } else if (tab == "subMaster") {
@@ -43,156 +49,196 @@ function AdminMenu() {
       );
     }
   };
+
   return (
-    <div className=" w-1/5 min-h-screen bg-gradient-to-b flex flex-col items-center  from-teal-950 to-teal-900 text-white p-2 ">
-      <h5>پنل مدیریت</h5>
-      {/* <h2 className="text-lg font-bold mb-4">{MyTitle}</h2> */}
+    <>
+      {/* Mobile Toggle Button - Positioned on the right */}
+      <button
+        className="fixed lg:hidden z-50 top-4 right-4 p-2 bg-teal-800 text-white rounded-md shadow-lg"
+        onClick={() => setIsCollapsed(!isCollapsed)}
+      >
+        {isCollapsed ? <FaBars size={20} /> : <FaTimes size={20} />}
+      </button>
 
-      {/* Base Info */}
+      {/* Sidebar - Emerges from right */}
+      <div
+        className={`
+        fixed lg:static
+        w-[280px] lg:w-1/5
+        min-h-screen
+        bg-gradient-to-b from-teal-950 to-teal-900
+        text-white p-2
+        transition-all duration-300 ease-in-out
+        z-40
+        ${isCollapsed ? "-right-[280px]" : "right-0"}
+      `}
+      >
+        <h5 className="text-center py-4 text-lg font-semibold">پنل مدیریت</h5>
 
-      <div className=" w-full">
-        <div
-          className="bg-gray-700   p-3 rounded cursor-pointer flex justify-between items-center mt-2"
-          onClick={() => toggleAccordion("baseInfo")}
-        >
-          <span className="font-bold">اطلاعات پایه</span>
-          {accordionState.baseInfo ? <FaChevronUp /> : <FaChevronDown />}
+        {/* Base Info */}
+        <div className="w-full">
+          <div
+            className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
+            onClick={() => toggleAccordion("baseInfo")}
+          >
+            <span className="font-bold">اطلاعات پایه</span>
+            {accordionState.baseInfo ? <FaChevronUp /> : <FaChevronDown />}
+          </div>
+          {accordionState.baseInfo && (
+            <ul className="mt-2 bg-white text-black rounded-lg shadow-md">
+              {["masster", "subMaster", "products", "seller"].map((tab) => (
+                <li
+                  key={tab}
+                  className={`p-2 cursor-pointer ${
+                    activeTab === tab ? "bg-gray-200" : "hover:bg-gray-100"
+                  }`}
+                  onClick={() => setActiveTab(tab)}
+                >
+                  {handleLinks(tab)}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
-        {accordionState.baseInfo && (
-          <ul className="mt-2 bg-white text-black rounded-lg shadow-md">
-            {["masster", "subMaster", "products", "seller"].map((tab) => (
-              <li
-                key={tab}
-                className={`p-2 cursor-pointer ${
-                  activeTab === tab ? "bg-gray-200" : "hover:bg-gray-100"
-                }`}
-                onClick={() => setActiveTab(tab)}
+        {/* Sales Operations */}
+        <div className="w-full">
+          <div
+            className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
+            onClick={() => toggleAccordion("salesOperations")}
+          >
+            <span className="font-bold">عملیات فروش</span>
+            {accordionState.salesOperations ? (
+              <FaChevronUp />
+            ) : (
+              <FaChevronDown />
+            )}
+          </div>
+          {accordionState.salesOperations && (
+            <ul className="mt-2 bg-white flex flex-col text-black rounded-lg shadow-md">
+              <Link
+                to="/AdminPannel/sale-action/safe-box"
+                className="p-2 cursor-pointer hover:bg-gray-100"
               >
-                {handleLinks(tab)}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-
-      {/* Additional Headers without subitems */}
-      <div className=" w-full">
-        <div
-          className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
-          onClick={() => toggleAccordion("salesOperations")}
-        >
-          <span className="font-bold">عملیات فروش</span>
-          {accordionState.salesOperations ? <FaChevronUp /> : <FaChevronDown />}
-        </div>
-        {accordionState.salesOperations && (
-          <ul className="mt-2 bg-white flex flex-col text-black rounded-lg shadow-md">
-            <Link
-              to="/AdminPannel/sale-action/safe-box"
-              className="p-2 cursor-pointer hover:bg-gray-100"
-              onClick={() => {}}
-            >
-              ورود به گاو صندوق
-            </Link>
-            <Link
-              to="/AdminPannel/sale-action/vitrin"
-              className="p-2 cursor-pointer hover:bg-gray-100"
-            >
-              ورود به ویترین
-            </Link>
-          </ul>
-        )}
-      </div>
-      <div className=" w-full">
-        <div
-          className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
-          onClick={() => toggleAccordion("Wallet")}
-        >
-          <span className="font-bold">شارژ کیف پول</span>
-          {accordionState.Wallet ? <FaChevronUp /> : <FaChevronDown />}
-        </div>
-        {accordionState.Wallet && (
-          <ul className="mt-2 bg-white flex flex-col text-black rounded-lg shadow-md">
-            <Link
-              to="/AdminPannel/wallet/gold"
-              className="p-2 cursor-pointer hover:bg-gray-100"
-              onClick={() => {}}
-            >
-              شارژ کیف پول طلا
-            </Link>
-            <Link
-              to="/AdminPannel/wallet/tooman"
-              className="p-2 cursor-pointer hover:bg-gray-100"
-            >
-              شارژ کیف پول تومان{" "}
-            </Link>
-            <Link
-              to="/AdminPannel/wallet/Aghsat"
-              className="p-2 cursor-pointer hover:bg-gray-100"
-            >
-              شارژ کیف پول اقساط
-            </Link>
-          </ul>
-        )}
-      </div>
-      <div className=" w-full">
-        <div
-          className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
-          onClick={() => toggleAccordion("installmentRequests")}
-        >
-          <Link to="/AdminPannel/rate" className="font-bold">
-            نرخ لحظه ای
-          </Link>
-        </div>
-      </div>
-      <div className=" w-full">
-        <div
-          className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
-          onClick={() => toggleAccordion("installmentRequests")}
-        >
-          <Link to="/AdminPannel/setting" className="font-bold">
-            تنظیمات
-          </Link>
-        </div>
-      </div>
-
-      {/* Sales Operations Details */}
-      <div className=" w-full">
-        <div
-          className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
-          onClick={() => toggleAccordion("news")}
-        >
-          <span className="font-bold">اخبار</span>
-          {accordionState.news ? <FaChevronUp /> : <FaChevronDown />}
+                ورود به گاو صندوق
+              </Link>
+              <Link
+                to="/AdminPannel/sale-action/vitrin"
+                className="p-2 cursor-pointer hover:bg-gray-100"
+              >
+                ورود به ویترین
+              </Link>
+            </ul>
+          )}
         </div>
 
-        {accordionState.news && (
-          <ul className="mt-2 p-2 bg-white text-black rounded-lg shadow-md">
-            <Link className=" p-2" to="/AdminPannel/news">
-              اخبار
+        {/* Wallet */}
+        <div className="w-full">
+          <div
+            className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
+            onClick={() => toggleAccordion("Wallet")}
+          >
+            <span className="font-bold">شارژ کیف پول</span>
+            {accordionState.Wallet ? <FaChevronUp /> : <FaChevronDown />}
+          </div>
+          {accordionState.Wallet && (
+            <ul className="mt-2 bg-white flex flex-col text-black rounded-lg shadow-md">
+              <Link
+                to="/AdminPannel/wallet/gold"
+                className="p-2 cursor-pointer hover:bg-gray-100"
+              >
+                شارژ کیف پول طلا
+              </Link>
+              <Link
+                to="/AdminPannel/wallet/tooman"
+                className="p-2 cursor-pointer hover:bg-gray-100"
+              >
+                شارژ کیف پول تومان
+              </Link>
+              <Link
+                to="/AdminPannel/wallet/Aghsat"
+                className="p-2 cursor-pointer hover:bg-gray-100"
+              >
+                شارژ کیف پول اقساط
+              </Link>
+            </ul>
+          )}
+        </div>
+
+        {/* Rate */}
+        <div className="w-full">
+          <div
+            className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
+            onClick={() => toggleAccordion("installmentRequests")}
+          >
+            <Link
+              to="/AdminPannel/rate"
+              className="font-bold w-full text-right"
+            >
+              نرخ لحظه ای
             </Link>
-          </ul>
-        )}
-      </div>
+          </div>
+        </div>
 
-      <div className=" w-full">
-        <div
-          className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
-          onClick={() => toggleAccordion("installmentRequests")}
-        >
-          <span className="font-bold">درخواست اقساط</span>
+        {/* Settings */}
+        <div className="w-full">
+          <div
+            className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
+            onClick={() => toggleAccordion("installmentRequests")}
+          >
+            <Link
+              to="/AdminPannel/setting"
+              className="font-bold w-full text-right"
+            >
+              تنظیمات
+            </Link>
+          </div>
+        </div>
+
+        {/* News */}
+        <div className="w-full">
+          <div
+            className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
+            onClick={() => toggleAccordion("news")}
+          >
+            <span className="font-bold">اخبار</span>
+            {accordionState.news ? <FaChevronUp /> : <FaChevronDown />}
+          </div>
+          {accordionState.news && (
+            <ul className="mt-2 p-2 bg-white text-black rounded-lg shadow-md">
+              <Link className="p-2" to="/AdminPannel/news">
+                اخبار
+              </Link>
+            </ul>
+          )}
+        </div>
+
+        {/* Installment Requests */}
+        <div className="w-full">
+          <div
+            className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
+            onClick={() => toggleAccordion("installmentRequests")}
+          >
+            <Link
+              to="/AdminPannel/InstallmentInspection "
+              className="font-bold w-full text-right"
+            >
+              درخواست اقساط
+            </Link>
+          </div>
+        </div>
+
+        {/* Reports */}
+        <div className="w-full">
+          <div
+            className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
+            onClick={() => toggleAccordion("reports")}
+          >
+            <span className="font-bold">گزارشات</span>
+          </div>
         </div>
       </div>
-
-      <div className=" w-full">
-        <div
-          className="bg-gray-700 p-3 rounded cursor-pointer flex justify-between items-center mt-2"
-          onClick={() => toggleAccordion("reports")}
-        >
-          <span className="font-bold">گزارشات</span>
-        </div>
-      </div>
-    </div>
+    </>
   );
 }
 
