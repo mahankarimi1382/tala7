@@ -64,7 +64,9 @@ function WalletAghsat() {
                     key={item.id}
                   >
                     <h5 className=" text-gray-700">{item.date_register}</h5>
-                    <h5 className=" text-gray-700">{item.exist_toman} تومان</h5>
+                    <h5 className=" text-gray-700">
+                      {item.exist_Installment_Purchase} تومان
+                    </h5>
                   </div>
                 );
               })}

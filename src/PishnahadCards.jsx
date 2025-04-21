@@ -10,13 +10,13 @@ function PishnahadCards(props) {
         className="BeatyCard "
         style={{ width: "280px", padding: "56px 20px" }}
       >
-        <div className=" bg-white border border-gray-200 rounded-lg shadow ">
-          <div className="ImageZone relative">
+        <div className="  bg-white border flex flex-col items-center justify-center border-gray-200 rounded-lg shadow ">
+          <div className="ImageZone  relative">
             <Link to="/hover-product-page" className="text-blue-500 underline">
               <div className="imageBox w-full">
                 <div className="imageInn  w-full">
                   <img
-                    className=" FirstImage  w-full max-h-[220px] rounded-t-lg block"
+                    className=" h-[250px]  FirstImage max-h-[250px] rounded-t-lg block"
                     src={props.logoImage1}
                     alt="Main Image"
                   />
@@ -24,7 +24,7 @@ function PishnahadCards(props) {
 
                 <div className=" SecondImage w-full hoverable-object rounded-t-lg block hoverImg  ">
                   <img
-                    className="w-full max-h-[220px]"
+                    className="w-full h-[250px]  FirstImage max-h-[250px]"
                     src={props.logoImage2}
                     alt="Second Image"
                   />

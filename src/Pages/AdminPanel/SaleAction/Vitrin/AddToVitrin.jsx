@@ -5,23 +5,27 @@ import {
   EnterVitrin_DocStore,
   Get_Products_InStore,
   Get_Products_InVitrin,
+  Reject_Vitrin_DocStore_To_Safebox,
 } from "../../../../apicalling/ApiCalling";
 
 import AdminMenu from "../../AdminMenu";
 import { Pagination } from "@mui/material";
+import DeletingModal from "../../BasicDetails/DeletingModal";
 
 function AddToVitrin() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const [docStore, setDocStore] = useState([]);
   const [inVitrin, setInVitrin] = useState([]);
+  const [selectedProductID, setSelectedProductID] = useState(0);
+  const [product_Name, setProduct_Name] = useState("");
   console.log(inVitrin);
   const [isVitrin, setIsVitrin] = useState(false);
-
+  const [isDeletingModal, setIsDeletingModal] = useState(false);
   useEffect(() => {
     Get_Products_InVitrin(setInVitrin, currentPage);
     Get_Products_InStore(setDocStore, currentPage);
-  }, [currentPage,isVitrin]);
+  }, [currentPage, isVitrin, isDeletingModal]);
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
@@ -30,6 +34,14 @@ function AddToVitrin() {
 
   return (
     <div className=" w-full h-screen flex items-center">
+      {isDeletingModal && (
+        <DeletingModal
+          id={selectedProductID}
+          DeletingFn={Reject_Vitrin_DocStore_To_Safebox}
+          title={product_Name}
+          closeModal={() => setIsDeletingModal(false)}
+        />
+      )}
       <AdminMenu />
 
       <div className=" w-5/6 flex p-5 justify-center min-h-screen">
@@ -88,7 +100,9 @@ function AddToVitrin() {
                           </h5>
                           <h5 className=" flex justify-center gap-5 items-center w-1/5">
                             <button
-                              onClick={() => EnterVitrin_DocStore(item.id,setDocStore)}
+                              onClick={() =>
+                                EnterVitrin_DocStore(item.id, setDocStore)
+                              }
                               className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-teal-500 text-white"
                             >
                               افزودن به ویترین
@@ -149,7 +163,14 @@ function AddToVitrin() {
                             {/* {item.product.product_Code} */}
                           </h5>
                           <h5 className=" flex justify-center gap-5 items-center w-1/5">
-                            <button className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-red-500 text-white">
+                            <button
+                              onClick={() => {
+                                setProduct_Name(item.productName);
+                                setSelectedProductID(item.id);
+                                setIsDeletingModal(true);
+                              }}
+                              className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-red-500 text-white"
+                            >
                               حذف از ویترین
                             </button>
                           </h5>

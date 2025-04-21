@@ -1,4 +1,4 @@
-import { useRef } from "react"; // Import useRef
+import { useEffect, useRef, useState } from "react"; // Import useRef
 import img1 from "../src/assets/img/containerring1.png";
 import img2 from "../src/assets/img/containerring2.png";
 import img3 from "../src/assets/img/ring8.jpg";
@@ -25,6 +25,7 @@ import styles from "./Carousel.module.css"; // Import CSS module
 // import UpCardforcarousel from "../src/UpCardforcarousel";
 // import required modules
 import { Keyboard, Pagination, Autoplay } from "swiper/modules";
+import { Get_Products_FreeShipment_Show_InVitrin } from "./apicalling/ApiCalling";
 
 //comented props:
 //--------------------
@@ -43,6 +44,12 @@ import { Keyboard, Pagination, Autoplay } from "swiper/modules";
 //--------------------
 
 export default function NewPishnahad() {
+  const [vitrinShow, setVitrinShow] = useState([]);
+  console.log(vitrinShow);
+
+  useEffect(() => {
+    Get_Products_FreeShipment_Show_InVitrin(setVitrinShow);
+  }, []);
   const cardData = [
     {
       id: 1,
@@ -171,22 +178,10 @@ export default function NewPishnahad() {
           className="swiper"
         >
           <div className=" Cards__yard  ">
-            {cardData.map((item) => {
+            {vitrinShow.map((product,index) => {
               return (
-                <SwiperSlide key={item.id}>
-                  <PishnahadCards
-                    ImageAddress={item.ImageAddress}
-                    SecondImageAddress={item.SecondImageAddress}
-                    RingName={item.RingName}
-                    FirstPrice={item.FirstPrice}
-                    SecondPrice={item.SecondPrice}
-                    MySecond="57"
-                    MyMiniute="35"
-                    MyHour="11"
-                    MyDays="143"
-                    MyDiscount="17"
-                    MinusOrPlus="-"
-                  />
+                <SwiperSlide  key={index}>
+                  <PishnahadCards key={index} {...product} />
                 </SwiperSlide>
               );
             })}

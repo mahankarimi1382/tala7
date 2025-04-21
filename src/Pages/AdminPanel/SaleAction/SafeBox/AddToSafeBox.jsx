@@ -3,6 +3,7 @@ import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
 import {
   Create_DocStore,
+  Delete_DocStore,
   Get_All_Product,
   Get_All_Sellers,
   Get_Products_InStore,
@@ -13,6 +14,7 @@ import AddThingsModal from "../../BasicDetails/AddThingsModal";
 import { Pagination } from "@mui/material";
 import Base64Uploader from "../../../../Components/utils/Base64Uploader";
 import { Eror } from "../../../../Components/ToastAlerts";
+import DeletingModal from "../../BasicDetails/DeletingModal";
 
 function AddToSafeBox() {
   const [logoImage1, setLogoImage1] = useState("");
@@ -51,6 +53,10 @@ function AddToSafeBox() {
   const [products, setProducts] = useState([]);
   const [inVitrin, setInVitrin] = useState([]);
   const [sellers, setSellers] = useState([]);
+  const [selectedProductID, setSelectedProductID] = useState(0);
+  const [product_Name, setProduct_Name] = useState("");
+  console.log(inVitrin);
+  const [isDeletingModal, setIsDeletingModal] = useState(false);
   console.log(sellers);
   console.log(inVitrin);
   const [isVitrin, setIsVitrin] = useState(false);
@@ -60,7 +66,7 @@ function AddToSafeBox() {
     Get_Products_InStore(setInVitrin, currentPage);
 
     Get_All_Product(setProducts);
-  }, [currentPage, isVitrin]);
+  }, [currentPage, isVitrin, isDeletingModal]);
   const numbersTo20 = [];
   for (let i = 1; i <= 20; i += 0.5) {
     numbersTo20.push(i);
@@ -100,7 +106,7 @@ function AddToSafeBox() {
     isWoman,
     isMan,
     freeShipment,
-    specialSale,
+    specialSale: discount_Benefit_Percent ? true : false,
     specialSaleDate,
     product_Size: Number(product_Size),
     gold_Color: Number(gold_Color),
@@ -119,6 +125,14 @@ function AddToSafeBox() {
   return (
     <div className=" w-full min-h-screen flex items-center">
       <AdminMenu />
+      {isDeletingModal && (
+        <DeletingModal
+          id={selectedProductID}
+          DeletingFn={Delete_DocStore}
+          title={product_Name}
+          closeModal={() => setIsDeletingModal(false)}
+        />
+      )}
       {isModal && (
         <AddThingsModal
           // submitFn={() => Create_Seller(data, setIsModal)}
@@ -183,7 +197,7 @@ function AddToSafeBox() {
                     key={item.id}
                     value={item.id}
                   >
-                    {item.address}
+                    {item.sellerName} {item.sellerFamily}
                   </option>
                 );
               })}
@@ -481,7 +495,14 @@ function AddToSafeBox() {
                             {/* {item.product.product_Code} */}
                           </h5>
                           <h5 className=" flex justify-center gap-5 items-center w-1/5">
-                            <button className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-red-500 text-white">
+                            <button
+                              onClick={() => {
+                                setProduct_Name(item.productName);
+                                setSelectedProductID(item.id);
+                                setIsDeletingModal(true);
+                              }}
+                              className=" p-2 flex justify-center items-center gap-2 rounded-sm bg-red-500 text-white"
+                            >
                               حذف از گاوصندوق
                             </button>
                           </h5>

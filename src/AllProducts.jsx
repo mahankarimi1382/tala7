@@ -802,7 +802,7 @@ console.log(totalPages)
         </div>
 
         <hr className="my-4" />
-        <div className="flex items-center justify-center flex-wrap gap-6">
+        <div className="flex justify-center flex-wrap gap-6">
           {selectedProducts.map((product, index) => (
             <PishnahadCards key={index} {...product} />
           ))}

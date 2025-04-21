@@ -553,7 +553,7 @@ export const Get_Wallet_Installment_Purchase_By_ApplicantId = async (
 export const SharzhWallet_Wallet_Installment_Purchase = (data, setIsModal) => {
   axios
     .post(
-      `http://tala7.com:44/api/Wallet_Installment_Purchase/SharzhWallet_Wallet_Installment_Purchase?SharzhValue=${data.sharzhValue}&Exist_toman=0&ApplicantId=${data.applicantId}`,
+      `http://tala7.com:44/api/Wallet_Installment_Purchase/SharzhWallet_Wallet_Installment_Purchase?SharzhValue=${data.sharzhValue}&exist_Installment_Purchase=0&ApplicantId=${data.applicantId}`,
       {
         metadata: {
           userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -567,6 +567,61 @@ export const SharzhWallet_Wallet_Installment_Purchase = (data, setIsModal) => {
     )
     .then((res) => {
       setIsModal(false);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+export const Reject_Vitrin_DocStore_To_Safebox = (id, setIsModal) => {
+  axios
+    .post(
+      `http://tala7.com:44/api/DocStore/Reject_Vitrin_DocStore_To_Safebox`,
+      {
+        metadata: {
+          userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          userName: "string",
+          userNameforC: "string",
+        },
+        id,
+        dateOfVitrin: "2025-04-21T12:32:26.267Z",
+      }
+    )
+    .then((res) => {
+      setIsModal(false);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+export const Delete_DocStore = (id, setIsModal) => {
+  axios
+    .post(`http://tala7.com:44/api/DocStore/Delete_DocStore`, {
+      metadata: {
+        userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        userName: "string",
+        userNameforC: "string",
+      },
+      id,
+      dateOfVitrin: "2025-04-21T12:32:26.267Z",
+    })
+    .then((res) => {
+      setIsModal(false);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+export const Get_Products_FreeShipment_Show_InVitrin = (setVitrinShow) => {
+  axios
+    .post(
+      `http://tala7.com:44/api/DocStore/Get_Products_FreeShipment_Show_InVitrin`
+    )
+    .then((res) => {
+      setVitrinShow(res.data);
+
       console.log(res);
     })
     .catch((err) => {
