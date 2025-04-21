@@ -138,15 +138,16 @@ function Setting() {
       ],
     },
     {
-      label: "خرید محصول طلا - نقدی",
+      label:
+       "قیمت خرید محصول طلا از زبانه",
       name: "isBuyGoldProductCashAuto",
       options: [
-        { label: "بله", value: "true" },
-        { label: "خیر", value: "false" },
+        { label: "API", value: "true" },
+        { label: "دستی", value: "false" },
       ],
     },
     {
-      label: "مشخص شود",
+      label: " خرید محصول طلا انجام شود",
       name: "isBuyGoldProduct",
       options: [
         { label: "بله", value: "true" },
@@ -209,14 +210,14 @@ function Setting() {
         </AddThingsModal>
       )}
 
-      <div className="w-full lg:w-5/6 flex p-5 justify-center h-screen">
-        <div className="w-full rounded p-2 bg-white shadow-xl h-full flex flex-col">
+      <div className="w-full lg:w-5/6 flex p-5 justify-center h-screen ">
+        <div className="w-full rounded p-2 bg-white  h-full flex flex-col">
           <div className="w-full h-full flex flex-col gap-5 items-start">
-            <h5 className="text-xl font-semibold">تنظیمات</h5>
+            <h5 className="text-xl mx-auto lg:mx-1 font-semibold">تنظیمات</h5>
             <div className="w-full gap-5 h-full items-start flex flex-col mt-4">
-              <div className="w-[90%] bg-gray-100 rounded-lg p-4 flex items-start shadow-sm">
+              <div className="w-[90%] bg-gray-100 rounded-lg p-4 flex flex-col lg:flex-row items-start shadow-sm ">
                 {/* Left Column */}
-                <div className="w-1/2 p-2 px-4 gap-4 flex flex-col">
+                <div className="w-full lg:w-1/2 p-2 px-4 gap-4 flex flex-col">
                   {selectConfigs.slice(0, 5).map(({ label, name, options }) => (
                     <div
                       key={name}
@@ -240,7 +241,7 @@ function Setting() {
                 </div>
 
                 {/* Right Column */}
-                <div className="w-1/2 p-2 px-4 gap-4 flex flex-col">
+                <div className="w-full lg:w-1/2 p-2 px-4 gap-4 flex flex-col">
                   {selectConfigs.slice(5).map(({ label, name, options }) => (
                     <div
                       key={name}
