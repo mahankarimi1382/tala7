@@ -28,6 +28,15 @@ const toPersianDate = (dateStr) => {
     .replace(/[0-9]/g, (x) => persianDigits[x]);
 };
 
+// Add number formatting function
+const formatNumber = (value) => {
+  if (!value) return '';
+  // Remove all non-digit characters
+  const numbers = value.toString().replace(/\D/g, '');
+  // Add thousand separators
+  return numbers.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
 function Rate() {
   // All your existing states
   const [users, setUsers] = useState([]);
@@ -43,6 +52,11 @@ function Rate() {
   // Add the new dollar price state
   const [dollarPriceInput, setDollarPriceInput] = useState("");
   const [goldPriceInput, setGoldPriceInput] = useState("");
+  const [emamiPriceInput, setEmamiPriceInput] = useState("");
+  const [baharPriceInput, setBaharPriceInput] = useState("");
+  const [nimsikePriceInput, setNimsikePriceInput] = useState("");
+  const [robSikePriceInput, setRobSikePriceInput] = useState("");
+  const [geramiPriceInput, setGeramiPriceInput] = useState("");
 
   // Your existing data object
   const data = {
@@ -54,6 +68,13 @@ function Rate() {
     share_Benefit_Percent,
     address,
     applicationUserId,
+  };
+
+  // Add input handler
+  const handlePriceInput = (value, setter) => {
+    // Remove all non-digit characters
+    const numbers = value.replace(/\D/g, '');
+    setter(numbers);
   };
 
   // Add the submit function for dollar price
@@ -145,7 +166,7 @@ function Rate() {
           },
           body: JSON.stringify({
             pagenumber: 1,
-            pagesize: 15,
+            pagesize: 40,
           }),
         }
       );
@@ -169,7 +190,7 @@ function Rate() {
           },
           body: JSON.stringify({
             pagenumber: 1,
-            pagesize: 15,
+            pagesize: 40,
           }),
         }
       );
@@ -266,16 +287,15 @@ function Rate() {
                   <div className="w-full p-4 bg-gray-50 rounded-lg shadow-sm flex flex-col items-center">
                     <h5 className="text-lg mb-2"> قیمت دلار</h5>
                     <input
-                      type="text"
-                      value={dollarPriceInput}
-                      onChange={(e) => setDollarPriceInput(e.target.value)}
+                      value={formatNumber(dollarPriceInput)}
+                      onChange={(e) => handlePriceInput(e.target.value, setDollarPriceInput)}
                       onKeyDown={(e) => {
                         if (e.key === "Enter") {
                           submitDollarPrice();
                         }
                       }}
                       className="w-3/4 p-3 outline-none border-2 border-gray-300 rounded-md text-center
-  focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-200"
+                      focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-200"
                     />
                     <button
                       onClick={submitDollarPrice}
@@ -312,8 +332,8 @@ function Rate() {
                   <div className="w-full p-4 bg-gray-50 rounded-lg shadow-sm flex flex-col items-center">
                     <h5 className="text-lg   mb-2"> قیمت هر گرم طلا</h5>
                     <input
-                      value={goldPriceInput}
-                      onChange={(e) => setGoldPriceInput(e.target.value)}
+                      value={formatNumber(goldPriceInput)}
+                      onChange={(e) => handlePriceInput(e.target.value, setGoldPriceInput)}
                       onKeyDown={(e) => {
                         if (e.key === "Enter") {
                           submitGoldPrice();
@@ -322,7 +342,7 @@ function Rate() {
                       className="w-3/4 p-3 outline-none border-2 border-gray-300 rounded-md text-center
                       focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-200"
                     />
-                    <button 
+                    <button
                       onClick={submitGoldPrice}
                       className="w-1/2 bg-teal-600 hover:bg-teal-700 text-white p-2 rounded-md mt-3 transition-colors"
                     >
@@ -400,8 +420,10 @@ function Rate() {
                     </div>
                   </div>
                   <div className="w-full p-4 bg-gray-50 rounded-lg shadow-sm flex flex-col items-center">
-                    <h5 className="text-lg   mb-2"> قیمت سکه امامی </h5>
+                    <h5 className="text-lg mb-2"> قیمت سکه امامی</h5>
                     <input
+                      value={formatNumber(emamiPriceInput)}
+                      onChange={(e) => handlePriceInput(e.target.value, setEmamiPriceInput)}
                       className="w-3/4 p-3 outline-none border-2 border-gray-300 rounded-md text-center
                       focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-200"
                     />
@@ -449,8 +471,10 @@ function Rate() {
                     </div>
                   </div>
                   <div className="w-full p-4 bg-gray-50 rounded-lg shadow-sm flex flex-col items-center">
-                    <h5 className="text-lg   mb-2"> قیمت بهار آزادی</h5>
+                    <h5 className="text-lg mb-2"> قیمت بهار آزادی</h5>
                     <input
+                      value={formatNumber(baharPriceInput)}
+                      onChange={(e) => handlePriceInput(e.target.value, setBaharPriceInput)}
                       className="w-3/4 p-3 outline-none border-2 border-gray-300 rounded-md text-center
                       focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-200"
                     />
@@ -513,8 +537,10 @@ function Rate() {
                     </div>
                   </div>
                   <div className="w-full p-4 bg-gray-50 rounded-lg shadow-sm flex flex-col items-center">
-                    <h5 className="text-lg   mb-2"> قیمت نیم سکه </h5>
+                    <h5 className="text-lg mb-2"> قیمت نیم سکه</h5>
                     <input
+                      value={formatNumber(nimsikePriceInput)}
+                      onChange={(e) => handlePriceInput(e.target.value, setNimsikePriceInput)}
                       className="w-3/4 p-3 outline-none border-2 border-gray-300 rounded-md text-center
                       focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-200"
                     />
@@ -576,8 +602,10 @@ function Rate() {
                     </div>
                   </div>
                   <div className="w-full p-4 bg-gray-50 rounded-lg shadow-sm flex flex-col items-center">
-                    <h5 className="text-lg   mb-2"> قیمت ربع سکه </h5>
+                    <h5 className="text-lg mb-2"> قیمت ربع سکه</h5>
                     <input
+                      value={formatNumber(robSikePriceInput)}
+                      onChange={(e) => handlePriceInput(e.target.value, setRobSikePriceInput)}
                       className="w-3/4 p-3 outline-none border-2 border-gray-300 rounded-md text-center
                       focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-200"
                     />
@@ -634,8 +662,10 @@ function Rate() {
                     </div>
                   </div>
                   <div className="w-full p-4 bg-gray-50 rounded-lg shadow-sm flex flex-col items-center">
-                    <h5 className="text-lg   mb-2"> قیمت سکه گرمی</h5>
+                    <h5 className="text-lg mb-2"> قیمت سکه گرمی</h5>
                     <input
+                      value={formatNumber(geramiPriceInput)}
+                      onChange={(e) => handlePriceInput(e.target.value, setGeramiPriceInput)}
                       className="w-3/4 p-3 outline-none border-2 border-gray-300 rounded-md text-center
                       focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all duration-200"
                     />
