@@ -21,6 +21,8 @@ function Setting() {
   const [settings, setSettings] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [rawGoldProfit, setRawGoldProfit] = useState(0);
+  const [rawGoldPurchaseProfit, setRawGoldPurchaseProfit] = useState(0);
 
   const data = {
     metadata: {
@@ -45,7 +47,11 @@ function Setting() {
       setIsLoading(true);
       const response = await axios.get('http://tala7.com:44/api/Setting/Get_Last_SiteSEtting');
       if (response.data && response.data.length > 0) {
-        setSettings(response.data[0]);
+        const settingsData = response.data[0];
+        setSettings(settingsData);
+        // Set the initial values for range sliders
+        setRawGoldProfit(settingsData.rawGoldSaleBenefitPercent || 0);
+        setRawGoldPurchaseProfit(settingsData.rawGoldBuyBenefitPercent || 0);
       }
     } catch (error) {
       console.error("Error fetching settings:", error);
@@ -63,7 +69,9 @@ function Setting() {
           userName: "admin",
           userNameforC: "admin"
         },
-        ...settings
+        ...settings,
+        rawGoldBuyBenefitPercent: rawGoldPurchaseProfit,
+        rawGoldSaleBenefitPercent: rawGoldProfit
       };
 
       const response = await axios.post(
@@ -93,6 +101,22 @@ function Setting() {
     setSettings(prev => ({
       ...prev,
       [name]: value === "true"
+    }));
+  };
+
+  const handleRawGoldProfitChange = (value) => {
+    setRawGoldProfit(value);
+    setSettings(prev => ({
+      ...prev,
+      rawGoldProfitPercentage: value
+    }));
+  };
+
+  const handleRawGoldPurchaseProfitChange = (value) => {
+    setRawGoldPurchaseProfit(value);
+    setSettings(prev => ({
+      ...prev,
+      rawGoldPurchaseProfitPercentage: value
     }));
   };
 
@@ -157,7 +181,7 @@ function Setting() {
       ],
     },
     {
-      label: "قیمت خرید محصول طلا از زبانه",
+      label: "نحوه محاسبه قیمت خرید محصول طلا  ",
       name: "isBuyGoldProductCashAuto",
       options: [
         { label: "API", value: "true" },
@@ -241,6 +265,31 @@ function Setting() {
                       </select>
                     </div>
                   ))}
+                  {/* درصد سود قیمت خرید طلای خام */}
+                  <div className="flex flex-col gap-2 p-3 bg-gray-200 rounded-md hover:shadow-md transition-all duration-200">
+                    <h5 className="text-right">درصد سود قیمت خرید طلای خام</h5>
+                    <div className="flex flex-col gap-2">
+                      <div className="flex items-center gap-4">
+                        <span className="text-sm text-gray-600">10%</span>
+                        <input
+                          type="range"
+                          min="0"
+                          max="10"
+                          step="0.1"
+                          value={rawGoldPurchaseProfit}
+                          onChange={(e) => handleRawGoldPurchaseProfitChange(parseFloat(e.target.value))}
+                          className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-teal-700 [&::-webkit-slider-thumb]:cursor-pointer"
+                          dir="ltr"
+                        />
+                        <span className="text-sm text-gray-600">0%</span>
+                      </div>
+                      <div className="flex justify-center">
+                        <span className="text-lg font-medium min-w-[3rem] text-center">
+                          {rawGoldPurchaseProfit.toFixed(1)}%
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 {/* تنظیمات فروش Column */}
@@ -266,6 +315,31 @@ function Setting() {
                       </select>
                     </div>
                   ))}
+                  {/* درصد سود قیمت فروش طلای خام */}
+                  <div className="flex flex-col gap-2 p-3 bg-gray-200 rounded-md hover:shadow-md transition-all duration-200">
+                    <h5 className="text-right">درصد سود قیمت فروش طلای خام</h5>
+                    <div className="flex flex-col gap-2">
+                      <div className="flex items-center gap-4">
+                        <span className="text-sm text-gray-600">10%</span>
+                        <input
+                          type="range"
+                          min="0"
+                          max="10"
+                          step="0.1"
+                          value={rawGoldProfit}
+                          onChange={(e) => handleRawGoldProfitChange(parseFloat(e.target.value))}
+                          className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-teal-700 [&::-webkit-slider-thumb]:cursor-pointer"
+                          dir="ltr"
+                        />
+                        <span className="text-sm text-gray-600">0%</span>
+                      </div>
+                      <div className="flex justify-center">
+                        <span className="text-lg font-medium min-w-[3rem] text-center">
+                          {rawGoldProfit.toFixed(1)}%
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 {/* تنظیمات API Column */}
