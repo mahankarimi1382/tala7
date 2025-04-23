@@ -13,14 +13,12 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
       '@images': resolve(__dirname, './src/assets/img'),
       '@components': resolve(__dirname, './src/components'),
-      // Add more aliases as needed
     }
   },
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
-    sourcemap: false,
-    minify: 'terser',
+    sourcemap: true,
     rollupOptions: {
       output: {
         manualChunks: {
