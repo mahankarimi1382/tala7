@@ -97,20 +97,30 @@ function Setting() {
   };
 
   const selectConfigs = [
+    // تنظیمات خرید
     {
-      label: "سفارش سکه",
-      name: "isCoinOrder",
+      label: "خرید محصول طلا انجام شود",
+      name: "isBuyGoldProduct",
       options: [
         { label: "بله", value: "true" },
         { label: "خیر", value: "false" },
       ],
     },
     {
-      label: "نحوه محاسبه قیمت سکه",
-      name: "isCoinPriceAuto",
+      label: "خرید طلای خام",
+      name: "isBuyGoldRaw",
       options: [
-        { label: "API", value: "true" },
-        { label: "دستی", value: "false" },
+        { label: "بله", value: "true" },
+        { label: "خیر", value: "false" },
+      ],
+    },
+    // تنظیمات فروش
+    {
+      label: "سفارش سکه",
+      name: "isCoinOrder",
+      options: [
+        { label: "بله", value: "true" },
+        { label: "خیر", value: "false" },
       ],
     },
     {
@@ -137,29 +147,21 @@ function Setting() {
         { label: "خیر", value: "false" },
       ],
     },
+    // تنظیمات API
     {
-      label:
-       "قیمت خرید محصول طلا از زبانه",
-      name: "isBuyGoldProductCashAuto",
+      label: "نحوه محاسبه قیمت سکه",
+      name: "isCoinPriceAuto",
       options: [
         { label: "API", value: "true" },
         { label: "دستی", value: "false" },
       ],
     },
     {
-      label: " خرید محصول طلا انجام شود",
-      name: "isBuyGoldProduct",
+      label: "قیمت خرید محصول طلا از زبانه",
+      name: "isBuyGoldProductCashAuto",
       options: [
-        { label: "بله", value: "true" },
-        { label: "خیر", value: "false" },
-      ],
-    },
-    {
-      label: "خرید طلای خام",
-      name: "isBuyGoldRaw",
-      options: [
-        { label: "بله", value: "true" },
-        { label: "خیر", value: "false" },
+        { label: "API", value: "true" },
+        { label: "دستی", value: "false" },
       ],
     },
     {
@@ -215,10 +217,11 @@ function Setting() {
           <div className="w-full h-full flex flex-col gap-5 items-start">
             <h5 className="text-xl mx-auto lg:mx-1 font-semibold">تنظیمات</h5>
             <div className="w-full gap-5 h-full items-start flex flex-col mt-4">
-              <div className="w-[90%] bg-gray-100 rounded-lg p-4 flex flex-col lg:flex-row items-start shadow-sm ">
-                {/* Left Column */}
-                <div className="w-full lg:w-1/2 p-2 px-4 gap-4 flex flex-col">
-                  {selectConfigs.slice(0, 5).map(({ label, name, options }) => (
+              <div className="w-[90%] bg-gray-100 rounded-lg p-4 flex flex-col lg:flex-row items-start shadow-sm gap-4">
+                {/* تنظیمات خرید Column */}
+                <div className="w-full lg:w-1/3 p-2 px-4 gap-4 flex flex-col">
+                  <h5 className="text-lg font-semibold mb-2 text-center">تنظیمات خرید</h5>
+                  {selectConfigs.slice(0, 2).map(({ label, name, options }) => (
                     <div
                       key={name}
                       className="flex gap-2 items-center justify-between p-3 bg-gray-200 rounded-md hover:shadow-md transition-all duration-200"
@@ -240,9 +243,35 @@ function Setting() {
                   ))}
                 </div>
 
-                {/* Right Column */}
-                <div className="w-full lg:w-1/2 p-2 px-4 gap-4 flex flex-col">
-                  {selectConfigs.slice(5).map(({ label, name, options }) => (
+                {/* تنظیمات فروش Column */}
+                <div className="w-full lg:w-1/3 p-2 px-4 gap-4 flex flex-col">
+                  <h5 className="text-lg font-semibold mb-2 text-center">تنظیمات فروش</h5>
+                  {selectConfigs.slice(2, 6).map(({ label, name, options }) => (
+                    <div
+                      key={name}
+                      className="flex gap-2 items-center justify-between p-3 bg-gray-200 rounded-md hover:shadow-md transition-all duration-200"
+                    >
+                      <h5>{label}</h5>
+                      <select
+                        className="w-24 border border-gray-300 rounded p-1 bg-white"
+                        name={name}
+                        value={settings[name] ? "true" : "false"}
+                        onChange={(e) => handleSelectChange(name, e.target.value)}
+                      >
+                        {options.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  ))}
+                </div>
+
+                {/* تنظیمات API Column */}
+                <div className="w-full lg:w-1/3 p-2 px-4 gap-4 flex flex-col">
+                  <h5 className="text-lg font-semibold mb-2 text-center">تنظیمات API</h5>
+                  {selectConfigs.slice(6).map(({ label, name, options }) => (
                     <div
                       key={name}
                       className="flex gap-2 items-center justify-between p-3 bg-gray-200 rounded-md hover:shadow-md transition-all duration-200"
