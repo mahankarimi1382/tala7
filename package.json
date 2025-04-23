@@ -8,10 +8,10 @@
     "build": "vite build --emptyOutDir",
     "lint": "eslint .",
     "preview": "vite preview",
-    "vercel-build": "npm install && npm run build"
+    "vercel-build": "npm install --legacy-peer-deps && npm run build"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": "18.x"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
