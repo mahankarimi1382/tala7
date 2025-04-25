@@ -21,6 +21,8 @@ function Setting() {
   const [settings, setSettings] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [rawGoldProfit, setRawGoldProfit] = useState(0);
+  const [rawGoldPurchaseProfit, setRawGoldPurchaseProfit] = useState(0);
 
   const data = {
     metadata: {
@@ -45,7 +47,11 @@ function Setting() {
       setIsLoading(true);
       const response = await axios.get('http://tala7.com:44/api/Setting/Get_Last_SiteSEtting');
       if (response.data && response.data.length > 0) {
-        setSettings(response.data[0]);
+        const settingsData = response.data[0];
+        setSettings(settingsData);
+        // Set the initial values for range sliders
+        setRawGoldProfit(settingsData.rawGoldSaleBenefitPercent || 0);
+        setRawGoldPurchaseProfit(settingsData.rawGoldBuyBenefitPercent || 0);
       }
     } catch (error) {
       console.error("Error fetching settings:", error);
@@ -63,7 +69,9 @@ function Setting() {
           userName: "admin",
           userNameforC: "admin"
         },
-        ...settings
+        ...settings,
+        rawGoldBuyBenefitPercent: rawGoldPurchaseProfit,
+        rawGoldSaleBenefitPercent: rawGoldProfit
       };
 
       const response = await axios.post(
@@ -96,21 +104,47 @@ function Setting() {
     }));
   };
 
+  const handleRawGoldProfitChange = (value) => {
+    setRawGoldProfit(value);
+    setSettings(prev => ({
+      ...prev,
+      rawGoldProfitPercentage: value
+    }));
+  };
+
+  const handleRawGoldPurchaseProfitChange = (value) => {
+    setRawGoldPurchaseProfit(value);
+    setSettings(prev => ({
+      ...prev,
+      rawGoldPurchaseProfitPercentage: value
+    }));
+  };
+
   const selectConfigs = [
+    // تنظیمات خرید
     {
-      label: "سفارش سکه",
-      name: "isCoinOrder",
+      label: "خرید محصول طلا انجام شود",
+      name: "isBuyGoldProduct",
       options: [
         { label: "بله", value: "true" },
         { label: "خیر", value: "false" },
       ],
     },
     {
-      label: "نحوه محاسبه قیمت سکه",
-      name: "isCoinPriceAuto",
+      label: "خرید طلای خام",
+      name: "isBuyGoldRaw",
       options: [
-        { label: "API", value: "true" },
-        { label: "دستی", value: "false" },
+        { label: "بله", value: "true" },
+        { label: "خیر", value: "false" },
+      ],
+    },
+    // تنظیمات فروش
+    {
+      label: "سفارش سکه",
+      name: "isCoinOrder",
+      options: [
+        { label: "بله", value: "true" },
+        { label: "خیر", value: "false" },
       ],
     },
     {
@@ -137,29 +171,21 @@ function Setting() {
         { label: "خیر", value: "false" },
       ],
     },
+    // تنظیمات API
     {
-      label:
-       "قیمت خرید محصول طلا از زبانه",
-      name: "isBuyGoldProductCashAuto",
+      label: "نحوه محاسبه قیمت سکه",
+      name: "isCoinPriceAuto",
       options: [
         { label: "API", value: "true" },
         { label: "دستی", value: "false" },
       ],
     },
     {
-      label: " خرید محصول طلا انجام شود",
-      name: "isBuyGoldProduct",
+      label: "نحوه محاسبه قیمت خرید محصول طلا  ",
+      name: "isBuyGoldProductCashAuto",
       options: [
-        { label: "بله", value: "true" },
-        { label: "خیر", value: "false" },
-      ],
-    },
-    {
-      label: "خرید طلای خام",
-      name: "isBuyGoldRaw",
-      options: [
-        { label: "بله", value: "true" },
-        { label: "خیر", value: "false" },
+        { label: "API", value: "true" },
+        { label: "دستی", value: "false" },
       ],
     },
     {
@@ -215,10 +241,11 @@ function Setting() {
           <div className="w-full h-full flex flex-col gap-5 items-start">
             <h5 className="text-xl mx-auto lg:mx-1 font-semibold">تنظیمات</h5>
             <div className="w-full gap-5 h-full items-start flex flex-col mt-4">
-              <div className="w-[90%] bg-gray-100 rounded-lg p-4 flex flex-col lg:flex-row items-start shadow-sm ">
-                {/* Left Column */}
-                <div className="w-full lg:w-1/2 p-2 px-4 gap-4 flex flex-col">
-                  {selectConfigs.slice(0, 5).map(({ label, name, options }) => (
+              <div className="w-[90%] bg-gray-100 rounded-lg p-4 flex flex-col lg:flex-row items-start shadow-sm gap-4">
+                {/* تنظیمات خرید Column */}
+                <div className="w-full lg:w-1/3 p-2 px-4 gap-4 flex flex-col">
+                  <h5 className="text-lg font-semibold mb-2 text-center">تنظیمات خرید</h5>
+                  {selectConfigs.slice(0, 2).map(({ label, name, options }) => (
                     <div
                       key={name}
                       className="flex gap-2 items-center justify-between p-3 bg-gray-200 rounded-md hover:shadow-md transition-all duration-200"
@@ -238,11 +265,87 @@ function Setting() {
                       </select>
                     </div>
                   ))}
+                  {/* درصد سود قیمت خرید طلای خام */}
+                  <div className="flex flex-col gap-2 p-3 bg-gray-200 rounded-md hover:shadow-md transition-all duration-200">
+                    <h5 className="text-right">درصد سود قیمت خرید طلای خام</h5>
+                    <div className="flex flex-col gap-2">
+                      <div className="flex items-center gap-4">
+                        <span className="text-sm text-gray-600">10%</span>
+                        <input
+                          type="range"
+                          min="0"
+                          max="10"
+                          step="0.1"
+                          value={rawGoldPurchaseProfit}
+                          onChange={(e) => handleRawGoldPurchaseProfitChange(parseFloat(e.target.value))}
+                          className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-teal-700 [&::-webkit-slider-thumb]:cursor-pointer"
+                          dir="ltr"
+                        />
+                        <span className="text-sm text-gray-600">0%</span>
+                      </div>
+                      <div className="flex justify-center">
+                        <span className="text-lg font-medium min-w-[3rem] text-center">
+                          {rawGoldPurchaseProfit.toFixed(1)}%
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Right Column */}
-                <div className="w-full lg:w-1/2 p-2 px-4 gap-4 flex flex-col">
-                  {selectConfigs.slice(5).map(({ label, name, options }) => (
+                {/* تنظیمات فروش Column */}
+                <div className="w-full lg:w-1/3 p-2 px-4 gap-4 flex flex-col">
+                  <h5 className="text-lg font-semibold mb-2 text-center">تنظیمات فروش</h5>
+                  {selectConfigs.slice(2, 6).map(({ label, name, options }) => (
+                    <div
+                      key={name}
+                      className="flex gap-2 items-center justify-between p-3 bg-gray-200 rounded-md hover:shadow-md transition-all duration-200"
+                    >
+                      <h5>{label}</h5>
+                      <select
+                        className="w-24 border border-gray-300 rounded p-1 bg-white"
+                        name={name}
+                        value={settings[name] ? "true" : "false"}
+                        onChange={(e) => handleSelectChange(name, e.target.value)}
+                      >
+                        {options.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  ))}
+                  {/* درصد سود قیمت فروش طلای خام */}
+                  <div className="flex flex-col gap-2 p-3 bg-gray-200 rounded-md hover:shadow-md transition-all duration-200">
+                    <h5 className="text-right">درصد سود قیمت فروش طلای خام</h5>
+                    <div className="flex flex-col gap-2">
+                      <div className="flex items-center gap-4">
+                        <span className="text-sm text-gray-600">10%</span>
+                        <input
+                          type="range"
+                          min="0"
+                          max="10"
+                          step="0.1"
+                          value={rawGoldProfit}
+                          onChange={(e) => handleRawGoldProfitChange(parseFloat(e.target.value))}
+                          className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-teal-700 [&::-webkit-slider-thumb]:cursor-pointer"
+                          dir="ltr"
+                        />
+                        <span className="text-sm text-gray-600">0%</span>
+                      </div>
+                      <div className="flex justify-center">
+                        <span className="text-lg font-medium min-w-[3rem] text-center">
+                          {rawGoldProfit.toFixed(1)}%
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* تنظیمات API Column */}
+                <div className="w-full lg:w-1/3 p-2 px-4 gap-4 flex flex-col">
+                  <h5 className="text-lg font-semibold mb-2 text-center">تنظیمات API</h5>
+                  {selectConfigs.slice(6).map(({ label, name, options }) => (
                     <div
                       key={name}
                       className="flex gap-2 items-center justify-between p-3 bg-gray-200 rounded-md hover:shadow-md transition-all duration-200"
