@@ -13,7 +13,6 @@
     "node": "18.x"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -23,14 +22,6 @@
     "@material-tailwind/react": "^2.1.10",
     "@mui/material": "^6.4.7",
     "@neshan-maps-platform/mapbox-gl-react": "^1.0.3",
-=======
-    "@emotion/react": "^11.11.3",
-    "@emotion/styled": "^11.11.0",
-    "@fortawesome/free-solid-svg-icons": "^6.5.1",
-    "@fortawesome/react-fontawesome": "^0.2.0",
-    "@material-tailwind/react": "^2.1.9",
-    "@mui/material": "^5.15.7",
->>>>>>> e12b5ef7f88316c0c4ef5b6a70397b8277fc9732
     "@popperjs/core": "^2.11.8",
     "@preline/accordion": "^2.0.0",
     "@preline/carousel": "^2.0.0",
