@@ -118,7 +118,7 @@ const InitialRequestForm = () => {
             onlyNumbers
           />
           <hr className="border-t border-gray-200 border-dashed" />
-          <InputField placeholder="شماره شبا" />
+          <InputField placeholder="شماره حساب" />
         </SectionCard>
 
         <SectionCard title="اطلاعات شغلی">
@@ -132,11 +132,11 @@ const InitialRequestForm = () => {
           <hr className="border-t border-gray-200 border-dashed" />
           <SimpleDropdown
             options={["دولتی", "آزاد"]}
-            defaultLabel="انتخاب شغل"
+            defaultLabel="دسته بندی شغل"
             className="w-full h-[40px]"
           />
           <hr className="border-t border-gray-200 border-dashed" />
-          <InputField placeholder="نام کاربری" />
+          <InputField placeholder="عنوان شغل" />
           <hr className="border-t border-gray-200 border-dashed" />
           <label
             htmlFor="fileUpload2"
@@ -148,21 +148,21 @@ const InitialRequestForm = () => {
           </label>
         </SectionCard>
 
-        <SectionCard title="اطلاعات تماس">
-          <InputField placeholder="آدرس محل کار" />
+        <SectionCard title="درخوسات وام">
+          <InputField placeholder="مبلغ درخواست (تا سقف 100 میلیون)" />
           <hr className="border-t border-gray-200 border-dashed" />
           <InputField
-            placeholder="تلفن محل کار"
+            placeholder="نحوه ی تحویل طلا"
             name="workPhone"
             value={formData.workPhone}
             setValue={setFormData}
             onlyNumbers
           />
           <hr className="border-t border-gray-200 border-dashed" />
-          <InputField placeholder="آدرس منزل" />
+          <InputField placeholder="تهداد ماه های درخواست" />
           <hr className="border-t border-gray-200 border-dashed" />
           <InputField
-            placeholder="تلفن منزل"
+            placeholder="میزان توانایی بازپرداخت"
             name="homePhone"
             value={formData.homePhone}
             setValue={setFormData}

@@ -1,6 +1,6 @@
-import axios from "axios";
 import { Eror, success } from "../Components/ToastAlerts";
-
+import { axiosConfig } from "./axiosConfig";
+const axios = axiosConfig;
 export const signup = (data, closeModal, onClose) => {
   console.log(data);
   axios
@@ -37,7 +37,14 @@ export const fetchNews = async (setLoading, setError, apiUrl, setNewsItems) => {
   }
 };
 
-export const signin = (data, setToken) => {
+export const signin = (
+  data,
+  setToken,
+  closeModal,
+  setApplicantUserId,
+  navigate,
+  setUserData
+) => {
   console.log(data);
   axios
     .post("http://tala7.com:44/api/Applicant/login", {
@@ -50,11 +57,19 @@ export const signin = (data, setToken) => {
       password: data.password,
     })
     .then((res) => {
+      closeModal();
       setToken(res.data.token);
       success("خوش امدید");
+      navigate("/userPanel");
+      setApplicantUserId(res.data.applicantUserId);
+      Check_Applicant_Profile_by_ApplicationUserId(
+        res.data.applicantUserId,
+        setUserData
+      );
       console.log(res);
     })
     .catch((err) => {
+      Eror();
       console.log(err);
     });
 };
@@ -623,6 +638,39 @@ export const Get_Products_FreeShipment_Show_InVitrin = (setVitrinShow) => {
       setVitrinShow(res.data);
 
       console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+export const CreateApplicants = (data, setIsSubmitted, setUserData) => {
+  console.log(data);
+  axios
+    .post(`http://tala7.com:44/api/Applicant/CreateApplicants`, data)
+    .then((res) => {
+      console.log(res);
+      Check_Applicant_Profile_by_ApplicationUserId(
+        data.applicationUserId,
+        setUserData
+      );
+      success("پروفایل با موفقیت ثبت شد");
+      setIsSubmitted(true);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+export const Check_Applicant_Profile_by_ApplicationUserId = (
+  ApplicationUserId,
+  setUserData
+) => {
+  axios
+    .post(
+      `http://tala7.com:44/api/Applicant/Check_Applicant_Profile_by_ApplicationUserId?ApplicationUserId=${ApplicationUserId}`
+    )
+    .then((res) => {
+      console.log(res);
+      setUserData(res.data);
     })
     .catch((err) => {
       console.log(err);

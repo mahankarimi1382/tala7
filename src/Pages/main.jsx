@@ -26,14 +26,16 @@ import AllProducts from "../AllProducts.jsx";
 import ShoppingCartPage from "./AdminPanel/BasicDetails/ShoppingCartPage.jsx";
 import InstallmentRequest from "../InstallmentRequest.jsx";
 import InstallmentTrack from "../InstallmentTrack.jsx";
+// import Map_submitLoc from "../Components/Components/Map_submitLoc.jsx";
 // import InstallmentInspection from "./AdminPanel/BasicDetails/InstallmentInspection.jsx";
-
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
+        {/* <Route path="/test" element={<Map_submitLoc />} /> */}
+
         <Route path="/" element={<HomePage />} />
         <Route path="/search-product" element={<AnotherPage />} />
         <Route path="/hover-product-page" element={<HoverPage />} />
@@ -41,7 +43,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/ShoppingCart" element={<ShoppingCartPage />} />
         <Route path="/installments/request" element={<InstallmentRequest />} />
         <Route path="/installments/track" element={<InstallmentTrack />} />
-        
+
         <Route
           path="/AdminPannel/basic-details/products"
           element={<Products />}

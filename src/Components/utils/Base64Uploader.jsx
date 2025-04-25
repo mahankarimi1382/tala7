@@ -1,7 +1,6 @@
 import { MdDeleteForever } from "react-icons/md";
 
-function Base64Uploader({ title,image, setImage }) {
-
+function Base64Uploader({ title, image, setImage }) {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -14,7 +13,7 @@ function Base64Uploader({ title,image, setImage }) {
   };
   return (
     <div>
-      <h5> {title}:</h5>
+      {title && <h5> {title}:</h5>}
       <div className=" w-full flex   justify-center items-center">
         {image ? (
           <div className=" relative w-20 h-20 ">

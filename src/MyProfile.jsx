@@ -8,6 +8,11 @@ import { CiCreditCard2 } from "react-icons/ci";
 import { CiGift } from "react-icons/ci";
 import { useState } from "react";
 import useProvincesAndCities from "./Components/useProvincesAndCities";
+import Base64Uploader from "./Components/utils/Base64Uploader";
+import { CreateApplicants } from "./apicalling/ApiCalling";
+import { userDetails } from "./Store/Store";
+import Map_submitLoc from "./Components/Components/Map_submitLoc";
+import Map_showLoc from "./Components/Components/Map_showLoc";
 
 const convertToPersianDigits = (num) => {
   return num.toLocaleString("fa-IR"); // Converts to Persian digits with thousand separators
@@ -27,16 +32,49 @@ const CodeMelli = PersianDigits(NationalCode);
 const MobilePhone = PersianDigits(CellNumber);
 
 function MyProfile() {
-  const { provinces, citiesMap, loading } = useProvincesAndCities();
+  const { applicantUserId, userData, setUserData } = userDetails();
+  console.log(userData);
+  const [isSubmitted, setIsSubmitted] = useState(userData.name ? true : false);
+  const [name, setName] = useState(userData.name || "");
+  const [family, setFamily] = useState(userData.family || "");
+  const [national_code, setNationalCode] = useState(
+    userData.national_code || ""
+  );
+  const [post_code, setPostCode] = useState(userData.post_code || "");
+  const [address, setAddress] = useState(userData.address || "");
 
+  const [position, setPosition] = useState(
+    userData.lat
+      ? [Number(userData.lat), Number(userData.lon)]
+      : [51.391392246429746, 35.70124145171712]
+  );
+  const [cityId, setCityId] = useState(1);
+
+  const [profileImg, setProfileImg] = useState(userData.applicant_Image || "");
   const [formData, setFormData] = useState({
-    nationalCode: "",
-    branchCode: "",
-    workPhone: "",
-    homePhone: "",
-    province: "",
     city: "",
   });
+  const data = {
+    metadata: {
+      userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      userName: "string",
+      userNameforC: "string",
+    },
+    name,
+    family,
+    national_code,
+    applicationUserId: applicantUserId,
+    post_code,
+    address,
+    lat: `${position[0]}`,
+    lon: `${position[1]}`,
+    cityId,
+    status: 0,
+    applicant_Image: profileImg,
+  };
+
+  const { provinces, citiesMap, loading } = useProvincesAndCities();
+
   return (
     <div className="p-4">
       {/* Header Section */}
@@ -124,11 +162,15 @@ function MyProfile() {
             <div className="border shadow-lg rounded-lg p-4 text-sm">
               <div className="flex justify-between">
                 <p className="text-gray-600"> نام </p>
-                {/* <p>علی </p> */}
-                <input
-                  placeholder="نام  "
-                  className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
-                />
+                {isSubmitted ? (
+                  <p>{name}</p>
+                ) : (
+                  <input
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="نام  "
+                    className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
+                  />
+                )}
               </div>
 
               {/* Dotted Divider */}
@@ -136,70 +178,89 @@ function MyProfile() {
 
               <div className="flex justify-between">
                 <p className="text-gray-600"> نام خانوادگی </p>
-                {/* <p>علی مددی </p> */}
-                <input
-                  placeholder="نام خانوادگی "
-                  className=" text-xs  border-b border-gray-600 px-1  border-dashed w-28 outline-none"
-                />
+                {isSubmitted ? (
+                  <p>{family}</p>
+                ) : (
+                  <input
+                    onChange={(e) => setFamily(e.target.value)}
+                    placeholder="نام خانوادگی "
+                    className=" text-xs  border-b border-gray-600 px-1  border-dashed w-28 outline-none"
+                  />
+                )}
+              </div>
+
+              <hr className="my-3 border-t-1 border-gray-200 border-dashed" />
+              <div className="flex justify-between">
+                <p className="text-gray-600"> کد ملی </p>
+                {isSubmitted ? (
+                  <p>{national_code}</p>
+                ) : (
+                  <input
+                    onChange={(e) => setNationalCode(e.target.value)}
+                    placeholder="کد ملی "
+                    className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
+                  />
+                )}
               </div>
               <hr className="my-3 border-t-1 border-gray-200 border-dashed" />
 
               <div className="flex justify-between">
-                <p className="text-gray-600"> تاریخ تولد </p>
-                {/* <p>{persianDate}</p> */}
-                <input
-                  placeholder="تاریخ تولد "
-                  className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
-                />
-              </div>
-              <hr className="my-3 border-t-1 border-gray-200 border-dashed" />
-              <div className="flex justify-between">
-                <p className="text-gray-600"> کد ملی </p>
+                <p className="text-gray-600"> عکس پروفایل </p>
                 {/* <p>{CodeMelli}</p> */}
-                <input
-                  placeholder="کد ملی "
-                  className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
-                />
+                {isSubmitted ? (
+                  <img
+                    className=" w-20 h-20 aspect-square"
+                    width={50}
+                    height={20}
+                    src={profileImg}
+                    alt="Uploaded"
+                  />
+                ) : (
+                  <Base64Uploader image={profileImg} setImage={setProfileImg} />
+                )}
               </div>
             </div>
-            <p className="my-4">اطلاعات تماس</p>
+            {/* <p className="my-4">اطلاعات تماس</p>
             <div className="border shadow-lg rounded-lg p-4 text-sm">
               <div className="flex justify-between">
                 <p className="text-gray-600"> تلفن همراه </p>
-                {/* <p>{MobilePhone}</p> */}
-                <input
-                  placeholder="تلفن همراه "
-                  className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
-                />
+                {isSubmitted ? (
+                  <p>{MobilePhone}</p>
+                ) : (
+                  <input
+                    placeholder="تلفن همراه "
+                    className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
+                  />
+                )}
               </div>
-              <hr className="my-3 border-t-1 border-gray-200 border-dashed" />
-              <div className="flex justify-between">
-                <p className="text-gray-600"> ایمیل </p>
-                {/* <p>ali@gmail.com</p> */}
-                <input
-                  placeholder="ایمیل "
-                  className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
-                />
-              </div>
-            </div>
+
+            </div> */}
             <p className="my-4">اطلاعات محل سکونت</p>
             <div className="border shadow-lg rounded-lg p-4 text-sm">
               <div className="flex justify-between">
                 <p className="text-gray-600"> آدرس </p>
-                {/* <p>{MobilePhone}</p> */}
-                <input
-                  placeholder="آدرس"
-                  className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
-                />
+                {isSubmitted ? (
+                  <p>{address}</p>
+                ) : (
+                  <input
+                    onChange={(e) => setAddress(e.target.value)}
+                    placeholder="آدرس"
+                    className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
+                  />
+                )}
               </div>
               <hr className="my-3 border-t-1 border-gray-200 border-dashed" />
               <div className="flex justify-between">
                 <p className="text-gray-600"> کد پستی </p>
-                {/* <p>ali@gmail.com</p> */}
-                <input
-                  placeholder="ایمیل "
-                  className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
-                />
+                {isSubmitted ? (
+                  <p>{post_code}</p>
+                ) : (
+                  <input
+                    onChange={(e) => setPostCode(e.target.value)}
+                    placeholder="کد پستی "
+                    className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
+                  />
+                )}
               </div>
               <hr className="my-3 border-t-1 border-gray-200 border-dashed" />
               <div className="flex justify-between">
@@ -250,7 +311,31 @@ function MyProfile() {
                   </select>
                 </div>
               </div>
+              <hr className="my-3 border-t-1 border-gray-200 border-dashed" />
+              <div className=" flex flex-col justify-center gap-2">
+                <p className="text-gray-600"> موقعیت مکانی </p>
+                {!isSubmitted ? (
+                  <Map_submitLoc
+                    position={position}
+                    setPosition={setPosition}
+                  />
+                ) : (
+                  <Map_showLoc position={position} setPosition={setPosition} />
+                )}
+              </div>
             </div>
+          </div>
+          <div className=" max-w-[450px] mt-4 w-full flex justify-center items-center">
+            {!isSubmitted && (
+              <button
+                onClick={() =>
+                  CreateApplicants(data, setIsSubmitted, setUserData)
+                }
+                className=" bg-green-100 border border-green-600 text-green-600 p-2 rounded-lg px-4"
+              >
+                ثبت اطلاعات
+              </button>
+            )}
           </div>
         </div>
 

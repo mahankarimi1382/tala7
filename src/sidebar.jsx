@@ -2,14 +2,16 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { AiOutlineClose } from "react-icons/ai";
 import { GoPerson } from "react-icons/go";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CreateAccountPopup from "./CreateAccountPopup.jsx"; // Import the new popup component
 import PropTypes from "prop-types";
 import { signin } from "./apicalling/ApiCalling.js";
-import { TokenStore } from "./Store/Store.js";
+import { TokenStore, userDetails } from "./Store/Store.js";
 
 const Sidebar = (props) => {
   const { setToken } = TokenStore();
+  const { setApplicantUserId,setUserData } = userDetails();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -36,7 +38,7 @@ const Sidebar = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signin(formData, setToken);
+    signin(formData, setToken, props.onClose, setApplicantUserId,navigate,setUserData);
     console.log("Form data:", formData);
   };
 

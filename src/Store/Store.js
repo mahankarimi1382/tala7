@@ -1,22 +1,22 @@
 import Cookies from "js-cookie";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-export const userSubmitedArrStore = create(
+export const userDetails = create(
   persist(
     (set) => ({
-      patients: [],
-      setPatients: (patientArr) => set(() => ({ patients: patientArr })),
+      applicantUserId: "",
+      setApplicantUserId: (value) => set(() => ({ applicantUserId: value })),
+      userData:{},
+      setUserData:(value)=>set(()=>({userData:value}))
     }),
     {
-      name: "user-submitted-array",
+      name: "applicantUserId",
       storage: createJSONStorage(() => sessionStorage),
     }
   )
+  
 );
-export const TotalLoadingStore = create((set) => ({
-  isTotalLoading: false,
-  setIsTotalLoading: (bool) => set(() => ({ isTotalLoading: bool })),
-}));
+
 export const TokenStore = create((set) => ({
   token: Cookies.get("token"),
   setToken: (token) => {
