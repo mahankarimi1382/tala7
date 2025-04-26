@@ -23,6 +23,20 @@ const PersianDigits = (num) => {
   return num.replace(/\d/g, (digit) => persianDigits[digit]);
 };
 
+// Validation functions
+const isValidPersianName = (text) => {
+  const persianRegex = /^[\u0600-\u06FF\s]+$/;
+  return persianRegex.test(text);
+};
+
+const isValidNationalCode = (code) => {
+  return /^\d{10}$/.test(code);
+};
+
+const isValidPostalCode = (code) => {
+  return /^\d{10}$/.test(code);
+};
+
 const Birthdate = "1370/03/18";
 const NationalCode = "005683210";
 const CellNumber = "09121111111";
@@ -42,6 +56,12 @@ function MyProfile() {
   );
   const [post_code, setPostCode] = useState(userData.post_code || "");
   const [address, setAddress] = useState(userData.address || "");
+  const [validationErrors, setValidationErrors] = useState({
+    name: "",
+    family: "",
+    national_code: "",
+    post_code: "",
+  });
 
   const [position, setPosition] = useState(
     userData.lat
@@ -74,6 +94,62 @@ function MyProfile() {
   };
 
   const { provinces, citiesMap, loading } = useProvincesAndCities();
+
+  const handleNameChange = (e) => {
+    const value = e.target.value;
+    if (value === "" || isValidPersianName(value)) {
+      setName(value);
+      setValidationErrors((prev) => ({ ...prev, name: "" }));
+    } else {
+      setValidationErrors((prev) => ({
+        ...prev,
+        name: "لطفاً فقط از حروف فارسی استفاده کنید",
+      }));
+    }
+  };
+
+  const handleFamilyChange = (e) => {
+    const value = e.target.value;
+    if (value === "" || isValidPersianName(value)) {
+      setFamily(value);
+      setValidationErrors((prev) => ({ ...prev, family: "" }));
+    } else {
+      setValidationErrors((prev) => ({
+        ...prev,
+        family: "لطفاً فقط از حروف فارسی استفاده کنید",
+      }));
+    }
+  };
+
+  const handleNationalCodeChange = (e) => {
+    const value = e.target.value;
+    if (value === "" || /^\d*$/.test(value)) {
+      setNationalCode(value);
+      if (value.length === 10) {
+        setValidationErrors((prev) => ({ ...prev, national_code: "" }));
+      } else {
+        setValidationErrors((prev) => ({
+          ...prev,
+          national_code: "کد ملی باید 10 رقم باشد",
+        }));
+      }
+    }
+  };
+
+  const handlePostCodeChange = (e) => {
+    const value = e.target.value;
+    if (value === "" || /^\d*$/.test(value)) {
+      setPostCode(value);
+      if (value.length === 10) {
+        setValidationErrors((prev) => ({ ...prev, post_code: "" }));
+      } else {
+        setValidationErrors((prev) => ({
+          ...prev,
+          post_code: "کد پستی باید 10 رقم باشد",
+        }));
+      }
+    }
+  };
 
   return (
     <div className="p-4">
@@ -125,8 +201,8 @@ function MyProfile() {
           <div className="max-w-[450px]">
             <div className="border shadow-lg rounded-lg p-4 text-sm">
               <div className="flex justify-between">
-                <p>علی علی مددی</p>
-                <p className="bg-green-600 rounded-lg p-1 text-[12px] text-white">
+                <p></p>{" "}
+                <p className="bg-green-600 rounded-lg p-1 text-[12px]f text-white">
                   احراز هویت پایه
                 </p>
               </div>
@@ -160,112 +236,139 @@ function MyProfile() {
             </div>
             <p className="my-4">اطلاعات پایه</p>
             <div className="border shadow-lg rounded-lg p-4 text-sm">
-              <div className="flex justify-between">
-                <p className="text-gray-600"> نام </p>
+              <div className="flex justify-between items-center py-2">
+                <p className="text-gray-700 font-medium"> نام </p>
                 {isSubmitted ? (
-                  <p>{name}</p>
+                  <p className="text-gray-800">{name}</p>
                 ) : (
-                  <input
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="نام  "
-                    className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
-                  />
+                  <div className="flex flex-col w-64">
+                    <input
+                      onChange={handleNameChange}
+                      value={name}
+                      placeholder="نام خود را وارد کنید"
+                      className="text-sm border-b-2 border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none transition-colors duration-200 w-full"
+                    />
+                    {validationErrors.name && (
+                      <span className="text-red-500 text-xs mt-1">
+                        {validationErrors.name}
+                      </span>
+                    )}
+                  </div>
                 )}
               </div>
 
-              {/* Dotted Divider */}
-              <hr className="my-3 border-t-1 border-gray-200 border-dashed" />
+              <hr className="my-2 border-t-1 border-gray-200 border-dashed" />
 
-              <div className="flex justify-between">
-                <p className="text-gray-600"> نام خانوادگی </p>
+              <div className="flex justify-between items-center py-2">
+                <p className="text-gray-700 font-medium"> نام خانوادگی </p>
                 {isSubmitted ? (
-                  <p>{family}</p>
+                  <p className="text-gray-800">{family}</p>
                 ) : (
-                  <input
-                    onChange={(e) => setFamily(e.target.value)}
-                    placeholder="نام خانوادگی "
-                    className=" text-xs  border-b border-gray-600 px-1  border-dashed w-28 outline-none"
-                  />
+                  <div className="flex flex-col w-64">
+                    <input
+                      onChange={handleFamilyChange}
+                      value={family}
+                      placeholder="نام خانوادگی خود را وارد کنید"
+                      className="text-sm border-b-2 border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none transition-colors duration-200 w-full"
+                    />
+                    {validationErrors.family && (
+                      <span className="text-red-500 text-xs mt-1">
+                        {validationErrors.family}
+                      </span>
+                    )}
+                  </div>
                 )}
               </div>
 
-              <hr className="my-3 border-t-1 border-gray-200 border-dashed" />
-              <div className="flex justify-between">
-                <p className="text-gray-600"> کد ملی </p>
+              <hr className="my-2 border-t-1 border-gray-200 border-dashed" />
+
+              <div className="flex justify-between items-center py-2">
+                <p className="text-gray-700 font-medium"> کد ملی </p>
                 {isSubmitted ? (
-                  <p>{national_code}</p>
+                  <p className="text-gray-800">{national_code}</p>
                 ) : (
-                  <input
-                    onChange={(e) => setNationalCode(e.target.value)}
-                    placeholder="کد ملی "
-                    className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
-                  />
+                  <div className="flex flex-col w-64">
+                    <input
+                      onChange={handleNationalCodeChange}
+                      value={national_code}
+                      placeholder="کد ملی خود را وارد کنید"
+                      className="text-sm border-b-2 border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none transition-colors duration-200 w-full"
+                    />
+                    {validationErrors.national_code && (
+                      <span className="text-red-500 text-xs mt-1">
+                        {validationErrors.national_code}
+                      </span>
+                    )}
+                  </div>
                 )}
               </div>
-              <hr className="my-3 border-t-1 border-gray-200 border-dashed" />
 
-              <div className="flex justify-between">
-                <p className="text-gray-600"> عکس پروفایل </p>
-                {/* <p>{CodeMelli}</p> */}
+              <hr className="my-2 border-t-1 border-gray-200 border-dashed" />
+
+              <div className="flex justify-between items-center py-2">
+                <p className="text-gray-700 font-medium"> عکس پروفایل </p>
                 {isSubmitted ? (
                   <img
-                    className=" w-20 h-20 aspect-square"
+                    className="w-20 h-20 aspect-square rounded-full object-cover"
                     width={50}
                     height={20}
                     src={profileImg}
                     alt="Uploaded"
                   />
                 ) : (
-                  <Base64Uploader image={profileImg} setImage={setProfileImg} />
+                  <div className="flex flex-col w-64">
+                    <Base64Uploader
+                      image={profileImg}
+                      setImage={setProfileImg}
+                    />
+                  </div>
                 )}
               </div>
             </div>
-            {/* <p className="my-4">اطلاعات تماس</p>
+            <p className="my-4">اطلاعات محل سکونت</p>
             <div className="border shadow-lg rounded-lg p-4 text-sm">
-              <div className="flex justify-between">
-                <p className="text-gray-600"> تلفن همراه </p>
+              <div className="flex justify-between items-center py-2">
+                <p className="text-gray-700 font-medium"> آدرس </p>
                 {isSubmitted ? (
-                  <p>{MobilePhone}</p>
+                  <p className="text-gray-800">{address}</p>
                 ) : (
-                  <input
-                    placeholder="تلفن همراه "
-                    className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
-                  />
+                  <div className="flex flex-col w-64">
+                    <input
+                      onChange={(e) => setAddress(e.target.value)}
+                      placeholder="آدرس خود را وارد کنید"
+                      className="text-sm border-b-2 border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none transition-colors duration-200 w-full"
+                    />
+                  </div>
                 )}
               </div>
 
-            </div> */}
-            <p className="my-4">اطلاعات محل سکونت</p>
-            <div className="border shadow-lg rounded-lg p-4 text-sm">
-              <div className="flex justify-between">
-                <p className="text-gray-600"> آدرس </p>
+              <hr className="my-2 border-t-1 border-gray-200 border-dashed" />
+
+              <div className="flex justify-between items-center py-2">
+                <p className="text-gray-700 font-medium"> کد پستی </p>
                 {isSubmitted ? (
-                  <p>{address}</p>
+                  <p className="text-gray-800">{post_code}</p>
                 ) : (
-                  <input
-                    onChange={(e) => setAddress(e.target.value)}
-                    placeholder="آدرس"
-                    className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
-                  />
+                  <div className="flex flex-col w-64">
+                    <input
+                      onChange={handlePostCodeChange}
+                      value={post_code}
+                      placeholder="کد پستی خود را وارد کنید"
+                      className="text-sm border-b-2 border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none transition-colors duration-200 w-full"
+                    />
+                    {validationErrors.post_code && (
+                      <span className="text-red-500 text-xs mt-1">
+                        {validationErrors.post_code}
+                      </span>
+                    )}
+                  </div>
                 )}
               </div>
-              <hr className="my-3 border-t-1 border-gray-200 border-dashed" />
-              <div className="flex justify-between">
-                <p className="text-gray-600"> کد پستی </p>
-                {isSubmitted ? (
-                  <p>{post_code}</p>
-                ) : (
-                  <input
-                    onChange={(e) => setPostCode(e.target.value)}
-                    placeholder="کد پستی "
-                    className=" text-xs  border-b border-gray-600 px-1 border-dashed w-28 outline-none"
-                  />
-                )}
-              </div>
-              <hr className="my-3 border-t-1 border-gray-200 border-dashed" />
-              <div className="flex justify-between">
-                <p className="text-gray-600"> شهر سکونت </p>
-                {/* <p>ali@gmail.com</p> */}
+
+              <hr className="my-2 border-t-1 border-gray-200 border-dashed" />
+
+              <div className="flex justify-between items-center py-2">
+                <p className="text-gray-700 font-medium"> شهر سکونت </p>
                 <div className="flex gap-2">
                   <select
                     className="w-1/2 h-6 border border-gray-300 rounded"
@@ -311,9 +414,11 @@ function MyProfile() {
                   </select>
                 </div>
               </div>
-              <hr className="my-3 border-t-1 border-gray-200 border-dashed" />
-              <div className=" flex flex-col justify-center gap-2">
-                <p className="text-gray-600"> موقعیت مکانی </p>
+
+              <hr className="my-2 border-t-1 border-gray-200 border-dashed" />
+
+              <div className="flex flex-col justify-center gap-2">
+                <p className="text-gray-700 font-medium"> موقعیت مکانی </p>
                 {!isSubmitted ? (
                   <Map_submitLoc
                     position={position}
