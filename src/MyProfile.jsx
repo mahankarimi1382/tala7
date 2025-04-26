@@ -6,7 +6,7 @@ import { FaRegCreditCard } from "react-icons/fa";
 import svgImage from "../src/assets/img/personage.svg";
 import { CiCreditCard2 } from "react-icons/ci";
 import { CiGift } from "react-icons/ci";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useProvincesAndCities from "./Components/useProvincesAndCities";
 import Base64Uploader from "./Components/utils/Base64Uploader";
 import { CreateApplicants } from "./apicalling/ApiCalling";
@@ -47,7 +47,7 @@ const MobilePhone = PersianDigits(CellNumber);
 
 function MyProfile() {
   const { applicantUserId, userData, setUserData } = userDetails();
-  console.log(userData);
+  const [isLoading, setIsLoading] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(userData.name ? true : false);
   const [name, setName] = useState(userData.name || "");
   const [family, setFamily] = useState(userData.family || "");
@@ -94,6 +94,22 @@ function MyProfile() {
   };
 
   const { provinces, citiesMap, loading } = useProvincesAndCities();
+
+  useEffect(() => {
+    // Simulate loading delay
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="w-full min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-teal-700"></div>
+      </div>
+    );
+  }
 
   const handleNameChange = (e) => {
     const value = e.target.value;
