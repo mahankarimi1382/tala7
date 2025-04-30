@@ -147,7 +147,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           >
             ایجاد حساب کاربری
           </button>
-          <Link to="/AddSomeNews" className="">
+          <Link to="/AdminPannel/basic-details/products" className="">
           <div className="text-sm font-bold hover:text-black ">ورود ادمین</div>
           </Link>
           <Link to="/userPanele" className="">

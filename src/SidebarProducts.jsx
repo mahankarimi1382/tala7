@@ -25,15 +25,25 @@ const SidebarProducts = () => {
   };
 
   const Checkbox = ({ checked, onChange }) => (
-    <div onClick={onChange} className="cursor-pointer">
-      {checked ? <FaCheckSquare className="text-blue-500" /> : <FaRegSquare className="text-gray-500" />}
-    </div>
+    <label className="flex items-center cursor-pointer">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        className="peer hidden"
+      />
+      <div className="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center transition-all
+                      peer-checked:bg-[#caa984] peer-checked:border-gray-300">
+        {checked && <span className="text-white text-xs font-bold">✔</span>}
+      </div>
+    </label>
   );
+  
 
   return (
-    <div className="w-64 border rounded-lg  p-4 bg-white">
-      <div className="bg-gray-200 p-2 text-lg font-semibold rounded-md">محصولات</div>
-      <div className="mt-2 space-y-2">
+    <div className="w-64 flex flex-col justify-center items-center rounded-lg  p-4 bg-white">
+      <div className="bg-[#ececec] rounded-lg h-[50px] text-[16px] font-semibold text-center pt-3 mb-3 shadow-md w-full">محصولات</div>
+      <div className="mt-2 space-y-2 self-start">
         {/* انواع محصولات */}
         <div>
           <div className="flex items-center gap-2 ms-2">

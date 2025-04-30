@@ -1,17 +1,33 @@
-import { useState } from "react";
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 
-const DualRangeSlider = () => {
-  const [minValue, setMinValue] = useState(10);
-  const [maxValue, setMaxValue] = useState(90);
+const DualRangeSlider = ({ min, max, onRangeChange }) => {
+  const [minVal, setMinVal] = useState(min);
+  const [maxVal, setMaxVal] = useState(max);
 
   const handleMinChange = (e) => {
-    const value = Math.min(parseInt(e.target.value), maxValue - 1);
-    setMinValue(value);
+    const value = Math.min(parseInt(e.target.value), maxVal - 1);
+    setMinVal(value);
+    onRangeChange(value, maxVal);
   };
 
   const handleMaxChange = (e) => {
-    const value = Math.max(parseInt(e.target.value), minValue + 1);
-    setMaxValue(value);
+    const value = Math.max(parseInt(e.target.value), minVal + 1);
+    setMaxVal(value);
+    onRangeChange(minVal, value);
+  };
+
+  const getPercent = (value) => ((value - min) / (max - min)) * 100;
+
+  const formatPrice = (price) => {
+    if (price >= 1000000000) {
+      return `${(price / 1000000000).toLocaleString('fa-IR')} میلیارد`;
+    } else if (price >= 1000000) {
+      return `${(price / 1000000).toLocaleString('fa-IR')} میلیون`;
+    } else if (price >= 1000) {
+      return `${(price / 1000).toLocaleString('fa-IR')} هزار`;
+    }
+    return price.toLocaleString('fa-IR');
   };
 
   return (
@@ -24,17 +40,17 @@ const DualRangeSlider = () => {
         <div
           className="absolute top-1/2 bg-[#e8d2b4] h-[2px] rounded-lg transform -translate-y-1/2"
           style={{
-            left: `${(minValue / 100) * 100}%`,
-            width: `${((maxValue - minValue) / 100) * 100}%`,
+            left: `${getPercent(minVal)}%`,
+            width: `${getPercent(maxVal) - getPercent(minVal)}%`,
           }}
         ></div>
 
         {/* Min Thumb */}
         <input
           type="range"
-          min="0"
-          max="100"
-          value={minValue}
+          min={min}
+          max={max}
+          value={minVal}
           onChange={handleMinChange}
           className="absolute w-full h-1 bg-transparent appearance-none pointer-events-none"
           style={{ zIndex: 10 }}
@@ -43,16 +59,16 @@ const DualRangeSlider = () => {
         {/* Max Thumb */}
         <input
           type="range"
-          min="0"
-          max="100"
-          value={maxValue}
+          min={min}
+          max={max}
+          value={maxVal}
           onChange={handleMaxChange}
           className="absolute w-full h-1 bg-transparent appearance-none pointer-events-none"
           style={{ zIndex: 10 }}
         />
 
         {/* Custom Styling for Thumbs */}
-        <style jsx>{`
+        <style>{`
           input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
@@ -75,15 +91,19 @@ const DualRangeSlider = () => {
         `}</style>
       </div>
 
-      <div className="flex justify-around text-sm text-gray-500 mt-4 text-end">
-       <span  dir="ltr">
-        قیمت از <span style={{fontSize: '1.1rem'}}> {minValue} </span> الی <span  style={{fontSize: '1.1rem'}}>  {maxValue} </span> میلیون تومان
-       </span>
-       
-      
+      <div className="flex justify-center text-sm text-gray-500 mt-4 text-center">
+        <span dir="rtl">
+          از <span style={{fontSize: '1.1rem'}}> {formatPrice(minVal)} </span> تا <span style={{fontSize: '1.1rem'}}> {formatPrice(maxVal)} </span> تومان
+        </span>
       </div>
     </div>
   );
+};
+
+DualRangeSlider.propTypes = {
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
+  onRangeChange: PropTypes.func.isRequired
 };
 
 export default DualRangeSlider;

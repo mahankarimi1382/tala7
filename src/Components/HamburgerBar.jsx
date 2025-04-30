@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import centralLogo from "../assets/img/centrallogo.png";
+import { Link } from "react-router-dom";
 
 const HamburgerBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -57,9 +58,19 @@ const HamburgerBar = () => {
             <ul className="text-right">
               {menuItems.map((item) => (
                 <li key={item.id} className="relative group" onMouseEnter={() => handleSubItemsHover(item.id, true)} onMouseLeave={() => handleSubItemsHover(item.id, false)}>
-                  <button className="block py-2 px-4 hover:bg-[#FDEBD3] rounded-lg w-full font-bold text-right">
-                    {item.name}
-                  </button>
+                  {item.path ? (
+                    <Link 
+                      to={item.path} 
+                      className="block py-2 px-4 hover:bg-[#FDEBD3] rounded-lg w-full font-bold text-right"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  ) : (
+                    <button className="block py-2 px-4 hover:bg-[#FDEBD3] rounded-lg w-full font-bold text-right">
+                      {item.name}
+                    </button>
+                  )}
                   {item.subItems.length > 0 && (
                     <ul className={`ml-4 transition-all duration-300 ease-in-out transform ${subItemsOpen[item.id] ? "opacity-100 max-h-screen" : "opacity-0 max-h-0 overflow-hidden"}`}>
                       {item.subItems.map((subItem) => (
@@ -94,6 +105,7 @@ const menuItems = [
   {
     id: "item1",
     name: "خانه",
+    path: "/",
     subItems: [
      
     ],
@@ -101,6 +113,7 @@ const menuItems = [
   {
     id: "item2",
     name: "محصولات",
+    path: "/search-product",
     subItems: [
       {
         id: "sub2.1",

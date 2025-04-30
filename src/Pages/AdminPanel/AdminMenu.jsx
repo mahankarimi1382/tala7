@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaChevronDown, FaChevronUp, FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 function AdminMenu() {
   const [activeTab, setActiveTab] = useState("news");
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const menuRef = useRef(null);
+  const buttonRef = useRef(null);
 
   const [accordionState, setAccordionState] = useState({
     baseInfo: false,
@@ -50,10 +52,34 @@ function AdminMenu() {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Check if click is outside both menu and button
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target) &&
+        !isCollapsed
+      ) {
+        setIsCollapsed(true);
+      }
+    };
+
+    // Add event listener when component mounts
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Clean up event listener when component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isCollapsed]);
+
   return (
     <>
       {/* Mobile Toggle Button - Positioned on the right */}
       <button
+        ref={buttonRef}
         className="fixed lg:hidden z-50 top-4 right-4 p-2 bg-teal-800 text-white rounded-md shadow-lg"
         onClick={() => setIsCollapsed(!isCollapsed)}
       >
@@ -62,6 +88,7 @@ function AdminMenu() {
 
       {/* Sidebar - Emerges from right */}
       <div
+        ref={menuRef}
         className={`
         fixed lg:static
         w-[280px] lg:w-1/5
