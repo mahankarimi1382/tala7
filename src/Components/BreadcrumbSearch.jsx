@@ -2,42 +2,39 @@ import { Search } from "lucide-react";
 import PishnahadCards from "../PishnahadCards";
 import img1 from "../assets/img/containerring1.png";
 import img2 from "../assets/img/containerring2.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function BreadcrumbSearch({ 
-  priceRange, 
-  benefitRange, 
-  discountRange, 
-  productFilters 
+  priceRange = { min: 100000, max: 5000000000 },
+  benefitRange = { min: 0, max: 25 }, 
+  discountRange = { min: 0, max: 25 }, 
+  productFilters = {
+    isAdult: false,
+    isBaby: false,
+    isWoman: false,
+    isMan: false
+  } 
 }) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSearch = async () => {
+  const fetchProducts = async () => {
+    setIsLoading(true);
     try {
-      const response = await fetch("http://tala7.com:44/api/DocStore/Search_Products_In_InVitrin", {
+      const response = await fetch("http://tala7.com:44/api/DocStore/Get_Products_Show_InVitrin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          term: searchTerm,
-          price_Start: priceRange.min,
-          price_End: priceRange.max,
-          benefit_Percent_Start: benefitRange.min,
-          benefit_Percent_End: benefitRange.max,
-          discount_Benefit_Percent_Start: discountRange.min,
-          discount_Benefit_Percent_End: discountRange.max,
-          isAdult: productFilters.isAdult,
-          isBaby: productFilters.isBaby,
-          isWoman: productFilters.isWoman,
-          isMan: productFilters.isMan,
-          freeShipment: false,
-          specialSale: false,
-          product_Size: "",
-          gold_Color: "",
-          gold_Model: "",
-          gold_Made: "",
-          isInstallment: false
+          metadata: {
+            userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            userName: "string",
+            userNameforC: "string"
+          },
+          pagenumber: 1,
+          pagesize: 15
         })
       });
 
@@ -46,10 +43,84 @@ export default function BreadcrumbSearch({
       }
 
       const data = await response.json();
-      // Handle the response data here
-      console.log(data);
+      console.log('Initial Products API Response:', data);
+      // Map the initial products API response
+      const mappedProducts = data.response_List?.map(product => ({
+        productName: product.productName,
+        lastPrice: product.lastPrice,
+        lastPriceWithDiscount: product.lastPriceWithDiscount,
+        logoImage1: product.logoImage1,
+        logoImage2: product.logoImage2,
+        discount_Benefit_Percent: product.discount_Benefit_Percent
+      })) || [];
+      setProducts(mappedProducts);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching initial data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Fetch products on component mount
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const handleSearch = async () => {
+    setIsLoading(true);
+    const requestBody = {
+      term: searchTerm,
+      price_Start: priceRange?.min || 100000,
+      price_End: priceRange?.max || 5000000000,
+      benefit_Percent_Start: benefitRange?.min || 0,
+      benefit_Percent_End: benefitRange?.max || 25,
+      discount_Benefit_Percent_Start: discountRange?.min || 0,
+      discount_Benefit_Percent_End: discountRange?.max || 25,
+      isAdult: productFilters?.isAdult || false,
+      isBaby: productFilters?.isBaby || false,
+      isWoman: productFilters?.isWoman || false,
+      isMan: productFilters?.isMan || false,
+      freeShipment: false,
+      specialSale: false,
+      product_Size: "",
+      gold_Color: "",
+      gold_Model: "",
+      gold_Made: "",
+      isInstallment: false
+    };
+
+    console.log('Search Request Body:', requestBody);
+
+    try {
+      const response = await fetch("http://tala7.com:44/api/DocStore/Search_Products_In_InVitrin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody)
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      console.log('Search API Response:', data);
+      // Map the search API response
+      const mappedProducts = data.response_List?.map(product => ({
+        productName: product.name,
+        lastPrice: product.price,
+        lastPriceWithDiscount: product.priceWithDiscount,
+        logoImage1: product.image1,
+        logoImage2: product.image2,
+        discount_Benefit_Percent: product.discountPercent
+      })) || [];
+      setProducts(mappedProducts);
+    } catch (error) {
+      console.error("Error fetching search data:", error);
+      console.error("Error details:", error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -88,179 +159,32 @@ export default function BreadcrumbSearch({
             }}
           />
         </div>
+
+        {/* Loading Spinner */}
+        {isLoading && (
+          <div className="flex justify-center mt-4">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+          </div>
+        )}
       </div>
       <div className="grid lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 grid-cols-1 md:grid-cols-2 CardsArea mx-auto">
-        <PishnahadCards
-          ImageAddress={img1}
-          SecondImageAddress={img2}
-          RingName="حلقه زیبا"
-          FirstPrice="500000"
-          SecondPrice="900000"
-          MySecond="57"
-          MyMiniute="35"
-          MyHour="11"
-          MyDays="143"
-          MyDiscount="17"
-          MinusOrPlus="-"
-        />
-        <PishnahadCards
-          ImageAddress={img1}
-          SecondImageAddress={img2}
-          RingName="حلقه زیبا"
-          FirstPrice="500000"
-          SecondPrice="900000"
-          MySecond="57"
-          MyMiniute="35"
-          MyHour="11"
-          MyDays="143"
-          MyDiscount="17"
-          MinusOrPlus="-"
-        />{" "}
-        <PishnahadCards
-          ImageAddress={img1}
-          SecondImageAddress={img2}
-          RingName="حلقه زیبا"
-          FirstPrice="500000"
-          SecondPrice="900000"
-          MySecond="57"
-          MyMiniute="35"
-          MyHour="11"
-          MyDays="143"
-          MyDiscount="17"
-          MinusOrPlus="-"
-        />{" "}
-        <PishnahadCards
-          ImageAddress={img1}
-          SecondImageAddress={img2}
-          RingName="حلقه زیبا"
-          FirstPrice="500000"
-          SecondPrice="900000"
-          MySecond="57"
-          MyMiniute="35"
-          MyHour="11"
-          MyDays="143"
-          MyDiscount="17"
-          MinusOrPlus="-"
-        />{" "}
-        <PishnahadCards
-          ImageAddress={img1}
-          SecondImageAddress={img2}
-          RingName="حلقه زیبا"
-          FirstPrice="500000"
-          SecondPrice="900000"
-          MySecond="57"
-          MyMiniute="35"
-          MyHour="11"
-          MyDays="143"
-          MyDiscount="17"
-          MinusOrPlus="-"
-        />{" "}
-        <PishnahadCards
-          ImageAddress={img1}
-          SecondImageAddress={img2}
-          RingName="حلقه زیبا"
-          FirstPrice="500000"
-          SecondPrice="900000"
-          MySecond="57"
-          MyMiniute="35"
-          MyHour="11"
-          MyDays="143"
-          MyDiscount="17"
-          MinusOrPlus="-"
-        />{" "}
-        <PishnahadCards
-          ImageAddress={img1}
-          SecondImageAddress={img2}
-          RingName="حلقه زیبا"
-          FirstPrice="500000"
-          SecondPrice="900000"
-          MySecond="57"
-          MyMiniute="35"
-          MyHour="11"
-          MyDays="143"
-          MyDiscount="17"
-          MinusOrPlus="-"
-        />{" "}
-        <PishnahadCards
-          ImageAddress={img1}
-          SecondImageAddress={img2}
-          RingName="حلقه زیبا"
-          FirstPrice="500000"
-          SecondPrice="900000"
-          MySecond="57"
-          MyMiniute="35"
-          MyHour="11"
-          MyDays="143"
-          MyDiscount="17"
-          MinusOrPlus="-"
-        />{" "}
-        <PishnahadCards
-          ImageAddress={img1}
-          SecondImageAddress={img2}
-          RingName="حلقه زیبا"
-          FirstPrice="500000"
-          SecondPrice="900000"
-          MySecond="57"
-          MyMiniute="35"
-          MyHour="11"
-          MyDays="143"
-          MyDiscount="17"
-          MinusOrPlus="-"
-        />{" "}
-        <PishnahadCards
-          ImageAddress={img1}
-          SecondImageAddress={img2}
-          RingName="حلقه زیبا"
-          FirstPrice="500000"
-          SecondPrice="900000"
-          MySecond="57"
-          MyMiniute="35"
-          MyHour="11"
-          MyDays="143"
-          MyDiscount="17"
-          MinusOrPlus="-"
-        />{" "}
-        <PishnahadCards
-          ImageAddress={img1}
-          SecondImageAddress={img2}
-          RingName="حلقه زیبا"
-          FirstPrice="500000"
-          SecondPrice="900000"
-          MySecond="57"
-          MyMiniute="35"
-          MyHour="11"
-          MyDays="143"
-          MyDiscount="17"
-          MinusOrPlus="-"
-        />{" "}
-        <PishnahadCards
-          ImageAddress={img1}
-          SecondImageAddress={img2}
-          RingName="حلقه زیبا"
-          FirstPrice="500000"
-          SecondPrice="900000"
-          MySecond="57"
-          MyMiniute="35"
-          MyHour="11"
-          MyDays="143"
-          MyDiscount="17"
-          MinusOrPlus="-"
-        />{" "}
-        <PishnahadCards
-          ImageAddress={img1}
-          SecondImageAddress={img2}
-          RingName="حلقه زیبا"
-          FirstPrice="500000"
-          SecondPrice="900000"
-          MySecond="57"
-          MyMiniute="35"
-          MyHour="11"
-          MyDays="143"
-          MyDiscount="17"
-          MinusOrPlus="-"
-        />
-        </div>
+        {products.map((product, index) => {
+          console.log('Product being rendered:', product); // Debug log
+          return (
+            <PishnahadCards
+              key={index}
+              productName={product.productName}
+              lastPrice={product.lastPrice}
+              lastPriceWithDiscount={product.lastPriceWithDiscount}
+              logoImage1={product.logoImage1}
+              logoImage2={product.logoImage2}
+              discount_Benefit_Percent={product.discount_Benefit_Percent}
+              MinusOrPlus="-"
+            />
+          );
+        })}
       </div>
+     </div>
    </div>
   );
 }

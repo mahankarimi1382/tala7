@@ -21,6 +21,7 @@ function AnotherPage() {
   const [priceRange, setPriceRange] = useState({ min: 100000, max: 5000000000 });
   const [benefitRange, setBenefitRange] = useState({ min: 0, max: 25 });
   const [discountRange, setDiscountRange] = useState({ min: 0, max: 25 });
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const handlePriceChange = (min, max) => {
     setPriceRange({ min, max });
@@ -52,7 +53,7 @@ function AnotherPage() {
         <div className="rounded-lg" style={{ boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(0, 0, 0, 0.1)" }}>
             <SidebarProducts />
           </div>
-          <div className="filtereharaj shadow-lg p-5 rounded-lg "  style={{ boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(0, 0, 0, 0.1)" }}
+          {/* <div className="filtereharaj shadow-lg p-5 rounded-lg "  style={{ boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(0, 0, 0, 0.1)" }}
           >
             <div
               className=" bg-[#ececec] rounded-lg h-[50px] text-[16px] font-semibold
@@ -64,7 +65,7 @@ function AnotherPage() {
             <div className="mt-3">
               <CheckboxList />
             </div>
-          </div>
+          </div> */}
           <div className="filteregheimat shadow-lg p-5 rounded-lg" style={{ boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(0, 0, 0, 0.1)" }}>
             <div>
               <div
@@ -80,7 +81,7 @@ function AnotherPage() {
               >
                 <DualRangeSlider
                   min={100000}
-                  max={5000000000}
+                  max={110000000}
                   onRangeChange={handlePriceChange}
                 />
               </div>

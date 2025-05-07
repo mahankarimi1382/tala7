@@ -13,6 +13,7 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
       '@images': resolve(__dirname, './src/assets/img'),
       '@components': resolve(__dirname, './src/components'),
+      '@css': resolve(__dirname, './src/CSS'),
     }
   },
   build: {

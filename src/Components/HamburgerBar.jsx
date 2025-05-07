@@ -106,9 +106,7 @@ const menuItems = [
     id: "item1",
     name: "خانه",
     path: "/",
-    subItems: [
-     
-    ],
+    subItems: [],
   },
   {
     id: "item2",
@@ -120,9 +118,9 @@ const menuItems = [
         name: "انواع محصولات",
         subSubItems: [
           { id: "subsub2.1.1", name: "زنانه" },
-          { id: "subsub2.1.1", name: "مردانه" },
-          { id: "subsub2.1.1", name: "بچگانه" },
-          { id: "subsub2.1.1", name: "بزرگسال" },
+          { id: "subsub2.1.2", name: "مردانه" },
+          { id: "subsub2.1.3", name: "بچگانه" },
+          { id: "subsub2.1.4", name: "بزرگسال" },
         ],
       },
       {
@@ -152,26 +150,19 @@ const menuItems = [
       {
         id: "sub3.1",
         name: " سکه",
-        subSubItems: [
-         
-        ],
+        subSubItems: [],
       },
       {
         id: "sub3.2",
         name: " ارز ",
-        subSubItems: [
-         
-        ],
+        subSubItems: [],
       },
-      
     ],
   },
   {
     id: "item4",
     name: "تالار معاملات",
-    subItems: [
-     
-    ],
+    subItems: [],
   },
   {
     id: "item5",
@@ -180,18 +171,13 @@ const menuItems = [
       {
         id: "sub5.1",
         name: " ثبت درخواست",
-        subSubItems: [
-         
-        ],
+        subSubItems: [],
       },
       {
         id: "sub5.2",
         name: " پیگیری درخواست ",
-        subSubItems: [
-         
-        ],
+        subSubItems: [],
       },
-      
     ],
   },
 ];

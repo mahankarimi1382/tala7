@@ -98,7 +98,7 @@ const SidebarProducts = () => {
             <span className="font-semibold">طرح های فروش</span>
           </div>
           <div className="ml-6 space-y-1 ms-8 my-3">
-            {["فروش ویژه", "بدون اجرت", "تخفیف دار"].map((item) => (
+            {["فروش ویژه", "ارسال رایگان"].map((item) => (
               <div key={item} className="flex items-center gap-2">
                 <Checkbox
                   checked={selected.sales.includes(item)}
