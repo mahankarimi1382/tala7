@@ -21,7 +21,12 @@ function AnotherPage() {
   const [priceRange, setPriceRange] = useState({ min: 100000, max: 5000000000 });
   const [benefitRange, setBenefitRange] = useState({ min: 0, max: 25 });
   const [discountRange, setDiscountRange] = useState({ min: 0, max: 25 });
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [productFilters, setProductFilters] = useState({
+    isAdult: false,
+    isBaby: false,
+    isWoman: false,
+    isMan: false,
+  });
 
   const handlePriceChange = (min, max) => {
     setPriceRange({ min, max });
@@ -81,7 +86,7 @@ function AnotherPage() {
               >
                 <DualRangeSlider
                   min={100000}
-                  max={110000000}
+                  max={500000000}
                   onRangeChange={handlePriceChange}
                 />
               </div>
@@ -104,6 +109,7 @@ function AnotherPage() {
             priceRange={priceRange}
             benefitRange={benefitRange}
             discountRange={discountRange}
+            productFilters={productFilters}
           />
         </div>
       </div>
