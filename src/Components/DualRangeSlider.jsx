@@ -72,21 +72,29 @@ const DualRangeSlider = ({ min, max, onRangeChange }) => {
           input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 4px;
+            width: 16px;
             height: 16px;
             background: #caa984;
-            border-radius: 25%;
+            border-radius: 50%;
             cursor: pointer;
             pointer-events: auto;
+            border: 2px solid #fff;
+            box-shadow: 0 0 2px rgba(0,0,0,0.2);
           }
 
           input[type="range"]::-moz-range-thumb {
             width: 16px;
             height: 16px;
-            background: blue;
+            background: #caa984;
             border-radius: 50%;
             cursor: pointer;
             pointer-events: auto;
+            border: 2px solid #fff;
+            box-shadow: 0 0 2px rgba(0,0,0,0.2);
+          }
+
+          input[type="range"]:focus {
+            outline: none;
           }
         `}</style>
       </div>

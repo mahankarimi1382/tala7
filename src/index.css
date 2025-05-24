@@ -275,7 +275,7 @@ button:focus-visible {
 
 @font-face {
   font-family: 'IranYekan';
-  src: url(assets/font/BYekan+\ Bold.ttf);
+  src: url(./assets/font/BYekan+\ Bold.ttf);
 }
 
 
@@ -609,4 +609,17 @@ border-bottom-width: 1px;
 .mybullet:before {
   content: ' \003E';
   padding-left: 7px;
+}
+
+.bakhsh {
+  transition: all 0.3s ease;
+}
+
+.bakhsh:hover {
+  filter: drop-shadow(3px 5px 1px rgba(0, 0, 0, 0.4));
+}
+
+.bakhsh:hover p {
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
 }

@@ -69,7 +69,7 @@ export default function MomentalPrice() {
 
   return (
     <div className="p-4 mx-auto max-w-[1400px]">
-      <h1 className="text-[18px] font-extrabold mb-4">قیمت لحظه‌ای</h1>
+      <h1 className="text-[18px] font-bold mb-4">قیمت لحظه‌ای</h1>
 
       {loading ? (
         <p className="text-center">در حال بارگذاری...</p>

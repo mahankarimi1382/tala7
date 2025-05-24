@@ -35,7 +35,7 @@ function BuyPage() {
     <div className="flex h-screen bg-gray-50 overflow-hidden relative">
       {/* ✅ Toggle Button for Mobile */}
       <button
-        className="lg:hidden fixed top-4 left-4 z-50 bg-gray-200 p-2 rounded-full shadow-md"
+        className="lg:hidden fixed top-4 right-4 z-50 bg-gray-200 p-2 rounded-full shadow-md"
         onClick={() => setIsOpen(!isOpen)}
       >
         <Menu className="w-6 h-6 text-gray-700" />
@@ -43,8 +43,8 @@ function BuyPage() {
 
       {/* ✅ Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-56 bg-gray-100 border-l-2 p-4 flex flex-col justify-between transition-all duration-300 z-40
-        ${isOpen ? "translate-x-0" : "-translate-x-60"} lg:translate-x-0 lg:relative lg:block`}
+        className={`fixed top-0 right-0 h-full w-56 bg-gray-100 border-r-2 p-4 flex flex-col justify-between transition-all duration-300 z-40
+        ${isOpen ? "translate-x-0" : "translate-x-60"} lg:translate-x-0 lg:relative lg:block`}
       >
         {/* Profile Section */}
         <div className="flex flex-col items-center">

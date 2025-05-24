@@ -1,6 +1,7 @@
 import { Search } from "lucide-react";
 import PishnahadCards from "../PishnahadCards";
 import { useState, useEffect } from "react";
+import PropTypes from 'prop-types';
 
 // Helper function to normalize product shape
 const mapProductData = (product) => ({
@@ -22,6 +23,7 @@ export default function BreadcrumbSearch({
     isWoman: false,
     isMan: false,
   },
+  goldModel = "",
 }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState([]);
@@ -33,67 +35,27 @@ export default function BreadcrumbSearch({
     setErrorMsg("");
 
     try {
-      const response = await fetch("http://tala7.com:44/api/DocStore/Get_Products_Show_InVitrin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          metadata: {
-            userId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            userName: "string",
-            userNameforC: "string",
-          },
-          pagenumber: 1,
-          pagesize: 15,
-        }),
-      });
+      const requestBody = {
+        term: searchTerm,
+        price_Start: priceRange.min,
+        price_End: priceRange.max,
+        benefit_Percent_Start: benefitRange.min,
+        benefit_Percent_End: benefitRange.max,
+        discount_Benefit_Percent_Start: discountRange.min,
+        discount_Benefit_Percent_End: discountRange.max,
+        isAdult: productFilters.isAdult,
+        isBaby: productFilters.isBaby,
+        isWoman: productFilters.isWoman,
+        isMan: productFilters.isMan,
+        freeShipment: productFilters.freeShipment || false,
+        specialSale: productFilters.specialSale || false,
+        product_Size: "",
+        gold_Color: "",
+        gold_Model: goldModel,
+        gold_Made: "",
+        isInstallment: false
+      };
 
-      if (!response.ok) throw new Error("Network error during initial fetch");
-
-      const data = await response.json();
-      console.log("Initial Products Response:", data);
-
-      const mapped = data.response_List?.map((p) => mapProductData(p)) || [];
-      setProducts(mapped);
-    } catch (err) {
-      console.error("Initial fetch error:", err);
-      setErrorMsg("خطا در دریافت محصولات اولیه.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleSearch = async () => {
-    setIsLoading(true);
-    setErrorMsg("");
-
-    console.log("Search Term:", searchTerm);
-
-    const requestBody = {
-      term: searchTerm,
-      price_Start: priceRange.min,
-      price_End: priceRange.max,
-      benefit_Percent_Start: benefitRange.min,
-      benefit_Percent_End: benefitRange.max,
-      discount_Benefit_Percent_Start: discountRange.min,
-      discount_Benefit_Percent_End: discountRange.max,
-      isAdult: productFilters.isAdult,
-      isBaby: productFilters.isBaby,
-      isWoman: productFilters.isWoman,
-      isMan: productFilters.isMan,
-      freeShipment: false,
-      specialSale: false,
-      product_Size: "",
-      gold_Color: "",
-      gold_Model: "",
-      gold_Made: "",
-      isInstallment: false
-    };
-
-    console.log("Complete Request Body:", JSON.stringify(requestBody, null, 2));
-
-    try {
       const response = await fetch("http://tala7.com:44/api/DocStore/Search_Products_In_InVitrin", {
         method: "POST",
         headers: {
@@ -110,68 +72,18 @@ export default function BreadcrumbSearch({
       // Handle both array and object responses
       let productsList;
       if (Array.isArray(data)) {
-        console.log("API returned array directly");
         productsList = data;
       } else if (data && data.response_List && Array.isArray(data.response_List)) {
-        console.log("API returned object with response_List");
         productsList = data.response_List;
       } else {
-        console.error("Unexpected API response format:", data);
         throw new Error("Unexpected API response format");
       }
 
-      console.log("Total number of products from API:", productsList.length);
-      console.log("All products from API:", productsList);
-
-      // Log all product prices for debugging
-      productsList.forEach(product => {
-        console.log("Product details:", {
-          name: product.productName,
-          price: product.lastPrice,
-          priceWithDiscount: product.lastPriceWithDiscount,
-          type: typeof product.lastPrice,
-          rawProduct: product
-        });
-      });
-
-      // Filter products based on price range
-      const filteredProducts = productsList.filter(product => {
-        if (!product || typeof product.lastPrice !== 'number') {
-          console.warn("Invalid product or missing lastPrice:", product);
-          return false;
-        }
-
-        // Get the actual price to compare (use discounted price if available)
-        const actualPrice = product.lastPriceWithDiscount || product.lastPrice;
-        
-        // Check if the price is within the range
-        const isInRange = actualPrice >= priceRange.min && actualPrice <= priceRange.max;
-        
-        console.log(`Price comparison for ${product.productName}:`, {
-          actualPrice,
-          minPrice: priceRange.min,
-          maxPrice: priceRange.max,
-          isInRange,
-          comparison: `${priceRange.min} <= ${actualPrice} <= ${priceRange.max}`,
-          rawProduct: product
-        });
-        
-        return isInRange;
-      });
-
-      console.log("Number of products after filtering:", filteredProducts.length);
-      console.log("Filtered products:", filteredProducts);
-
-      const mappedProducts = filteredProducts.map(product => mapProductData(product));
-      console.log("Mapped Products:", mappedProducts);
+      const mappedProducts = productsList.map(product => mapProductData(product));
       setProducts(mappedProducts);
 
       if (mappedProducts.length === 0) {
-        if (productsList.length === 0) {
-          setErrorMsg("هیچ محصولی در سیستم موجود نیست.");
-        } else {
-          setErrorMsg(`هیچ محصولی با قیمت بین ${priceRange.min.toLocaleString()} تا ${priceRange.max.toLocaleString()} تومان یافت نشد.`);
-        }
+        setErrorMsg("هیچ محصولی با این فیلترها یافت نشد.");
       }
     } catch (err) {
       console.error("Search error:", err);
@@ -181,9 +93,14 @@ export default function BreadcrumbSearch({
     }
   };
 
+  // Fetch products when filters change
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [priceRange, benefitRange, discountRange, productFilters, goldModel]);
+
+  const handleSearch = () => {
+    fetchProducts();
+  };
 
   return (
     <div>
@@ -260,3 +177,27 @@ export default function BreadcrumbSearch({
     </div>
   );
 }
+
+BreadcrumbSearch.propTypes = {
+  priceRange: PropTypes.shape({
+    min: PropTypes.number.isRequired,
+    max: PropTypes.number.isRequired
+  }).isRequired,
+  benefitRange: PropTypes.shape({
+    min: PropTypes.number.isRequired,
+    max: PropTypes.number.isRequired
+  }).isRequired,
+  discountRange: PropTypes.shape({
+    min: PropTypes.number.isRequired,
+    max: PropTypes.number.isRequired
+  }).isRequired,
+  productFilters: PropTypes.shape({
+    isAdult: PropTypes.bool,
+    isBaby: PropTypes.bool,
+    isWoman: PropTypes.bool,
+    isMan: PropTypes.bool,
+    specialSale: PropTypes.bool,
+    freeShipment: PropTypes.bool
+  }).isRequired,
+  goldModel: PropTypes.string
+};

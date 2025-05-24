@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { FaCheckSquare, FaRegSquare } from "react-icons/fa";
+import PropTypes from 'prop-types';
 
-const SidebarProducts = () => {
+const SidebarProducts = ({ onModelChange, onFiltersChange }) => {
   const [selected, setSelected] = useState({
     types: [],
     models: "",
@@ -9,10 +10,29 @@ const SidebarProducts = () => {
   });
 
   const handleSubheaderChange = (category, items) => {
-    setSelected((prev) => ({
-      ...prev,
-      [category]: prev[category].length === items.length ? [] : items,
-    }));
+    setSelected((prev) => {
+      const newState = {
+        ...prev,
+        [category]: prev[category].length === items.length ? [] : items,
+      };
+      
+      // Update parent with new filter values
+      if (category === "types") {
+        onFiltersChange?.({
+          isWoman: newState.types.includes("زنانه"),
+          isMan: newState.types.includes("مردانه"),
+          isBaby: newState.types.includes("بچگانه"),
+          isAdult: newState.types.includes("بزرگسال"),
+        });
+      } else if (category === "sales") {
+        onFiltersChange?.({
+          specialSale: newState.sales.includes("فروش ویژه"),
+          freeShipment: newState.sales.includes("ارسال رایگان"),
+        });
+      }
+      
+      return newState;
+    });
   };
 
   const handleItemChange = (category, item) => {
@@ -20,15 +40,49 @@ const SidebarProducts = () => {
       const newItems = prev[category].includes(item)
         ? prev[category].filter((i) => i !== item)
         : [...prev[category], item];
-      return { ...prev, [category]: newItems };
+      
+      const newState = {
+        ...prev,
+        [category]: newItems,
+      };
+
+      // Update parent with new filter values
+      if (category === "types") {
+        onFiltersChange?.({
+          isWoman: newItems.includes("زنانه"),
+          isMan: newItems.includes("مردانه"),
+          isBaby: newItems.includes("بچگانه"),
+          isAdult: newItems.includes("بزرگسال"),
+        });
+      } else if (category === "sales") {
+        onFiltersChange?.({
+          specialSale: newItems.includes("فروش ویژه"),
+          freeShipment: newItems.includes("ارسال رایگان"),
+        });
+      }
+      
+      return newState;
     });
   };
 
   const handleRadioChange = (category, item) => {
-    setSelected((prev) => ({
-      ...prev,
-      [category]: prev[category] === item ? "" : item,
-    }));
+    // Map the model selection to API values
+    const modelMapping = {
+      "اسپرت": "1",
+      "کلاسیک": "2",
+      "سنتی": "3"
+    };
+    
+    setSelected((prev) => {
+      const newState = {
+        ...prev,
+        [category]: prev[category] === item ? "" : item,
+        gold_Model: prev[category] === item ? "" : modelMapping[item]
+      };
+      // Call the onModelChange prop with the new gold_Model value
+      onModelChange?.(newState.gold_Model);
+      return newState;
+    });
   };
 
   const Checkbox = ({ checked, onChange }) => (
@@ -129,6 +183,11 @@ const SidebarProducts = () => {
       </div>
     </div>
   );
+};
+
+SidebarProducts.propTypes = {
+  onModelChange: PropTypes.func,
+  onFiltersChange: PropTypes.func
 };
 
 export default SidebarProducts;

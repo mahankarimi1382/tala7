@@ -29,7 +29,7 @@
     "@preline/tree-view": "^2.0.0",
     "@trendyol-js/react-carousel": "^3.0.3",
     "arabic-reshaper": "^1.1.0",
-    "axios": "^1.6.7",
+    "axios": "^1.9.0",
     "bootstrap-icons": "^1.11.3",
     "cheerio": "^1.0.0",
     "cors": "^2.8.5",

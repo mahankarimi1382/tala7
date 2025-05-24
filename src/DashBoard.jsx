@@ -34,7 +34,7 @@ const TransactionCard = ({ title, Icon, items = [], link = "#" }) => (
     <div className="flex justify-between p-3">
       <div className="flex gap-2 items-center text-2xl">
         <Icon />
-        <div className="text-sm text-gray-700">{title}</div>
+        <div className="text-sm text-gray-700 ">{title}</div>
       </div>
       <Link to={link} className="text-sm text-blue-600 hover:underline">
         مشاهده همه
@@ -70,7 +70,7 @@ function DashBoard() {
         <Link to="/" target="_blank" rel="noopener noreferrer">
           <IoHomeOutline className="text-[23px]" />
         </Link>
-        <p className="text-[18px] font-extrabold tracking-tight">حساب کاربری</p>
+        <p className="text-[18px] font-bold tracking-tight">حساب کاربری</p>
       </div>
 
       <hr className="my-4" />

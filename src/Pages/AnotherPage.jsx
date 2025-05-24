@@ -14,8 +14,6 @@ import "preline";
 import SidebarProducts from "../SidebarProducts";
 import PercentageSlider from "../Components/PercentageSlider";
 import { useState } from "react";
-import CheckboxList from "../Components/CheckboxList";
-
 
 function AnotherPage() {
   const [priceRange, setPriceRange] = useState({ min: 100000, max: 5000000000 });
@@ -26,7 +24,10 @@ function AnotherPage() {
     isBaby: false,
     isWoman: false,
     isMan: false,
+    specialSale: false,
+    freeShipment: false,
   });
+  const [goldModel, setGoldModel] = useState("");
 
   const handlePriceChange = (min, max) => {
     setPriceRange({ min, max });
@@ -38,6 +39,17 @@ function AnotherPage() {
 
   const handleDiscountChange = (min, max) => {
     setDiscountRange({ min, max });
+  };
+
+  const handleModelChange = (model) => {
+    setGoldModel(model);
+  };
+
+  const handleFiltersChange = (newFilters) => {
+    setProductFilters(prev => ({
+      ...prev,
+      ...newFilters
+    }));
   };
 
   return (
@@ -56,21 +68,11 @@ function AnotherPage() {
       <div className="flex flex-col md:flex-row justify-center gap-9">
         <div className="flex flex-col gap-6 justify-start mx-auto md:ms-1 w-[300px] ps-7">
         <div className="rounded-lg" style={{ boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(0, 0, 0, 0.1)" }}>
-            <SidebarProducts />
+            <SidebarProducts 
+              onModelChange={handleModelChange}
+              onFiltersChange={handleFiltersChange}
+            />
           </div>
-          {/* <div className="filtereharaj shadow-lg p-5 rounded-lg "  style={{ boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(0, 0, 0, 0.1)" }}
-          >
-            <div
-              className=" bg-[#ececec] rounded-lg h-[50px] text-[16px] font-semibold
-            text-center pt-2 mb-1 shadow-md w-full
-            "
-            >
-              فیلتر موجودی و حراج
-            </div>
-            <div className="mt-3">
-              <CheckboxList />
-            </div>
-          </div> */}
           <div className="filteregheimat shadow-lg p-5 rounded-lg" style={{ boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(0, 0, 0, 0.1)" }}>
             <div>
               <div
@@ -101,8 +103,6 @@ function AnotherPage() {
             title="درصد تخفیف"
             onRangeChange={handleDiscountChange}
           />
-
-         
         </div>
         <div className="secondPart">
           <BreadcrumbSearch
@@ -110,6 +110,7 @@ function AnotherPage() {
             benefitRange={benefitRange}
             discountRange={discountRange}
             productFilters={productFilters}
+            goldModel={goldModel}
           />
         </div>
       </div>
